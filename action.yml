@@ -8,7 +8,5 @@ inputs:
 runs:
   using: "composite"
   steps:
-#    - run: echo ; echo OS ; uname -a ; echo ; echo NODEJS ; node -v ; echo ; echo NPM ; npm -v
-#      shell: bash
     - shell: bash      
       run: echo ; echo "OS = `uname -a`" ; echo "NODEJS = `node -v`" ; echo "NPM = `npm -v`" ; echo ; cd ${{ GITHUB.ACTION_PATH }} ; npm ci ; node action.js

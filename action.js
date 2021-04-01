@@ -5,19 +5,15 @@ console.log('ACTION');
 console.log();
 
 Object.keys(process.env).forEach(x=>{
-  console.log(x);
-  console.log(process.env[x]);
-  console.log();
+  // console.log(x); console.log(process.env[x]); console.log();
 });
 
 const AppPackage = require('./package.json');
-console.log(AppPackage);
+//console.log(AppPackage);
 
 if (!AppPackage.version) { AppPackage.version='0.0.0'; }
 
-// fs.writeFileSync('./package.json',JSON.stringify(AppPackage));
-
-console.log();
+fs.writeFileSync('./package.json',JSON.stringify(AppPackage));
 
 const { Octokit } = require("@octokit/rest");
 const octokit = new Octokit();
