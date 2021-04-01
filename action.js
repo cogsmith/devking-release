@@ -13,7 +13,7 @@ console.log(AppPackage);
 
 if (!AppPackage.version) { AppPackage.version = '0.0.0'; }
 
-let vz = [AppPackage.version.split('-')[0]].concat(AppPackage.version.split('.'));
+let vz = [AppPackage.version.split('-')[1]].concat(AppPackage.version.split('.'));
 
 let bumplevel = 'PATCH';
 
