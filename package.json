@@ -1,6 +1,8 @@
 {
-  "dependencies": {
-    "lodash": "^4.17.21"
-  },
-  "version": "0.0.1"
+    "version": "0.0.1",
+    "dependencies": {
+        "@octokit/rest": "^18.5.2",
+        "execa": "^5.0.0",
+        "lodash": "^4.17.21"
+    }
 }
