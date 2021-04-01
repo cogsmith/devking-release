@@ -9,4 +9,4 @@ runs:
   using: "composite"
   steps:
     - shell: bash      
-      run: echo ; echo "OS = `uname -a`" ; echo "NODEJS = `node -v`" ; echo "NPM = `npm -v`" ; echo ; cd ${{ GITHUB.ACTION_PATH }} ; npm ci ; cd ; node ${{ GITHUB.ACTION_PATH }}/action.js
+      run: echo ; echo "OS = `uname -a`" ; echo "NODEJS = `node -v`" ; echo "NPM = `npm -v`" ; echo ; cd ${{ GITHUB.ACTION_PATH }} ; npm ci ; cd ${{ GITHUB.WORKSPACE }} ; node ${{ GITHUB.ACTION_PATH }}/action.js
