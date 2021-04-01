@@ -8,7 +8,7 @@ Object.keys(process.env).forEach(x => {
     // console.log(x); console.log(process.env[x]); console.log();
 });
 
-const AppPackage = require('./package.json');
+const AppPackage = require(process.cwd() + '/package.json');
 console.log(AppPackage);
 
 if (!AppPackage.version) { AppPackage.version = '0.0.0'; }
