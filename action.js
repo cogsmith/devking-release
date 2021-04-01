@@ -1,5 +1,11 @@
 const fs = require('fs');
 
+const semver = require('semver');
+
+console.log( semver.inc('0.0.0-dev','patch') );
+
+// process.exit();
+
 console.log('ACTION');
 
 console.log();
