@@ -8,7 +8,8 @@ Object.keys(process.env).forEach(x => {
     // console.log(x); console.log(process.env[x]); console.log();
 });
 
-const AppPackage = require(process.cwd() + '/package.json');
+const AppPackageFile = process.cwd() + '/package.json';
+const AppPackage = require(AppPackageFile);
 console.log(AppPackage);
 
 if (!AppPackage.version) { AppPackage.version = '0.0.0'; }
@@ -19,11 +20,13 @@ let bumplevel = 'PATCH';
 
 if (bumplevel == 'PATCH') { vz[3]++; }
 
-AppPackage.version = vz.slice(1).join('.'); if (vz[0]) { AppPackage.version += '-' + vz[0]; };
+AppPackage.version = vz.slice(1).join('.'); 
+
+//if (vz[0]) { AppPackage.version += '-' + vz[0]; };
 
 console.log(AppPackage);
 
-fs.writeFileSync('./package.json', JSON.stringify(AppPackage));
+fs.writeFileSync(AppPackageFile, JSON.stringify(AppPackage));
 
 const { Octokit } = require("@octokit/rest");
 const octokit = new Octokit();
