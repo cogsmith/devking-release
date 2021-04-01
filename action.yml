@@ -1,10 +1,4 @@
 name: "DEVKING_RELEASE"
-description: "DEVKING_RELEASE"
-inputs:
-  BUMPLEVEL:
-    required: true
-    default: "PATCH"
-    description: "BUMPLEVEL"
 runs:
   using: "composite"
   steps:
