@@ -3,6 +3,8 @@ const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[1];
 const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[0];
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
+const _ = require('lodash');
+
 const { Octokit } = require("@octokit/rest");
 const octokit = new Octokit({ auth: GITHUB_TOKEN });
 
