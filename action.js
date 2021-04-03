@@ -57,19 +57,19 @@ const App = {};
 
 App.GetProject = async function (repo) {
     let p = false;
-    let pz = await octokit.rest.projects.listForRepo(repo);
+    let pz = await octokit.rest.projects.listForRepo(repo); console.log(pz);
     p = pz.data.find(z => z.number === 1);
     return p;
 }
 
 App.GetColumns = async function (p) {
     let colz = {};    
-    let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); // console.log(cz);
+    let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); console.log(cz);
     cz.data.forEach(x => {
         colz[x.id] = x;
         colz[x.name] = x;
     });
-    //console.log(colz);
+    console.log(colz);
     return colz;    
 }
 
