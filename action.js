@@ -52,6 +52,7 @@ let repo = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 const App = {};
 
 App.FX = async function () {
+
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo);
     p = pz.data.find(z => z.number === 1);
@@ -71,7 +72,7 @@ App.FX = async function () {
     cards.data.forEach(x => {
         if (x.content_url) {
             let inum = x.content_url.split('/').pop();
-            let issue = octokit.rest.issues.get({owner:GITHUB_REPOTEAM,repo:GITHUB_REPONAME,issue_number:inum});
+            let issue = octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
             console.log(issue);
         }
     });
