@@ -18,7 +18,7 @@ console.log('ACTION');
 console.log();
 
 Object.keys(process.env).forEach(x => {
-    console.log(x); console.log(process.env[x]); console.log();
+    if (x.startsWith('GITHUB')) { console.log(x); console.log(process.env[x]); console.log(); }
 });
 
 const AppPackageFile = process.cwd() + '/package.json';
