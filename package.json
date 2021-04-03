@@ -1,4 +1,5 @@
 {
+    "name": "devking-release",
     "version": "0.0.1",
     "dependencies": {
         "@octokit/rest": "^18.5.2",

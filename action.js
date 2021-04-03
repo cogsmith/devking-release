@@ -92,10 +92,10 @@ App.SetInfo('App', App.Meta.Full);
 //
 
 App.Init = async function () {
-	LOG.TRACE({ App: App });
-	LOG.INFO(App.Meta.Full);
-	LOG.DEBUG('Node.Info: ' + chalk.white(App.Info('Node')));
-	LOG.DEBUG('Node.Args: ' + chalk.white(App.Info('Node.Args')));
+    LOG.TRACE({ App: App });
+    LOG.INFO(App.Meta.Full);
+    LOG.DEBUG('Node.Info: ' + chalk.white(App.Info('Node')));
+    LOG.DEBUG('Node.Args: ' + chalk.white(App.Info('Node.Args')));
 
     LOG.INFO('App.Init');
 
