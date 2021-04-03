@@ -1,3 +1,7 @@
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
+const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[0];
+const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[1];
+
 const { Octokit } = require("@octokit/rest");
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
@@ -42,6 +46,8 @@ fs.writeFileSync(AppPackageFile, JSON.stringify(AppPackage));
 octokit.rest.repos.listForOrg({ org: "octokit", type: "public", }).then(({ data }) => {
     //console.log(data);
 });
+
+let repo = { owner:GITHUB_REPOTEAM, repo:GITHUB_REPONAME };
 
 const App = {};
 
