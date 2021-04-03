@@ -129,9 +129,9 @@ App.FX = async function () {
     if (xlist) { xlist.forEach(zz => { items.push(zz); }); }
 
     let itemdb = {};
-    items.forEach(x=>{
+    items.forEach(x => {
         if (!itemdb[x.Issue]) { itemdb[x.Issue] = []; }
-        itemdb[x.Issue].push(items[x]);
+        itemdb[x.Issue].push(x);
     });
 
     console.log("\n\n");
