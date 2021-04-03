@@ -54,6 +54,7 @@ let repo = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
 console.log('#');
 console.log(repo);
+console.log(process.argv);
 console.log(GITHUB_TOKEN.substr(0,0));
 console.log(GITHUB_REPOTOKEN.substr(0,9));
 console.log('#');
