@@ -2,6 +2,9 @@ const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[1];
 const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[0];
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
+
+//
 
 const _ = require('lodash');
 const execa = require('execa');
@@ -12,6 +15,8 @@ const octokit = new Octokit({ auth: GITHUB_TOKEN });
 const fs = require('fs');
 
 const semver = require('semver');
+
+//
 
 console.log(semver.inc('0.0.0-dev', 'patch'));
 
@@ -51,9 +56,18 @@ octokit.rest.repos.listForOrg({ org: "octokit", type: "public", }).then(({ data 
     //console.log(data);
 });
 
-let REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
+//
 
 const App = {};
+
+App.FXFX = async function () {
+    console.log('FXFX:INIT');
+    await App.FX();
+    setTimeout(App.CMD, 9);
+    console.log('FXFX:DONE');
+}
+
+//
 
 App.GetProject = async function (repo) {
     console.log('App.GetProject: ' + JSON.stringify(repo));
@@ -100,9 +114,9 @@ App.GetCard = async function (inum) {
     return card;
 }
 
-App.GetCards = async function (colid) {
+App.GetCards = async function (col) {
     let cardlist = [];
-    let gitcards = await octokit.rest.projects.listCards({ column_id: colid }); // console.log(gitcards);
+    let gitcards = await octokit.rest.projects.listCards({ column_id: col.id }); // console.log(gitcards);
 
     for (let i = 0; i < gitcards.data.length; i++) {
         let gitcard = gitcards.data[i]; let x = gitcard;
@@ -120,10 +134,12 @@ App.GetCards = async function (colid) {
     return cardlist;
 }
 
+//
+
 App.FX = async function () {
     let p = await App.GetProject(REPO);
     let colz = await App.GetColumns(p);
-    let cardlist = await App.GetCards(colz['DONE'].id);
+    let cardlist = await App.GetCards(colz['DONE']);
 
     console.log("\n\n\n\n");
     console.log(cardlist);
@@ -173,6 +189,8 @@ App.FX = async function () {
 
 }
 
+//
+
 App.GetLogTXT = function (itemdb) {
     let txt = [];
     txt.push('# 0.0.0 @ 2099-12-31'); txt.push(null);
@@ -216,12 +234,7 @@ App.GetLogMD = function (itemdb) {
     return txt.join("\n");
 }
 
-App.FXFX = async function () {
-    console.log('FXFX:INIT');
-    await App.FX();
-    setTimeout(App.CMD, 9);
-    console.log('FXFX:DONE');
-}
+//
 
 App.CMD = async function () {
     console.log(); console.log('___APPCMD___'); console.log();
@@ -250,5 +263,7 @@ App.CMD = async function () {
         console.log();
     }
 }
+
+//
 
 App.FXFX();
