@@ -299,7 +299,8 @@ App.CMD = async function () {
         let run = false;
         try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { }
         if (!run) { continue; }
-        LOG.INFO('App.CMD: ' + cmd + "\n" + run.stdout);
+        LOG.INFO('App.CMD: ' + cmd);// + "\n" + run.stdout);
+        //LOG.INFO('App.CMD: ' + cmd + "\n" + run.stdout);
     }
 }
 
