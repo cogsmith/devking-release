@@ -102,7 +102,7 @@ App.FX = async function () {
     console.log(cardlist);
     cardlist.forEach(x=>{
         let msg = '';
-        if (x.Topic) { msg += topic + ': '; }
+        if (x.Topic) { msg += x.Topic + ': '; }
         msg += '#' + x.Number + ': ';
         msg += x.Note;
         console.log(msg);
