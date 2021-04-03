@@ -114,12 +114,12 @@ App.FX = async function () {
     issueorder.forEach(x => {
         console.log(x);
         let xlist = cardlist.filter(z => z.Issue === x);
-        if (xlist) { xlist.forEach(zz => { console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Note); }); }
+        if (xlist) { xlist.forEach(zz => { console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Number + ': ' + zz.Note); }); }
     });
 
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
         if (x.Number == 0) { return; }
-        if (issueorder.concat('NULL').includes(x.Issue)) { return; }
+        if (issueorder.concat('ISSUE').includes(x.Issue)) { return; }
         let msg = '';
         if (x.Topic) { msg += x.Topic + ': '; }
         msg += '#' + x.Number + ': ';
@@ -128,8 +128,7 @@ App.FX = async function () {
         console.log(msg);
     });
 
-
-    let x = 'NULL'; let xlist = cardlist.filter(z => z.Issue === x);
+    let x = 'ISSUE'; let xlist = cardlist.filter(z => z.Issue === x);
     if (xlist) { xlist.forEach(zz => { console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Note); }); }
 
     console.log("\n\n");
