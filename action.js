@@ -18,9 +18,8 @@ console.log('ACTION');
 
 console.log();
 
-Object.keys(process.env).forEach(x => {
-    if (x.startsWith('GITHUB')) { console.log(x); console.log(process.env[x]); console.log(); }
-});
+Object.keys(process.env).forEach(x => { if (x.startsWith('GITHUB')) { console.log(x + ' = ' + process.env[x]); } });
+console.log();
 
 const AppPackageFile = process.cwd() + '/package.json';
 const AppPackage = require(AppPackageFile);
