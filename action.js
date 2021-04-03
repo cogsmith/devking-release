@@ -56,6 +56,7 @@ let REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 const App = {};
 
 App.GetProject = async function (repo) {
+    console.log('App.GetProject: '+repo);
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo); console.log(pz);
     p = pz.data.find(z => z.number === 1);
@@ -63,7 +64,7 @@ App.GetProject = async function (repo) {
 }
 
 App.GetColumns = async function (p) {
-    console.log('App.GetColumns: '+p.id);
+    console.log('App.GetColumns: '+p.id); console.log(p);
     let colz = {};    
     let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); console.log(cz);
     cz.data.forEach(x => {
