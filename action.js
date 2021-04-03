@@ -223,7 +223,7 @@ App.CMD = async function () {
     for (let i=0;i<cmdz.length;i++) {
         let cmd = cmdz[i];
         console.log('CMD: ' + cmd);
-        execa.commandSync(cmd, { shell: true }).stdout.pipe(process.stdout);
+        console.log( execa.commandSync(cmd, { shell: true }) );
     }
 }
 
