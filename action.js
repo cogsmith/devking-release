@@ -6,7 +6,7 @@ const GITHUB_TOKEN = process.argv[2];
 const GITHUB_REPOTOKEN = process.argv[3];
 
 const { Octokit } = require("@octokit/rest");
-const octokit = new Octokit({ auth: GITHUB_TOKEN });
+const octokit = new Octokit({ auth: GITHUB_REPOTOKEN });
 
 const fs = require('fs');
 
@@ -55,7 +55,7 @@ let repo = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 console.log('#');
 console.log(repo);
 console.log(process.argv);
-console.log(GITHUB_TOKEN.substr(0,0));
+console.log(GITHUB_TOKEN.substr(0,9));
 console.log(GITHUB_REPOTOKEN.substr(0,9));
 console.log('#');
 
