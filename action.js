@@ -42,6 +42,7 @@ AppPackage.version = vz.slice(1).join('.');
 //if (vz[0]) { AppPackage.version += '-' + vz[0]; };
 
 console.log(AppPackage);
+console.log();
 
 fs.writeFileSync(AppPackageFile, JSON.stringify(AppPackage));
 
@@ -196,8 +197,10 @@ App.GetLogMD = function (itemdb) {
 }
 
 App.FXFX = async function () {
+    console.log('FXFX:INIT');
     await App.FX();
-    // setTimeout(App.CMD, 9999);
+    setTimeout(App.CMD, 2500);
+    console.log('FXFX:DONE');
 }
 
 App.CMD = function () {
