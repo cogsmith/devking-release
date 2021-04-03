@@ -176,12 +176,18 @@ App.GetLogMD = function (itemdb) {
         txt.push('## ' + k); // txt.push(null);
         itemdb[k].forEach(z => {
             let line = '- ';
-            if (z.Topic) { line += '<b>' + z.Topic + '</b>' + ': '; }
-            line += '[';
-            if (z.Number != 0) { line += '#' + z.Number + ': '; }
-            line += z.Note;
-            line += ']';
-            line += '(' + 'https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/issues/' + z.Number + ')';
+            if (z.Number!=0) {
+                if (z.Topic) { line += '<b>' + z.Topic + '</b>' + ': '; }
+                line += '[';
+                if (z.Number != 0) { line += '#' + z.Number + ': '; }
+                line += z.Note;
+                line += ']';
+                line += '(' + 'https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/issues/' + z.Number + ')';
+            } 
+            else {
+                if (z.Topic) { line += '<b>' + z.Topic + '</b>' + ': '; }
+                line += z.Note;
+            }
             txt.push(line);
         });
         txt.push(null);
