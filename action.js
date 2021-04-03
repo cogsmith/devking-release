@@ -141,48 +141,51 @@ App.FX = async function () {
     console.log(items);
 
     console.log("\n\n");
-    console.log(App.GetLogText(items));
+    console.log(App.GetLogTXT(itemdb));
 
     console.log("\n\n");
-    console.log(App.GetLogMD(items));
+    console.log(App.GetLogMD(itemdb));
 
     console.log("\n\n");
     console.log(msgz);
 
 }
 
-App.GetLogText = function (items) {
-    let txtz = [];
-    items.forEach(x => {
-        let txt = '';
-        if (x.Topic) { txt += x.Topic + ': '; }
-        if (x.Number != 0) { txt += '#' + x.Number + ': '; }
-        txt += x.Note;
-        txtz.push(txt);
+App.GetLogTXT = function (itemdb) {
+    let txt = [];
+    txt.push('# 0.0.0 @ 2099-12-31'); txt.push(null);
+    Object.keys(itemdb).forEach(k => {
+        txt.push('## ' + k); txt.push(null);
+        itemdb[k].forEach(z => {
+            let line = '';
+            if (z.Topic) { line += z.Topic + ': '; }
+            if (z.Number != 0) { line += '#' + z.Number + ': '; }
+            line += z.Note;
+            txt.push(line);
+        });
     });
-    let txt = '';
-    txt = txtz.join("\n");
-    return txt;
+    return txt.join("\n");
 }
 
-App.GetLogMD = function (items) {
-    let txtz = [];
-    items.forEach(x => {
-        let txt = '- ';
-        if (x.Topic) { txt += '<b>' + x.Topic + '</b>' + ': '; }
-        txt += '[';
-        if (x.Number != 0) { txt += '#' + x.Number + ': '; }
-        txt += x.Note;
-        txt += ']';
-        txt += '(' + 'https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/issues/' + x.Number + ')';
-        txtz.push(txt);
+App.GetLogMD = function (itemdb) {
+    let txt = [];
+    txt.push('<code>'); txt.push(null);
+    txt.push('# [0.0.0 @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/0.0.0'); txt.push(null);
+    Object.keys(itemdb).forEach(k => {
+        txt.push('## ' + k); txt.push(null);
+        itemdb[k].forEach(z => {
+            let line = '';
+            if (z.Topic) { line +=  '<b>' + z.Topic + '</b>' + ': '; }
+            line += '[';
+            if (z.Number != 0) { line += '#' + z.Number + ': '; }
+            line += z.Note;
+            line += ']';
+            line += '(' + 'https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/issues/' + z.Number + ')';
+            txt.push(line);
+        });
     });
-    let md = '';
-    md += '# [0.0.0 @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/0.0.0';
-    md += '<code>';
-    md += txtz.join("\n");
-    md += '</code>';
-    return md;
+    txt.push(null); txt.push('</code>');
+    return txt.join("\n");
 }
 
 App.FX();
