@@ -20,6 +20,15 @@ const semver = require('semver');
 
 //
 
+const App = {};
+
+App.LogPretty = false; if (App.Args.logpretty) { App.LogPretty = { colorize: true, singleLine: true, translateTime: 'SYS:yyyy-mm-dd|HH:MM:ss', ignore: 'hostname,pid', messageFormat: function (log, key, label) { let msg = log.msg ? log.msg : ''; let logout = chalk.gray(App.Meta.NameTag); if (msg != '') { logout += ' ' + msg }; return logout; } }; }
+App.Log = pino({ level: App.Args.loglevel, hooks: { logMethod: function (args, method) { if (args.length === 2) { args.reverse() } method.apply(this, args) } }, prettyPrint: App.LogPretty });
+const LOG = App.Log; LOG.TRACE = LOG.trace; LOG.DEBUG = LOG.debug; LOG.INFO = LOG.info; LOG.WARN = LOG.warn; LOG.ERROR = LOG.error; LOG.FATAL = LOG.fatal;
+
+//
+
+
 console.log(semver.inc('0.0.0-dev', 'patch'));
 
 // process.exit();
@@ -60,8 +69,6 @@ octokit.rest.repos.listForOrg({ org: "octokit", type: "public", }).then(({ data 
 });
 
 //
-
-const App = {};
 
 App.FXFX = async function () {
     console.log('FXFX:INIT');
