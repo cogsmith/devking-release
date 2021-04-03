@@ -203,7 +203,7 @@ App.FXFX = async function () {
     console.log('FXFX:DONE');
 }
 
-App.CMD = function () {
+App.CMD = async function () {
     console.log(); console.log('___APPCMD___'); console.log();
 
     let cmdz = [];
@@ -222,7 +222,7 @@ App.CMD = function () {
 
     cmdz.forEach(x => {
         console.log('CMD: ' + x);
-        execa.commandSync(x, { shell: true }).stdout.pipe(process.stdout);
+        await execa.command(x, { shell: true }).stdout.pipe(process.stdout);
     });
 }
 
