@@ -18,7 +18,7 @@ console.log('ACTION');
 
 console.log();
 
-Object.keys(process.env).forEach(x => { if (x.startsWith('GITHUB')) { console.log(x + ' = ' + process.env[x]); } });
+Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { console.log(x + ' = ' + process.env[x]); } });
 console.log();
 
 const AppPackageFile = process.cwd() + '/package.json';
@@ -54,12 +54,22 @@ const App = {};
 App.FX = async function () {
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo);
-    //console.log(pz);
+    console.log(pz);
     pz.data.forEach(x => {
         // if (x.name.includes('-OVERVIEW') || x.number == 1) { p = x; }
         console.log(x);
     });
-    //console.log(p);
+    console.log(p);
+
+    let cz = await octokit.rest.projects.listColumns({ project_id: p.id });
+    console.log(cz);
+    cz.data.forEach(x => {
+        colz[x.id] = x;
+        colz[x.name] = x;
+    });
+    console.log(colz);
+
+
 };
 
 App.FX();
