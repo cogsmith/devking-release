@@ -72,7 +72,7 @@ App.FX = async function () {
     cards.data.forEach(x => {
         if (x.content_url) {
             let inum = x.content_url.split('/').pop();
-            let issue = octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
+            let issue = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
             console.log(issue);
         }
     });
