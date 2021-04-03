@@ -214,6 +214,8 @@ App.FX = async function () {
         itemdb[x.Issue].push(x);
     });
 
+    fs.writeFileSync('/tmp/changenow.md',App.GetLogMD(itemdb));
+
     //console.log("\n\n");
     //console.log(itemdb);
 
@@ -288,7 +290,7 @@ App.CMD = async function () {
     cmdz.push('git config user.email devkingbot@cogsmith.com');
     // cmdz.push('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token');
     cmdz.push('gh release delete 9.9.9 --yes');
-    cmdz.push('gh release create 9.9.9 --target main');
+    cmdz.push('gh release create 9.9.9 --target main -F /tmp/changenow.md');
     cmdz.push('git add .');
     cmdz.push("git commit -m 'DT'");
     cmdz.push('git push');
