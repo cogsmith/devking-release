@@ -110,12 +110,15 @@ App.FX = async function () {
 
     cardlist.forEach(x => { if (!msgz['INFO']) { msgz['INFO'] = []; } if (x.Number == 0) { msgz.INFO.push(x.Note); } });
 
+    let items = [];
+
     let issueorder = 'SECURITY BUG FEATURE DEV TASK HOWTO NOTES'.split(' ');
     issueorder.forEach(x => {
         console.log(x);
         let xlist = cardlist.filter(z => z.Issue === x);
         if (xlist) {
             xlist.forEach(zz => {
+                items.push(zz);
                 let msg = '';
                 if (zz.Topic) { msg += zz.Topic + ': '; }
                 msg += '#' + zz.Number + ': ';
@@ -127,6 +130,7 @@ App.FX = async function () {
     });
 
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
+        items.push(x);
         if (x.Number == 0) { return; }
         if (issueorder.concat('ISSUE').includes(x.Issue)) { return; }
         let msg = '';
@@ -140,6 +144,7 @@ App.FX = async function () {
     let x = 'ISSUE'; let xlist = cardlist.filter(z => z.Issue === x);
     if (xlist) {
         xlist.forEach(zz => {
+            items.push(zz);
             let msg = '';
             if (zz.Topic) { msg += zz.Topic + ': '; }
             msg += '#' + zz.Number + ': ';
@@ -148,6 +153,14 @@ App.FX = async function () {
             msgz[x].push(msg);
         });
     }
+
+    console.log("\n\n");
+    console.log(items);
+
+    console.log("\n\n");
+    items.forEach(x=>{
+        console.log(x);
+    });
 
     console.log("\n\n");
     console.log(msgz);
