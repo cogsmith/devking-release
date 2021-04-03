@@ -126,11 +126,11 @@ App.FX = async function () {
         msg += x.Note;
         if (!msgz[x.Issue]) { msgz[x.Issue] = []; }; msgz[x.Issue].push(msg);
         console.log(msg);
-    });   
+    });
 
-    let xlist = cardlist.filter(z => z.Issue === 'NULL');
+
+    let x = 'NULL'; let xlist = cardlist.filter(z => z.Issue === x);
     if (xlist) { xlist.forEach(zz => { console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Note); }); }
-
 
     console.log("\n\n");
     console.log(msgz);
