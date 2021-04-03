@@ -198,7 +198,7 @@ App.GetLogMD = function (itemdb) {
     return txt.join("\n");
 }
 
-App.FXFX = async function () { await App.FX(); App.CMD(); }
+App.FXFX = async function () { await App.FX(); setTimeout(App.CMD,999); }
 
 App.CMD = function () {
     execa.commandSync('date >> dt.txt', { shell: true });
