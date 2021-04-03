@@ -151,7 +151,7 @@ App.GetLogText = function (items) {
         txt += x.Note;
         txtz.push(txt);
     });
-    return items.join("\n");
+    return txtz.join("\n");
 }
 
 App.GetLogMD = function (items) {
@@ -166,7 +166,7 @@ App.GetLogMD = function (items) {
         txt += '(' + 'https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/issues/' + x.Number + ')';
         txtz.push(txt);
     });
-    return items.join("\n");
+    return txtz.join("\n");
 }
 
 App.FX();
