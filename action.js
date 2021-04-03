@@ -2,6 +2,7 @@ const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[0];
 const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[1];
 const GITHUB_TOKEN = process.argv[2];
+const GITHUB_REPOTOKEN = process.env.GITHUB_REPOTOKEN;
 
 const { Octokit } = require("@octokit/rest");
 const octokit = new Octokit({ auth: GITHUB_TOKEN });
@@ -52,8 +53,8 @@ let repo = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
 console.log('#');
 console.log(repo);
-console.log(process.argv[2]);
-console.log(process.argv[2].substr(0, 9));
+console.log(GITHUB_TOKEN.substr(0,0));
+console.log(GITHUB_REPOTOKEN.substr(0,9));
 console.log('#');
 
 const App = {};
