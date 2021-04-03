@@ -55,15 +55,14 @@ let REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
 const App = {};
 
-App.GetProject = async function () {
+App.GetProject = async function (repo) {
     let p = false;
-    let pz = await octokit.rest.projects.listForRepo(REPO);
+    let pz = await octokit.rest.projects.listForRepo(repo);
     p = pz.data.find(z => z.number === 1);
     return p;
 }
 
-App.GetColumns = async function () {
-    let p = App.GetProject();
+App.GetColumns = async function (p) {
     let colz = {};    
     let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); // console.log(cz);
     cz.data.forEach(x => {
@@ -75,7 +74,8 @@ App.GetColumns = async function () {
 }
 
 App.FX = async function () {
-    let colz = App.GetColumns();
+    let p = App.GetProject(REPO);
+    let colz = App.GetColumns(p);
 
     let cardlist = [];
 
