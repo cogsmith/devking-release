@@ -93,6 +93,8 @@ App.FX = async function () {
                 if (z.startsWith('TOPIC_')) { card.Topic = z.split('_')[1]; }
                 if (z.startsWith('STATUS_')) { card.Status = z.split('_')[1]; }
             });
+
+            if (!card.Topic) { card.Topic = null; }
         }
 
         console.log(card);
@@ -111,7 +113,7 @@ App.FX = async function () {
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
         if (x.Number == 0) { return; }
         let msg = '';
-        if (x.Topic) { msg += x.Topic + ': '; }
+        // if (x.Topic) { msg += x.Topic + ': '; }
         msg += '#' + x.Number + ': ';
         msg += x.Note;
         if (!msgz[x.Topic]) { msgz[x.Topic] = []; }; msgz[x.Topic].push(msg);
