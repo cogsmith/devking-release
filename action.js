@@ -1,13 +1,13 @@
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
-const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[0];
-const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[1];
+const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[1];
+const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[0];
 const GITHUB_TOKEN = process.argv[2];
 //const GITHUB_REPOTOKEN = process.env.GITHUB_REPOTOKEN;
 const GITHUB_REPOTOKEN = process.argv[3];
 const DEVKING_TOKEN = process.argv[3];
 
 const { Octokit } = require("@octokit/rest");
-const octokit = new Octokit({ auth: DEVKING_TOKEN });
+const octokit = new Octokit({ auth: GITHUB_TOKEN });
 
 const fs = require('fs');
 
