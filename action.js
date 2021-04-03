@@ -18,7 +18,7 @@ console.log(semver.inc('0.0.0-dev', 'patch'));
 // process.exit();
 
 console.log('ACTION');
-
+console.log('0.1.1');
 console.log();
 
 Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { console.log(x + ' = ' + process.env[x]); } });
