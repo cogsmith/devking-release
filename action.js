@@ -65,7 +65,8 @@ App.FX = async function () {
     });
     console.log(colz);
 
-
+    let cards = await octokit.rest.projects.listCards({column_id:colz['DONE'].id});
+    console.log(cards);
 
 };
 
