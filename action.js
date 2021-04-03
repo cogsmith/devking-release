@@ -70,20 +70,25 @@ App.FX = async function () {
     console.log(cards);
 
     cards.data.forEach(async x => {
-        let card = { Number:0, Note:x.note };
+        let card = { Number: 0, Note: x.note };
 
         if (x.content_url) {
             let inum = x.content_url.split('/').pop();
 
-            let issue_ = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum }); 
+            let issue_ = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
             let issue = issue_.data;
             //console.log(issue);
 
             //let labels = await octokit.rest.issues.listLabelsOnIssue({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
             //console.log(labels.data);
 
-            let labels = []; if (issue.labels) { issue.labels.forEach(z=>{ labels.push(z.name) }); }
-            card = { Number:inum, Note:issue.title, State:issue.state, Labels:labels };
+            let labels = []; if (issue.labels) { issue.labels.forEach(z => { labels.push(z.name) }); }
+            card = { Number: inum, Note: issue.title, State: issue.state.toUpperCase(), Labels: labels };
+            labels.forEach(z => {
+                if (z.startsWith('ISSUE_')) { card.Issue = z.split('_')[1]; }
+                if (z.startsWith('TOPIC_')) { card.Topic = z.split('_')[1]; }
+                if (z.startsWith('STATUS_')) { card.Status = z.split('_')[1]; }
+            });
         }
 
         console.log(card);
