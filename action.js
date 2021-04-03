@@ -54,7 +54,7 @@ const App = {};
 App.FX = async function () {
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo);
-    p = pz.data.find(z=>z.number===1);
+    p = pz.data.find(z => z.number === 1);
 
     let colz = {};
     let cz = await octokit.rest.projects.listColumns({ project_id: p.id });
@@ -64,6 +64,7 @@ App.FX = async function () {
         colz[x.name] = x;
     });
     console.log(colz);
+
 
 
 };
