@@ -74,7 +74,7 @@ App.FX = async function () {
         let gitcard = gitcards.data[i];
         let x = gitcard;
 
-        let card = { Number: 0, Note: x.note, Issue:'INFO' };
+        let card = { Number: 0, Note: x.note, Issue: 'INFO' };
 
         if (x.content_url) {
             let inum = parseInt(x.content_url.split('/').pop());
@@ -115,13 +115,8 @@ App.FX = async function () {
 
     let issueorder = 'SECURITY BUG FEATURE DEV TASK HOWTO NOTES'.split(' ');
     issueorder.forEach(x => {
-        console.log(x);
         let xlist = cardlist.filter(z => z.Issue === x);
-        if (xlist) {
-            xlist.forEach(zz => {
-                items.push(zz);
-            });
-        }
+        if (xlist) { xlist.forEach(zz => { items.push(zz); }); }
     });
 
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
@@ -131,24 +126,21 @@ App.FX = async function () {
     });
 
     let x = 'ISSUE'; let xlist = cardlist.filter(z => z.Issue === x);
-    if (xlist) {
-        xlist.forEach(zz => {
-            items.push(zz);
-        });
-    }
+    if (xlist) { xlist.forEach(zz => { items.push(zz); }); }
 
     console.log("\n\n");
     console.log(items);
 
     console.log("\n\n");
     items.forEach(x => {
-        console.log({ ITEM: x });
         let msg = '';
         if (x.Topic) { msg += x.Topic + ': '; }
         msg += '#' + x.Number + ': ';
         msg += x.Note;
         if (!msgz[x.Issue]) { msgz[x.Issue] = []; }; msgz[x.Issue].push(msg);
+        console.log({ ITEM: x });
         console.log(msg);
+        console.log();
     });
 
     console.log("\n\n");
