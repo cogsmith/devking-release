@@ -69,7 +69,7 @@ App.FX = async function () {
     let cards = await octokit.rest.projects.listCards({ column_id: colz['DONE'].id });
     console.log(cards);
 
-    cards.data.forEach(await function (x) {
+    cards.data.forEach(async x => {
         if (x.content_url) {
             let inum = x.content_url.split('/').pop();
             let issue = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
