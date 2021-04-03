@@ -135,7 +135,7 @@ App.FX = async function () {
     items.forEach(x => {
         let msg = '';
         if (x.Topic) { msg += x.Topic + ': '; }
-        msg += '#' + x.Number + ': ';
+        if (x.Number != 0) { msg += '#' + x.Number + ': '; }
         msg += x.Note;
         if (!msgz[x.Issue]) { msgz[x.Issue] = []; }; msgz[x.Issue].push(msg);
         console.log({ ITEM: x });
