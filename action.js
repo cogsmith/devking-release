@@ -7,7 +7,7 @@ const GITHUB_REPOTOKEN = process.argv[3];
 const DEVKING_TOKEN = process.argv[3];
 
 const { Octokit } = require("@octokit/rest");
-const octokit = new Octokit({ auth: GITHUB_TOKEN });
+const octokit = new Octokit({ auth: DEVKING_TOKEN });
 
 const fs = require('fs');
 
