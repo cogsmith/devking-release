@@ -96,7 +96,7 @@ App.FX = async function () {
 
             if (!card.Issue) { card.Issue = 'ISSUE'; }
             if (!card.Topic) { card.Topic = null; }
-            if (card.Number == 0) { card.Issue = 'INFO'; }
+            if (!card.Number) { card.Issue = 'INFO'; }
         }
 
         console.log(card);
