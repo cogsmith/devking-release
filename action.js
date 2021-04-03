@@ -1,15 +1,16 @@
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[0];
 const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[1];
+const GITHUB_TOKEN = process.argv[2];
 
 const { Octokit } = require("@octokit/rest");
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+const octokit = new Octokit({ auth: GITHUB_TOKEN });
 
 const fs = require('fs');
 
 const semver = require('semver');
 
-console.log( semver.inc('0.0.0-dev','patch') );
+console.log(semver.inc('0.0.0-dev', 'patch'));
 
 // process.exit();
 
@@ -34,7 +35,7 @@ let bumplevel = 'PATCH';
 
 if (bumplevel == 'PATCH') { vz[3]++; }
 
-AppPackage.version = vz.slice(1).join('.'); 
+AppPackage.version = vz.slice(1).join('.');
 
 //if (vz[0]) { AppPackage.version += '-' + vz[0]; };
 
@@ -47,12 +48,12 @@ octokit.rest.repos.listForOrg({ org: "octokit", type: "public", }).then(({ data 
     //console.log(data);
 });
 
-let repo = { owner:GITHUB_REPOTEAM, repo:GITHUB_REPONAME };
+let repo = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
 console.log('#');
 console.log(repo);
 console.log(process.argv[2]);
-console.log(process.argv[2].substr(0,9));
+console.log(process.argv[2].substr(0, 9));
 console.log('#');
 
 const App = {};
