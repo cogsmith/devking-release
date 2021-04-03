@@ -86,11 +86,11 @@ App.Init = async function () {
 //
 
 App.GetProject = async function (repo) {
-    LOG.INFO('App.GetProject: ' + JSON.stringify(repo));
+    //LOG.INFO('App.GetProject: ' + JSON.stringify(repo));
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo); //console.log(pz);
     p = pz.data.find(z => z.number === 1);
-    LOG.INFO('App.GetProject: ' + JSON.stringify(repo),p.id);
+    LOG.INFO('App.GetProject: ' + JSON.stringify(repo),{ID:p.id});
     return p;
 }
 
