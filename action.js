@@ -112,8 +112,10 @@ App.FX = async function () {
         msg += '#' + x.Number + ': ';
         msg += x.Note;
         msgz.push(msg);
+        console.log(msg);
     });
 
+    console.log("\n\n");
     console.log(msgz);
 
 };
