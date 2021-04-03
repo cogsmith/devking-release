@@ -204,6 +204,7 @@ App.FXFX = async function () {
 }
 
 App.CMD = function () {
+    console.log(); console.log('___APPCMD___'); console.log();
     execa.commandSync('echo ; echo ___CMD___ ; echo', { shell: true });
     execa.commandSync('date >> dt.txt', { shell: true });
     execa.commandSync(' npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version', { shell: true });
