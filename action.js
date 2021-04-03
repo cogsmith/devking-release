@@ -205,20 +205,26 @@ App.FXFX = async function () {
 
 App.CMD = function () {
     console.log(); console.log('___APPCMD___'); console.log();
-    execa.commandSync('echo ; echo ___CMD___ ; echo', { shell: true });
-    execa.commandSync('date >> dt.txt', { shell: true });
-    execa.commandSync(' npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version', { shell: true });
-    execa.commandSync('git config user.name DEVKING');
-    execa.commandSync('git config user.email devkingbot@cogsmith.com');
-    // execa.commandSync('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token',{shell:true});
-    try { execa.commandSync('gh release delete 9.9.9 --yes'); } catch (ex) { }
-    execa.commandSync('gh release create 9.9.9 --target main');
-    execa.commandSync('git add .');
-    execa.commandSync("git commit -m 'DT'");
-    execa.commandSync('git push');
+
+    let cmdz = [];
+
+
+    cmdz.push('echo ; echo ___CMD___ ; echo');
+    cmdz.push('date >> dt.txt');
+    cmdz.push(' npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version');
+    cmdz.push('git config user.name DEVKING');
+    cmdz.push('git config user.email devkingbot@cogsmith.com');
+    // cmdz.push('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token');
+    cmdz.push('gh release delete 9.9.9 --yes');
+    cmdz.push('gh release create 9.9.9 --target main');
+    cmdz.push('git add .');
+    cmdz.push("git commit -m 'DT'");
+    cmdz.push('git push');
+
+    cmdz.forEach(x => {
+        console.log('CMD: '+x);
+        execa.commandSync(x, { shell: true }).stdout.pipe(process.stdout);
+    });
 }
 
 App.FXFX();
-
-
-
