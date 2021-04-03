@@ -49,6 +49,8 @@ octokit.rest.repos.listForOrg({ org: "octokit", type: "public", }).then(({ data 
 
 let repo = { owner:GITHUB_REPOTEAM, repo:GITHUB_REPONAME };
 
+console.log(repo);
+
 const App = {};
 
 App.FX = async function () {
