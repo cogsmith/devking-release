@@ -76,7 +76,7 @@ App.GetColumns = async function (p) {
 }
 
 App.FX = async function () {
-    let p = App.GetProject(REPO);
+    let p = await App.GetProject(REPO);
     let colz = App.GetColumns(p);
 
     let cardlist = [];
