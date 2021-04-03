@@ -74,12 +74,12 @@ App.FX = async function () {
             let inum = x.content_url.split('/').pop();
 
             let issue = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
-            //console.log(issue.data);            
+            console.log(issue.data);
 
             //let labels = await octokit.rest.issues.listLabelsOnIssue({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
             //console.log(labels.data);
 
-            let labels = []; issue.labels.forEach(z=>{ labels.push(z.name) });
+            let labels = []; if (issue.labels) { issue.labels.forEach(z=>{ labels.push(z.name) }); }
             let info = { Number:inum, Title:issue.title, State:issue.state, Labels:labels };
             console.log(info);
         }
