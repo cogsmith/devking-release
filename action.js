@@ -92,8 +92,11 @@ App.FX = async function () {
 
         console.log(card);
         cardlist.push(card);
+
+        console.log(cardlist);
     });
 
+    console.log(cardlist);
     cardlist.forEach(x=>{
         let msg = '';
         if (x.Topic) { msg += topic + ': '; }
