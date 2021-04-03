@@ -90,6 +90,7 @@ App.GetProject = async function (repo) {
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo); //console.log(pz);
     p = pz.data.find(z => z.number === 1);
+    LOG.INFO('App.GetProject: ' + JSON.stringify(repo),p);
     return p;
 }
 
@@ -133,7 +134,6 @@ App.GetCard = async function (inum) {
 }
 
 App.GetCards = async function (col) {
-    console.log(col);
     LOG.INFO('App.GetCards: ' + col.id + ' = ' + col.name);
     let cardlist = [];
     let gitcards = await octokit.rest.projects.listCards({ column_id: col.id }); // console.log(gitcards);
