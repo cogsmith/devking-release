@@ -42,3 +42,18 @@ fs.writeFileSync(AppPackageFile, JSON.stringify(AppPackage));
 octokit.rest.repos.listForOrg({ org: "octokit", type: "public", }).then(({ data }) => {
     //console.log(data);
 });
+
+const App = {};
+
+App.FX = async function () {
+    let p = false;
+    let pz = await octokit.rest.projects.listForRepo(repo);
+    //console.log(pz);
+    pz.data.forEach(x => {
+        // if (x.name.includes('-OVERVIEW') || x.number == 1) { p = x; }
+        console.log(x);
+    });
+    //console.log(p);
+};
+
+App.FX();
