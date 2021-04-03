@@ -9,6 +9,8 @@ const REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 const _ = require('lodash');
 const execa = require('execa');
 
+const chalk = require('chalk');
+
 const { Octokit } = require("@octokit/rest");
 const octokit = new Octokit({ auth: GITHUB_TOKEN });
 
@@ -22,6 +24,7 @@ console.log(semver.inc('0.0.0-dev', 'patch'));
 
 // process.exit();
 
+console.log(chalk.red('___REDALERT___'));
 console.log('ACTION');
 console.log('0.1.1');
 console.log();
