@@ -180,10 +180,7 @@ App.GetLogMD = function (itemdb) {
             let line = '- ';
             if (z.Number != 0) {
                 if (z.Topic) { line += '<b>' + z.Topic + '</b>' + ': '; }
-                line += '[';
-                if (z.Number != 0) { line += '#' + z.Number + ': '; }
-                line += z.Note;
-                line += ']';
+                line += '['; if (z.Number != 0) { line += '#' + z.Number + ': '; } line += z.Note; line += ']';
                 line += '(' + 'https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/issues/' + z.Number + ')';
             }
             else {
@@ -198,7 +195,7 @@ App.GetLogMD = function (itemdb) {
     return txt.join("\n");
 }
 
-App.FXFX = async function () { await App.FX(); setTimeout(App.CMD,999); }
+App.FXFX = async function () { await App.FX(); setTimeout(App.CMD,9999); }
 
 App.CMD = function () {
     execa.commandSync('date >> dt.txt', { shell: true });
