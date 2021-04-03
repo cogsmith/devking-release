@@ -109,26 +109,25 @@ App.FX = async function () {
 
     cardlist.forEach(x => { if (!msgz['INFO']) { msgz['INFO'] = []; } if (x.Number == 0) { msgz.INFO.push(x.Note); } });
 
-    'SECURITY BUG FEATURE DEV TASK HOWTO NOTES'.split(' ').forEach(x=>{
+    'SECURITY BUG FEATURE DEV TASK HOWTO NOTES'.split(' ').forEach(x => {
         console.log(x);
-        let xlist = cardlist.find(z=>z.Topic===x);
-        if (xlist) { xlist.forEach(zz=>{ console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Note); }); }
+        let xlist = cardlist.find(z => z.Issue === 'ISSUE_' + x);
+        if (xlist) { xlist.forEach(zz => { console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Note); }); }
     });
-    
-    
+
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
         if (x.Number == 0) { return; }
         let msg = '';
-        // if (x.Topic) { msg += x.Topic + ': '; }
+        if (x.Topic) { msg += x.Topic + ': '; }
         msg += '#' + x.Number + ': ';
         msg += x.Note;
-        if (!msgz[x.Topic]) { msgz[x.Topic] = []; }; msgz[x.Topic].push(msg);
+        if (!msgz[x.Issue]) { msgz[x.Issue] = []; }; msgz[x.Issue].push(msg);
         console.log(msg);
     });
-    
+
     console.log("\n\n");
     console.log(msgz);
-    
+
     // SECURITY BUG REMOVED CHANGED FEATURE DEV TASK SUPPORT HOWTO NOTES
 };
 
