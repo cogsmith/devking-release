@@ -132,20 +132,41 @@ App.FX = async function () {
     console.log(items);
 
     console.log("\n\n");
-    items.forEach(x => {
-        let msg = '';
-        if (x.Topic) { msg += x.Topic + ': '; }
-        if (x.Number != 0) { msg += '#' + x.Number + ': '; }
-        msg += x.Note;
-        if (!msgz[x.Issue]) { msgz[x.Issue] = []; }; msgz[x.Issue].push(msg);
-        console.log({ ITEM: x });
-        console.log(msg);
-        console.log();
-    });
+    console.log(App.GetLogText(items));
+
+    console.log("\n\n");
+    console.log(App.GetLogMD(items));
 
     console.log("\n\n");
     console.log(msgz);
 
-};
+}
+
+App.GetLogText = function (items) {
+    let txtz = [];
+    items.forEach(x => {
+        let txt = '';
+        if (x.Topic) { txt += x.Topic + ': '; }
+        if (x.Number != 0) { txt += '#' + x.Number + ': '; }
+        txt += x.Note;
+        txtz.push(txt);
+    });
+    return items.join("\n");
+}
+
+App.GetLogMD = function (items) {
+    let txtz = [];
+    items.forEach(x => {
+        let txt = '';
+        if (x.Topic) { txt += '<b>' + x.Topic + '</b>' + ': '; }
+        txt += '[';
+        if (x.Number != 0) { txt += '#' + x.Number + ': '; }
+        txt += x.Note;
+        txt += ']';
+        txt += '(' + 'https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/issues/' + x.Number + ')';
+        txtz.push(txt);
+    });
+    return items.join("\n");
+}
 
 App.FX();
