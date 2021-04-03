@@ -106,7 +106,7 @@ App.GetColumns = async function (p) {
 }
 
 App.GetCard = async function (inum) {
-    LOG.INFO('App.GetCard: ' + inum);
+    //LOG.INFO('App.GetCard: ' + inum);
     let issue_ = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
     let issue = issue_.data;
     //console.log(issue);
@@ -128,12 +128,13 @@ App.GetCard = async function (inum) {
     if (!card.Issue) { card.Issue = 'ISSUE'; }
     if (!card.Topic) { card.Topic = null; }
 
+    LOG.INFO('App.GetCard: ' + inum, card);
     return card;
 }
 
 App.GetCards = async function (col) {
     console.log(col);
-    LOG.INFO('App.GetCards: ' + col.id);
+    LOG.INFO('App.GetCards: ' + col.id + ' = ' + col.name);
     let cardlist = [];
     let gitcards = await octokit.rest.projects.listCards({ column_id: col.id }); // console.log(gitcards);
 
@@ -145,8 +146,6 @@ App.GetCards = async function (col) {
             let inum = parseInt(x.content_url.split('/').pop());
             card = await App.GetCard(inum);
         }
-
-        LOG.INFO('CARD', card);
         cardlist.push(card);
     }
 
