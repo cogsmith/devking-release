@@ -63,6 +63,7 @@ App.GetProject = async function (repo) {
 }
 
 App.GetColumns = async function (p) {
+    console.log('App.GetColumns: '+p.id);
     let colz = {};    
     let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); console.log(cz);
     cz.data.forEach(x => {
