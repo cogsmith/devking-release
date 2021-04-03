@@ -56,7 +56,7 @@ let REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 const App = {};
 
 App.GetProject = async function (repo) {
-    console.log('App.GetProject: '+JSON.stringify(repo));
+    console.log('App.GetProject: ' + JSON.stringify(repo));
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo); console.log(pz);
     p = pz.data.find(z => z.number === 1);
@@ -64,56 +64,66 @@ App.GetProject = async function (repo) {
 }
 
 App.GetColumns = async function (p) {
-    console.log('App.GetColumns: '+p.id); console.log(p);
-    let colz = {};    
+    console.log('App.GetColumns: ' + p.id); console.log(p);
+    let colz = {};
     let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); console.log(cz);
     cz.data.forEach(x => {
         colz[x.id] = x;
         colz[x.name] = x;
     });
-    console.log({COLZ:colz});
-    return colz;    
+    console.log({ COLZ: colz });
+    return colz;
 }
 
-App.FX = async function () {
-    let p = await App.GetProject(REPO);
-    let colz = App.GetColumns(p);
+App.GetCard = async function (inum) {
+    let issue_ = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
+    let issue = issue_.data;
+    //console.log(issue);
 
+    //let labels = await octokit.rest.issues.listLabelsOnIssue({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
+    //console.log(labels.data);
+
+    // let card = { Number: 0, Note: null, Issue: 'INFO' };
+
+    let labels = []; if (issue.labels) { issue.labels.forEach(z => { labels.push(z.name) }); }
+    let card = { Number: inum, Note: issue.title, State: issue.state.toUpperCase(), Labels: labels };
+    labels.forEach(z => {
+        if (z.startsWith('ISSUE_')) { card.Issue = z.split('_')[1]; }
+        if (z.startsWith('TOPIC_')) { card.Topic = z.split('_')[1]; }
+        if (z.startsWith('STATUS_')) { card.Status = z.split('_')[1]; }
+    });
+
+    if (!card.Number) { card.Issue = 'INFO'; }
+    if (!card.Issue) { card.Issue = 'ISSUE'; }
+    if (!card.Topic) { card.Topic = null; }
+
+    return card;
+}
+
+App.GetCards = async function (colid) {
     let cardlist = [];
+    let gitcards = await octokit.rest.projects.listCards({ column_id: colid }); // console.log(gitcards);
 
-    let gitcards = await octokit.rest.projects.listCards({ column_id: colz['DONE'].id }); // console.log(cards);
     for (let i = 0; i < gitcards.data.length; i++) {
-        let gitcard = gitcards.data[i];
-        let x = gitcard;
+        let gitcard = gitcards.data[i]; let x = gitcard;
 
         let card = { Number: 0, Note: x.note, Issue: 'INFO' };
-
         if (x.content_url) {
             let inum = parseInt(x.content_url.split('/').pop());
-
-            let issue_ = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
-            let issue = issue_.data;
-            //console.log(issue);
-
-            //let labels = await octokit.rest.issues.listLabelsOnIssue({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
-            //console.log(labels.data);
-
-            let labels = []; if (issue.labels) { issue.labels.forEach(z => { labels.push(z.name) }); }
-            card = { Number: inum, Note: issue.title, State: issue.state.toUpperCase(), Labels: labels };
-            labels.forEach(z => {
-                if (z.startsWith('ISSUE_')) { card.Issue = z.split('_')[1]; }
-                if (z.startsWith('TOPIC_')) { card.Topic = z.split('_')[1]; }
-                if (z.startsWith('STATUS_')) { card.Status = z.split('_')[1]; }
-            });
-
-            if (!card.Number) { card.Issue = 'INFO'; }
-            if (!card.Issue) { card.Issue = 'ISSUE'; }
-            if (!card.Topic) { card.Topic = null; }
+            card = await App.GetCard(inum);
         }
 
         console.log(card);
         cardlist.push(card);
     }
+
+    return cardlist;
+}
+
+App.FX = async function () {
+    let p = await App.GetProject(REPO);
+    let colz = await App.GetColumns(p);
+    let cardlist = await App.GetCards(colz['DONE'].id);
 
     console.log("\n\n\n\n");
     console.log(cardlist);
