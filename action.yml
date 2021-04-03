@@ -1,4 +1,9 @@
 name: "DEVKING_RELEASE"
+inputs:
+  repo-token:
+    description: 'REPO-TOKEN'
+    default: 'REPOTOKEN'
+    required: true
 runs:
   using: "composite"
   steps:
