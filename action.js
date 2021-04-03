@@ -183,12 +183,9 @@ App.FX = async function () {
     let colz = await App.GetColumns(p);
     let cardlist = await App.GetCards(colz['DONE']);
 
-    console.log("\n\n\n\n");
-    console.log(cardlist);
-    console.log("\n\n\n\n");
+    LOG.TRACE('App.Cards', cardlist);
 
     let msgz = {};
-
     let items = [];
 
     cardlist.forEach(x => { if (x.Number == 0) { items.push(x); } });
@@ -214,7 +211,9 @@ App.FX = async function () {
         itemdb[x.Issue].push(x);
     });
 
-    fs.writeFileSync('/tmp/changenow.md',App.GetLogMD(itemdb));
+    fs.writeFileSync('/tmp/changenow.md', App.GetLogMD(itemdb));
+
+    LOG.DEBUG('App.GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
 
     //console.log("\n\n");
     //console.log(itemdb);
@@ -222,11 +221,11 @@ App.FX = async function () {
     //console.log("\n\n");
     //console.log(items);
 
-    console.log("\n\n");
-    console.log(App.GetLogTXT(itemdb));
+    //console.log("\n\n");
+    //console.log(App.GetLogTXT(itemdb));
 
-    console.log("\n\n");
-    console.log(App.GetLogMD(itemdb));
+    //console.log("\n\n");
+    //console.log(App.GetLogMD(itemdb));
 
     //console.log("\n\n");
     //console.log(msgz);
