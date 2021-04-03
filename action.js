@@ -195,15 +195,19 @@ App.GetLogMD = function (itemdb) {
     return txt.join("\n");
 }
 
-App.FXFX = async function () { await App.FX(); setTimeout(App.CMD,9999); }
+App.FXFX = async function () {
+    await App.FX();
+    // setTimeout(App.CMD, 9999);
+}
 
 App.CMD = function () {
+    execa.commandSync('echo ; echo ___CMD___ ; echo', { shell: true });
     execa.commandSync('date >> dt.txt', { shell: true });
     execa.commandSync(' npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version', { shell: true });
     execa.commandSync('git config user.name DEVKING');
     execa.commandSync('git config user.email devkingbot@cogsmith.com');
     // execa.commandSync('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token',{shell:true});
-    try { execa.commandSync('gh release delete 9.9.9 --yes'); } catch (ex) {}
+    try { execa.commandSync('gh release delete 9.9.9 --yes'); } catch (ex) { }
     execa.commandSync('gh release create 9.9.9 --target main');
     execa.commandSync('git add .');
     execa.commandSync("git commit -m 'DT'");
