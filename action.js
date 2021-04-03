@@ -108,9 +108,9 @@ App.FX = async function () {
 
     let msgz = {};
 
-    cardlist.forEach(x => { if (!msgz['INFO']) { msgz['INFO'] = []; } if (x.Number == 0) { msgz.INFO.push(x.Note); } });
-
     let items = [];
+
+    cardlist.forEach(x => { if (!msgz['INFO']) { msgz['INFO'] = []; } if (x.Number == 0) { items.push(x); } });
 
     let issueorder = 'SECURITY BUG FEATURE DEV TASK HOWTO NOTES'.split(' ');
     issueorder.forEach(x => {
@@ -130,9 +130,9 @@ App.FX = async function () {
     });
 
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
-        items.push(x);
         if (x.Number == 0) { return; }
         if (issueorder.concat('ISSUE').includes(x.Issue)) { return; }
+        items.push(x);
         let msg = '';
         if (x.Topic) { msg += x.Topic + ': '; }
         msg += '#' + x.Number + ': ';
