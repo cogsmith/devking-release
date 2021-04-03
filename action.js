@@ -96,6 +96,8 @@ App.FX = async function () {
         console.log(cardlist);
     });
 
+    console.log("\n\n\n\n");
+
     console.log(cardlist);
     cardlist.forEach(x=>{
         let msg = '';
