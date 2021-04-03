@@ -8,8 +8,8 @@ const REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
 const _ = require('lodash');
 const execa = require('execa');
-
 const chalk = require('chalk');
+const pino = require('pino');
 
 const { Octokit } = require("@octokit/rest");
 const octokit = new Octokit({ auth: GITHUB_TOKEN });
@@ -28,6 +28,9 @@ const LOG = App.Log; LOG.TRACE = LOG.trace; LOG.DEBUG = LOG.debug; LOG.INFO = LO
 
 //
 
+LOG.INFO('App');
+
+//
 
 console.log(semver.inc('0.0.0-dev', 'patch'));
 
