@@ -69,7 +69,7 @@ App.GetColumns = async function (p) {
         colz[x.id] = x;
         colz[x.name] = x;
     });
-    console.log(colz);
+    console.log({COLZ:colz});
     return colz;    
 }
 
