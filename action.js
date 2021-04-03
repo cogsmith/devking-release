@@ -51,23 +51,31 @@ octokit.rest.repos.listForOrg({ org: "octokit", type: "public", }).then(({ data 
     //console.log(data);
 });
 
-let repo = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
+let REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
 const App = {};
 
-App.FX = async function () {
-
+App.GetProject = async function () {
     let p = false;
-    let pz = await octokit.rest.projects.listForRepo(repo);
+    let pz = await octokit.rest.projects.listForRepo(REPO);
     p = pz.data.find(z => z.number === 1);
+    return p;
+}
 
-    let colz = {};
+App.GetColumns = async function () {
+    let p = App.GetProject();
+    let colz = {};    
     let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); // console.log(cz);
     cz.data.forEach(x => {
         colz[x.id] = x;
         colz[x.name] = x;
     });
     //console.log(colz);
+    return colz;    
+}
+
+App.FX = async function () {
+    let colz = App.GetColumns();
 
     let cardlist = [];
 
