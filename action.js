@@ -220,10 +220,11 @@ App.CMD = async function () {
     cmdz.push("git commit -m 'DT'");
     cmdz.push('git push');
 
-    cmdz.forEach(x => {
-        console.log('CMD: ' + x);
-        await execa.command(x, { shell: true }).stdout.pipe(process.stdout);
-    });
+    for (let i=0;i<cmdz.length;i++) {
+        let cmd = cmdz[i];
+        console.log('CMD: ' + cmd);
+        await execa.command(cmd, { shell: true }).stdout.pipe(process.stdout);
+    }
 }
 
 App.FXFX();
