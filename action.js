@@ -73,8 +73,9 @@ App.FX = async function () {
         if (x.content_url) {
             let inum = x.content_url.split('/').pop();
 
-            let issue = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
-            console.log(issue.data);
+            let issue_ = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum }); 
+            let issue = issue_.data;
+            console.log(issue);
 
             //let labels = await octokit.rest.issues.listLabelsOnIssue({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
             //console.log(labels.data);
