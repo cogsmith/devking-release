@@ -67,9 +67,10 @@ App.FX = async function () {
 
     let cardlist = [];
 
-    let cards = await octokit.rest.projects.listCards({ column_id: colz['DONE'].id }); // console.log(cards);
-    cards.data.forEach(async x => {
-        let card = { Number: 0, Note: x.note };
+    let gitcards = await octokit.rest.projects.listCards({ column_id: colz['DONE'].id }); // console.log(cards);
+    for (let i=0;i<gitcards.data.length;i++) {
+        let gitcard = gitcards.data[i];
+        let x = gitcard;
 
         if (x.content_url) {
             let inum = parseInt(x.content_url.split('/').pop());
@@ -93,8 +94,8 @@ App.FX = async function () {
         console.log(card);
         cardlist.push(card);
 
-        console.log(cardlist);
-    });
+        console.log(cardlist);        
+    }
 
     console.log("\n\n\n\n");
 
