@@ -100,7 +100,7 @@ App.FX = async function () {
     console.log("\n\n\n\n");
 
     console.log(cardlist);
-    cardlist.forEach(x=>{
+    _.orderBy(cardslist,['Topic']).forEach(x=>{
         let msg = '';
         if (x.Topic) { msg += x.Topic + ': '; }
         msg += '#' + x.Number + ': ';
