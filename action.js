@@ -220,10 +220,14 @@ App.CMD = async function () {
     cmdz.push("git commit -m 'DT'");
     cmdz.push('git push');
 
-    for (let i=0;i<cmdz.length;i++) {
+    for (let i = 0; i < cmdz.length; i++) {
         let cmd = cmdz[i];
         console.log('CMD: ' + cmd);
-        console.log( execa.commandSync(cmd, { shell: true }) );
+        let run = false;
+        try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { }
+        if (!run) { continue; }
+        console.log(run.stdout);
+        console.log();
     }
 }
 
