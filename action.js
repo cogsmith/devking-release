@@ -72,7 +72,7 @@ App.FXFX = async function () {
 App.GetProject = async function (repo) {
     console.log('App.GetProject: ' + JSON.stringify(repo));
     let p = false;
-    let pz = await octokit.rest.projects.listForRepo(repo); console.log(pz);
+    let pz = await octokit.rest.projects.listForRepo(repo); //console.log(pz);
     p = pz.data.find(z => z.number === 1);
     return p;
 }
@@ -80,12 +80,12 @@ App.GetProject = async function (repo) {
 App.GetColumns = async function (p) {
     console.log('App.GetColumns: ' + p.id); console.log(p);
     let colz = {};
-    let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); console.log(cz);
+    let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); //console.log(cz);
     cz.data.forEach(x => {
         colz[x.id] = x;
         colz[x.name] = x;
     });
-    console.log({ COLZ: colz });
+    //console.log({ COLZ: colz });
     return colz;
 }
 
