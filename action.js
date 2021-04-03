@@ -107,8 +107,7 @@ App.FX = async function () {
 
     cardlist.forEach(x => { if (!msgz['INFO']) { msgz['INFO'] = []; } if (x.Number == 0) { msgz.INFO.push(x.Note); } });
 
-    // SECURITY BUG REMOVED CHANGED FEATURE DEV TASK SUPPORT HOWTO NOTES
-
+    
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
         if (x.Number == 0) { return; }
         let msg = '';
@@ -118,10 +117,11 @@ App.FX = async function () {
         if (!msgz[x.Topic]) { msgz[x.Topic] = []; }; msgz[x.Topic].push(msg);
         console.log(msg);
     });
-
+    
     console.log("\n\n");
     console.log(msgz);
-
+    
+    // SECURITY BUG REMOVED CHANGED FEATURE DEV TASK SUPPORT HOWTO NOTES
 };
 
 App.FX();
