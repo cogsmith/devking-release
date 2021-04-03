@@ -111,7 +111,7 @@ App.FX = async function () {
 
     let items = [];
 
-    cardlist.forEach(x => { if (!msgz['INFO']) { msgz['INFO'] = []; } if (x.Number == 0) { items.push(x); } });
+    cardlist.forEach(x => { if (x.Number == 0) { items.push(x); } });
 
     let issueorder = 'SECURITY BUG FEATURE DEV TASK HOWTO NOTES'.split(' ');
     issueorder.forEach(x => {
