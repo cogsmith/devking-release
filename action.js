@@ -1,3 +1,6 @@
+const { Octokit } = require("@octokit/rest");
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+
 const fs = require('fs');
 
 const semver = require('semver');
@@ -11,11 +14,12 @@ console.log('ACTION');
 console.log();
 
 Object.keys(process.env).forEach(x => {
-    // console.log(x); console.log(process.env[x]); console.log();
+    console.log(x); console.log(process.env[x]); console.log();
 });
 
 const AppPackageFile = process.cwd() + '/package.json';
 const AppPackage = require(AppPackageFile);
+
 console.log(AppPackage);
 
 if (!AppPackage.version) { AppPackage.version = '0.0.0'; }
@@ -33,9 +37,6 @@ AppPackage.version = vz.slice(1).join('.');
 console.log(AppPackage);
 
 fs.writeFileSync(AppPackageFile, JSON.stringify(AppPackage));
-
-const { Octokit } = require("@octokit/rest");
-const octokit = new Octokit();
 
 // Compare: https://docs.github.com/en/rest/reference/repos/#list-organization-repositories
 octokit.rest.repos.listForOrg({ org: "octokit", type: "public", }).then(({ data }) => {
