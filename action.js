@@ -65,8 +65,14 @@ App.FX = async function () {
     });
     console.log(colz);
 
-    let cards = await octokit.rest.projects.listCards({column_id:colz['DONE'].id});
+    let cards = await octokit.rest.projects.listCards({ column_id: colz['DONE'].id });
     console.log(cards);
+
+    cards.data.forEach(x => {
+        let inum = x.content_url.split('/').pop();
+        let issue = octokit.rest.issues.get({owner:GITHUB_REPOTEAM,repo:GITHUB_REPONAME,issue_number:inum});
+        console.log(issue);
+    });
 
 };
 
