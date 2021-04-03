@@ -159,7 +159,7 @@ App.FX = async function () {
 
     console.log("\n\n");
     items.forEach(x=>{
-        console.log(x);
+        console.log({ITEM:x});
     });
 
     console.log("\n\n");
