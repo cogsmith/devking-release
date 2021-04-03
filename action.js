@@ -208,7 +208,6 @@ App.CMD = function () {
 
     let cmdz = [];
 
-
     cmdz.push('echo ; echo ___CMD___ ; echo');
     cmdz.push('date >> dt.txt');
     cmdz.push(' npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version');
@@ -222,7 +221,7 @@ App.CMD = function () {
     cmdz.push('git push');
 
     cmdz.forEach(x => {
-        console.log('CMD: '+x);
+        console.log('CMD: ' + x);
         execa.commandSync(x, { shell: true }).stdout.pipe(process.stdout);
     });
 }
