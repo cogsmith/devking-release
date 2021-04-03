@@ -8,4 +8,4 @@ runs:
   using: "composite"
   steps:
     - shell: bash      
-      run: echo ; echo "OS = `uname -a`" ; echo "NODEJS = `node -v`" ; echo "NPM = `npm -v`" ; echo ; cd ${{ GITHUB.ACTION_PATH }} ; pwd ; echo ; npm ci ; echo ; cd ${{ GITHUB.WORKSPACE }} ; pwd ; echo ; export GITHUB_TOKEN=${{ GITHUB.TOKEN }} ; node ${{ GITHUB.ACTION_PATH }}/action.js
+      run: echo ; echo "OS = `uname -a`" ; echo "NODEJS = `node -v`" ; echo "NPM = `npm -v`" ; echo ; cd ${{ GITHUB.ACTION_PATH }} ; pwd ; echo ; npm ci ; echo ; cd ${{ GITHUB.WORKSPACE }} ; pwd ; echo ; export GITHUB_TOKEN=${{ GITHUB.TOKEN }} ; export FORCE_COLOR=1 ; node ${{ GITHUB.ACTION_PATH }}/action.js
