@@ -78,9 +78,17 @@ octokit.rest.repos.listForOrg({ org: "octokit", type: "public", }).then(({ data 
 
 App.Init = async function () {
     LOG.INFO('App.Init');
+
+    Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { LOG.DEBUG(x + ' = ' + process.env[x]); } });
+
+    LOG.INFO('App.InitDone');
+    await App.Main();
+}
+
+App.Main = async function () {
+    LOG.INFO('App.Main');
     await App.FX();
     setTimeout(App.CMD, 9);
-    LOG.INFO('App.InitDone');
 }
 
 //
@@ -90,7 +98,7 @@ App.GetProject = async function (repo) {
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo); //console.log(pz);
     p = pz.data.find(z => z.number === 1);
-    LOG.INFO('App.GetProject: ' + JSON.stringify(repo),{ID:p.id});
+    LOG.INFO('App.GetProject: ' + JSON.stringify(repo), { ID: p.id });
     return p;
 }
 
