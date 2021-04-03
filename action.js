@@ -103,15 +103,19 @@ App.FX = async function () {
     console.log(cardlist);
     console.log("\n\n\n\n");
 
-    let msgz = [];
-    cardlist.forEach(x => { if (x.Number == 0) { msgz.push(x.Note); } });
+    let msgz = {};
+
+    cardlist.forEach(x => { if (!msgz['INFO']) { msgz['INFO'] = []; } if (x.Number == 0) { msgz.INFO.push(x.Note); } });
+
+    // SECURITY BUG REMOVED CHANGED FEATURE DEV TASK SUPPORT HOWTO NOTES
+
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
         if (x.Number == 0) { return; }
         let msg = '';
         if (x.Topic) { msg += x.Topic + ': '; }
         msg += '#' + x.Number + ': ';
         msg += x.Note;
-        msgz.push(msg);
+        if (!msgz[x.Topic]) { msgz[x.Topic] = []; }; msgz[x.Topic].push(msg);
         console.log(msg);
     });
 
