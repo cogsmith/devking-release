@@ -114,7 +114,16 @@ App.FX = async function () {
     issueorder.forEach(x => {
         console.log(x);
         let xlist = cardlist.filter(z => z.Issue === x);
-        if (xlist) { xlist.forEach(zz => { console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push('#' + zz.Number + ': ' + zz.Note); }); }
+        if (xlist) {
+            xlist.forEach(zz => {
+                let msg = '';
+                if (x.Topic) { msg += x.Topic + ': '; }
+                msg += '#' + x.Number + ': ';
+                msg += x.Note;
+                if (!msgz[x]) { msgz[x] = []; }
+                msgz[x].push(msg);
+            });
+        }
     });
 
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
@@ -129,7 +138,16 @@ App.FX = async function () {
     });
 
     let x = 'ISSUE'; let xlist = cardlist.filter(z => z.Issue === x);
-    if (xlist) { xlist.forEach(zz => { console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Note); }); }
+    if (xlist) {
+        xlist.forEach(zz => {
+            let msg = '';
+            if (x.Topic) { msg += x.Topic + ': '; }
+            msg += '#' + x.Number + ': ';
+            msg += x.Note;
+            if (!msgz[x]) { msgz[x] = []; }
+            msgz[x].push(msg);
+        });
+    }
 
     console.log("\n\n");
     console.log(msgz);
