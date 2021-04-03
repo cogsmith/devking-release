@@ -199,7 +199,7 @@ App.GetLogMD = function (itemdb) {
 App.FXFX = async function () {
     console.log('FXFX:INIT');
     await App.FX();
-    setTimeout(App.CMD, 2500);
+    setTimeout(App.CMD, 9);
     console.log('FXFX:DONE');
 }
 
