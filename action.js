@@ -134,11 +134,11 @@ App.FX = async function () {
         itemdb[x.Issue].push(x);
     });
 
-    console.log("\n\n");
-    console.log(itemdb);
+    //console.log("\n\n");
+    //console.log(itemdb);
 
-    console.log("\n\n");
-    console.log(items);
+    //console.log("\n\n");
+    //console.log(items);
 
     console.log("\n\n");
     console.log(App.GetLogTXT(itemdb));
@@ -146,8 +146,8 @@ App.FX = async function () {
     console.log("\n\n");
     console.log(App.GetLogMD(itemdb));
 
-    console.log("\n\n");
-    console.log(msgz);
+    //console.log("\n\n");
+    //console.log(msgz);
 
 }
 
