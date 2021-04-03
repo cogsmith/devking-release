@@ -74,7 +74,7 @@ App.FX = async function () {
         let gitcard = gitcards.data[i];
         let x = gitcard;
 
-        let card = { Number: 0, Note: x.note };
+        let card = { Number: 0, Note: x.note, Issue:'INFO' };
 
         if (x.content_url) {
             let inum = parseInt(x.content_url.split('/').pop());
@@ -94,9 +94,9 @@ App.FX = async function () {
                 if (z.startsWith('STATUS_')) { card.Status = z.split('_')[1]; }
             });
 
+            if (!card.Number) { card.Issue = 'INFO'; }
             if (!card.Issue) { card.Issue = 'ISSUE'; }
             if (!card.Topic) { card.Topic = null; }
-            if (!card.Number) { card.Issue = 'INFO'; }
         }
 
         console.log(card);
