@@ -94,7 +94,7 @@ App.FX = async function () {
                 if (z.startsWith('STATUS_')) { card.Status = z.split('_')[1]; }
             });
 
-            if (!card.Issue) { card.Issue = 'NULL'; }
+            if (!card.Issue) { card.Issue = 'ISSUE'; }
             if (!card.Topic) { card.Topic = null; }
         }
 
@@ -114,7 +114,7 @@ App.FX = async function () {
     issueorder.forEach(x => {
         console.log(x);
         let xlist = cardlist.filter(z => z.Issue === x);
-        if (xlist) { xlist.forEach(zz => { console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Number + ': ' + zz.Note); }); }
+        if (xlist) { xlist.forEach(zz => { console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push('#' + zz.Number + ': ' + zz.Note); }); }
     });
 
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
