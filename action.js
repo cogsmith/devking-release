@@ -119,7 +119,7 @@ App.FX = async function () {
 
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
         if (x.Number == 0) { return; }
-        if (issueorder.includes(x.Issue)) { return; }
+        if (issueorder.concat('NULL').includes(x.Issue)) { return; }
         let msg = '';
         if (x.Topic) { msg += x.Topic + ': '; }
         msg += '#' + x.Number + ': ';
@@ -127,6 +127,10 @@ App.FX = async function () {
         if (!msgz[x.Issue]) { msgz[x.Issue] = []; }; msgz[x.Issue].push(msg);
         console.log(msg);
     });   
+
+    let xlist = cardlist.filter(z => z.Issue === 'NULL');
+    if (xlist) { xlist.forEach(zz => { console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Note); }); }
+
 
     console.log("\n\n");
     console.log(msgz);
