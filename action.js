@@ -58,17 +58,16 @@ App.FX = async function () {
     p = pz.data.find(z => z.number === 1);
 
     let colz = {};
-    let cz = await octokit.rest.projects.listColumns({ project_id: p.id });
-    console.log(cz);
+    let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); // console.log(cz);
     cz.data.forEach(x => {
         colz[x.id] = x;
         colz[x.name] = x;
     });
-    console.log(colz);
+    //console.log(colz);
 
-    let cards = await octokit.rest.projects.listCards({ column_id: colz['DONE'].id });
-    console.log(cards);
+    let cardlist = [];
 
+    let cards = await octokit.rest.projects.listCards({ column_id: colz['DONE'].id }); // console.log(cards);
     cards.data.forEach(async x => {
         let card = { Number: 0, Note: x.note };
 
@@ -92,6 +91,15 @@ App.FX = async function () {
         }
 
         console.log(card);
+        cardlist.push(card);
+    });
+
+    cardlist.forEach(x=>{
+        let msg = '';
+        if (x.Topic) { msg += topic + ': '; }
+        msg += '#' + x.Number + ': ';
+        msg += x.Note;
+        console.log(msg);
     });
 
 };
