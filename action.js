@@ -117,9 +117,9 @@ App.FX = async function () {
         if (xlist) {
             xlist.forEach(zz => {
                 let msg = '';
-                if (x.Topic) { msg += x.Topic + ': '; }
-                msg += '#' + x.Number + ': ';
-                msg += x.Note;
+                if (zz.Topic) { msg += zz.Topic + ': '; }
+                msg += '#' + zz.Number + ': ';
+                msg += zz.Note;
                 if (!msgz[x]) { msgz[x] = []; }
                 msgz[x].push(msg);
             });
@@ -141,9 +141,9 @@ App.FX = async function () {
     if (xlist) {
         xlist.forEach(zz => {
             let msg = '';
-            if (x.Topic) { msg += x.Topic + ': '; }
-            msg += '#' + x.Number + ': ';
-            msg += x.Note;
+            if (zz.Topic) { msg += zz.Topic + ': '; }
+            msg += '#' + zz.Number + ': ';
+            msg += zz.Note;
             if (!msgz[x]) { msgz[x] = []; }
             msgz[x].push(msg);
         });
@@ -152,7 +152,6 @@ App.FX = async function () {
     console.log("\n\n");
     console.log(msgz);
 
-    // SECURITY BUG REMOVED CHANGED FEATURE DEV TASK SUPPORT HOWTO NOTES
 };
 
 App.FX();
