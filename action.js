@@ -112,7 +112,7 @@ App.FX = async function () {
     'SECURITY BUG FEATURE DEV TASK HOWTO NOTES'.split(' ').forEach(x=>{
         console.log(x);
         let xlist = cardlist.find(z=>z.Topic===x);
-        if (xlist) { xlist.forEach(zz=>{ if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Note); }); }
+        if (xlist) { xlist.forEach(zz=>{ console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Note); }); }
     });
     
     
