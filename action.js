@@ -56,7 +56,7 @@ let REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 const App = {};
 
 App.GetProject = async function (repo) {
-    console.log('App.GetProject: '+repo);
+    console.log('App.GetProject: '+JSON.stringify(repo));
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo); console.log(pz);
     p = pz.data.find(z => z.number === 1);
