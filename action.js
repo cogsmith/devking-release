@@ -70,6 +70,8 @@ App.FX = async function () {
     console.log(cards);
 
     cards.data.forEach(async x => {
+        let card = { Number:0, Note:x.note };
+
         if (x.content_url) {
             let inum = x.content_url.split('/').pop();
 
@@ -81,9 +83,10 @@ App.FX = async function () {
             //console.log(labels.data);
 
             let labels = []; if (issue.labels) { issue.labels.forEach(z=>{ labels.push(z.name) }); }
-            let info = { Number:inum, Title:issue.title, State:issue.state, Labels:labels };
-            console.log(info);
+            card = { Number:inum, Note:issue.title, State:issue.state, Labels:labels };
         }
+
+        console.log(card);
     });
 
 };
