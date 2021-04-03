@@ -171,20 +171,20 @@ App.GetLogTXT = function (itemdb) {
 App.GetLogMD = function (itemdb) {
     let txt = [];
     txt.push('<code>'); txt.push(null);
-    txt.push('# [0.0.0 @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + '0.0.0' + ')'); 
+    txt.push('# [0.0.0 @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + '0.0.0' + ')');
     Object.keys(itemdb).forEach(k => {
-        txt.push(null); txt.push('---'); txt.push(null); 
+        txt.push(null); txt.push('---'); txt.push(null);
         txt.push('## ' + k); // txt.push(null);
         itemdb[k].forEach(z => {
             let line = '- ';
-            if (z.Number!=0) {
+            if (z.Number != 0) {
                 if (z.Topic) { line += '<b>' + z.Topic + '</b>' + ': '; }
                 line += '[';
                 if (z.Number != 0) { line += '#' + z.Number + ': '; }
                 line += z.Note;
                 line += ']';
                 line += '(' + 'https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/issues/' + z.Number + ')';
-            } 
+            }
             else {
                 if (z.Topic) { line += '<b>' + z.Topic + '</b>' + ': '; }
                 line += z.Note;
@@ -192,6 +192,7 @@ App.GetLogMD = function (itemdb) {
             txt.push(line);
         });
     });
+    txt.push(null);
     txt.push('</code>');
     return txt.join("\n");
 }
