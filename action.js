@@ -90,7 +90,7 @@ App.GetProject = async function (repo) {
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo); //console.log(pz);
     p = pz.data.find(z => z.number === 1);
-    LOG.INFO('App.GetProject: ' + JSON.stringify(repo),p);
+    LOG.INFO('App.GetProject: ' + JSON.stringify(repo),p.id);
     return p;
 }
 
