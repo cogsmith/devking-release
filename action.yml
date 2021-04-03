@@ -3,4 +3,4 @@ runs:
   using: "composite"
   steps:
     - shell: bash      
-      run: echo ; echo "OS = `uname -a`" ; echo "NODEJS = `node -v`" ; echo "NPM = `npm -v`" ; echo ; cd ${{ GITHUB.ACTION_PATH }} ; pwd ; echo ; npm ci ; echo ; cd ${{ GITHUB.WORKSPACE }} ; pwd ; echo ; GITHUB_TOKEN=${{ GITHUB.TOKEN }} ; set ; echo ; node ${{ GITHUB.ACTION_PATH }}/action.js
+      run: echo ; echo "OS = `uname -a`" ; echo "NODEJS = `node -v`" ; echo "NPM = `npm -v`" ; echo ; cd ${{ GITHUB.ACTION_PATH }} ; pwd ; echo ; npm ci ; echo ; cd ${{ GITHUB.WORKSPACE }} ; pwd ; echo ; GITHUB_TOKEN=${{ GITHUB.TOKEN }} ; set ; echo ; node ${{ GITHUB.ACTION_PATH }}/action.js ${{ GITHUB.TOKEN }}
