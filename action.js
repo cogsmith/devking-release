@@ -128,6 +128,15 @@ App.FX = async function () {
     let x = 'ISSUE'; let xlist = _.orderBy(cardlist, ['Topic', 'Number']).filter(z => z.Issue === x);
     if (xlist) { xlist.forEach(zz => { items.push(zz); }); }
 
+    let itemdb = {};
+    items.forEach(x=>{
+        if (!itemdb[x.Issue]) { itemdb[x.Issue] = []; }
+        itemdb[x.Issue].push(items[x]);
+    });
+
+    console.log("\n\n");
+    console.log(itemdb);
+
     console.log("\n\n");
     console.log(items);
 
@@ -151,13 +160,15 @@ App.GetLogText = function (items) {
         txt += x.Note;
         txtz.push(txt);
     });
-    return txtz.join("\n");
+    let txt = '';
+    txt = txtz.join("\n");
+    return txt;
 }
 
 App.GetLogMD = function (items) {
     let txtz = [];
     items.forEach(x => {
-        let txt = '';
+        let txt = '- ';
         if (x.Topic) { txt += '<b>' + x.Topic + '</b>' + ': '; }
         txt += '[';
         if (x.Number != 0) { txt += '#' + x.Number + ': '; }
@@ -166,7 +177,12 @@ App.GetLogMD = function (items) {
         txt += '(' + 'https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/issues/' + x.Number + ')';
         txtz.push(txt);
     });
-    return txtz.join("\n");
+    let md = '';
+    md += '# [0.0.0 @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/0.0.0';
+    md += '<code>';
+    md += txtz.join("\n");
+    md += '</code>';
+    return md;
 }
 
 App.FX();
