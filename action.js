@@ -95,14 +95,13 @@ App.FX = async function () {
 
         console.log(card);
         cardlist.push(card);
-
-        console.log(cardlist);        
     }
 
     console.log("\n\n\n\n");
-
     console.log(cardlist);
-    _.orderBy(cardlist,['Topic']).forEach(x=>{
+    console.log("\n\n\n\n");
+
+    _.orderBy(cardlist,['Topic','Number']).forEach(x=>{
         let msg = '';
         if (x.Topic) { msg += x.Topic + ': '; }
         msg += '#' + x.Number + ': ';
