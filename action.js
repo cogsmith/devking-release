@@ -109,6 +109,10 @@ App.FX = async function () {
 
     cardlist.forEach(x => { if (!msgz['INFO']) { msgz['INFO'] = []; } if (x.Number == 0) { msgz.INFO.push(x.Note); } });
 
+    'SECURITY BUG FEATURE DEV TASK HOWTO NOTES'.split(' ').forEach(x=>{
+        cardlist.find(z=>z.Topic===x).forEach(zz=>{ if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Note); });
+    });
+    
     
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
         if (x.Number == 0) { return; }
