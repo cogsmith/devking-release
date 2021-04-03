@@ -94,6 +94,7 @@ App.FX = async function () {
                 if (z.startsWith('STATUS_')) { card.Status = z.split('_')[1]; }
             });
 
+            if (!card.Issue) { card.Issue = 'NULL'; }
             if (!card.Topic) { card.Topic = null; }
         }
 
@@ -109,7 +110,8 @@ App.FX = async function () {
 
     cardlist.forEach(x => { if (!msgz['INFO']) { msgz['INFO'] = []; } if (x.Number == 0) { msgz.INFO.push(x.Note); } });
 
-    'SECURITY BUG FEATURE DEV TASK HOWTO NOTES'.split(' ').forEach(x => {
+    let issueorder = 'SECURITY BUG FEATURE DEV TASK HOWTO NOTES'.split(' ');
+    issueorder.forEach(x => {
         console.log(x);
         let xlist = cardlist.filter(z => z.Issue === x);
         if (xlist) { xlist.forEach(zz => { console.log(zz); if (!msgz[x]) { msgz[x] = []; } msgz[x].push(zz.Note); }); }
@@ -117,13 +119,14 @@ App.FX = async function () {
 
     _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
         if (x.Number == 0) { return; }
+        if (issueorder.includes(x.Issue)) { return; }
         let msg = '';
         if (x.Topic) { msg += x.Topic + ': '; }
         msg += '#' + x.Number + ': ';
         msg += x.Note;
         if (!msgz[x.Issue]) { msgz[x.Issue] = []; }; msgz[x.Issue].push(msg);
         console.log(msg);
-    });
+    });   
 
     console.log("\n\n");
     console.log(msgz);
