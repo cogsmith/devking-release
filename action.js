@@ -6,23 +6,23 @@ const REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
 //
 
+const fs = require('fs');
+
 const _ = require('lodash');
+const pino = require('pino');
 const execa = require('execa');
 const chalk = require('chalk');
-const pino = require('pino');
+const semver = require('semver');
 
 const { Octokit } = require("@octokit/rest");
 const octokit = new Octokit({ auth: GITHUB_TOKEN });
 
-const fs = require('fs');
-
-const semver = require('semver');
 
 //
 
 const App = {};
 
-App.Args = { loglevel:'trace', logfancy:true };
+App.Args = { loglevel: 'trace', logfancy: true };
 App.Meta = { NameTag: 'DEVKING-RELEASE' };
 
 App.LogPretty = false; if (App.Args.logfancy) { App.LogPretty = { colorize: true, singleLine: true, translateTime: 'SYS:yyyy-mm-dd|HH:MM:ss', ignore: 'hostname,pid', messageFormat: function (log, key, label) { let msg = log.msg ? log.msg : ''; let logout = chalk.gray(App.Meta.NameTag); if (msg != '') { logout += ' ' + msg }; return logout; } }; }
@@ -76,17 +76,17 @@ octokit.rest.repos.listForOrg({ org: "octokit", type: "public", }).then(({ data 
 
 //
 
-App.FXFX = async function () {
-    console.log('FXFX:INIT');
+App.Init = async function () {
+    LOG.INFO('App.Init');
     await App.FX();
     setTimeout(App.CMD, 9);
-    console.log('FXFX:DONE');
+    LOG.INFO('App.InitDone');
 }
 
 //
 
 App.GetProject = async function (repo) {
-    console.log('App.GetProject: ' + JSON.stringify(repo));
+    LOG.INFO('App.GetProject: ' + JSON.stringify(repo));
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo); //console.log(pz);
     p = pz.data.find(z => z.number === 1);
@@ -94,7 +94,7 @@ App.GetProject = async function (repo) {
 }
 
 App.GetColumns = async function (p) {
-    console.log('App.GetColumns: ' + p.id); console.log(p);
+    LOG.INFO('App.GetColumns: ' + p.id); //console.log(p);
     let colz = {};
     let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); //console.log(cz);
     cz.data.forEach(x => {
@@ -106,6 +106,7 @@ App.GetColumns = async function (p) {
 }
 
 App.GetCard = async function (inum) {
+    LOG.INFO('App.GetCard: ' + inum);
     let issue_ = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
     let issue = issue_.data;
     //console.log(issue);
@@ -131,6 +132,8 @@ App.GetCard = async function (inum) {
 }
 
 App.GetCards = async function (col) {
+    console.log(col);
+    LOG.INFO('App.GetCards: ' + col.id);
     let cardlist = [];
     let gitcards = await octokit.rest.projects.listCards({ column_id: col.id }); // console.log(gitcards);
 
@@ -143,7 +146,7 @@ App.GetCards = async function (col) {
             card = await App.GetCard(inum);
         }
 
-        console.log(card);
+        LOG.INFO('CARD', card);
         cardlist.push(card);
     }
 
@@ -253,8 +256,6 @@ App.GetLogMD = function (itemdb) {
 //
 
 App.CMD = async function () {
-    console.log(); console.log('___APPCMD___'); console.log();
-
     let cmdz = [];
 
     cmdz.push('echo ; echo ___CMD___ ; echo');
@@ -271,15 +272,13 @@ App.CMD = async function () {
 
     for (let i = 0; i < cmdz.length; i++) {
         let cmd = cmdz[i];
-        console.log('CMD: ' + cmd);
         let run = false;
         try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { }
         if (!run) { continue; }
-        console.log(run.stdout);
-        console.log();
+        LOG.INFO('App.CMD: ' + cmd + "\n" + run.stdout);
     }
 }
 
 //
 
-App.FXFX();
+App.Init();
