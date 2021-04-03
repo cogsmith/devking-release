@@ -206,6 +206,7 @@ App.CMD = function () {
     execa.commandSync('git config user.name DEVKING');
     execa.commandSync('git config user.email devkingbot@cogsmith.com');
     // execa.commandSync('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token',{shell:true});
+    execa.commandSync('gh release delete 9.9.9 --yes');
     execa.commandSync('gh release create 9.9.9 --target main');
     execa.commandSync('git add .');
     execa.commandSync("git commit -m 'DT'");
