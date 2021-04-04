@@ -118,7 +118,7 @@ App.Init = async function () {
     LOG.INFO('Version.TAG:  ' + VTAG);
     LOG.INFO('Version.NEXT: ' + VNEXT);
 
-    let exec_gitlog = execa.commandSync('git log HEAD..' + VLAST);
+    let exec_gitlog = execa.commandSync('git log HEAD..' + "'" + VLAST + "'" + ' --oneline');
     console.log(exec_gitlog.stdout);
 
     LOG.DEBUG('App.InitDone');
