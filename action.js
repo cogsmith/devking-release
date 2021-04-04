@@ -251,7 +251,7 @@ App.RunCMDS = function (cmds) {
         let run = false;
         try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { LOG.ERROR(ex); }
         if (!run) { continue; }
-        LOG.TRACE('App.CMD: ' + cmd + "\n" + run.stdout);
+        //LOG.TRACE('App.CMD: ' + cmd + "\n" + run.stdout + "\n");
         LOG.DEBUG('App.CMD: ' + cmd);
     }
 }
