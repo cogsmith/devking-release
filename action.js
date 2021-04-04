@@ -252,7 +252,10 @@ App.RunCMDS = function (cmds) {
         let run = false; try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { LOG.ERROR(ex); }
         if (!run) { continue; }
         let msg = 'App.CMD: ' + cmd;
-        if (run.stdout.trim().length > 0) { msg += "\n" + chalk.gray(run.stdout); }
+        if (run.stdout.trim().length > 0) {
+            if (run.stdout.includes("\n")) { msg += "\n" + chalk.gray(run.stdout); }
+            else { msg += chalk.gray(' => ') + chalk.white(run.stdout); }
+        }
         LOG.DEBUG(msg);
     }
 }
