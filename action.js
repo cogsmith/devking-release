@@ -314,8 +314,8 @@ App.CMD = async function () {
 
     cmdz = [];
     cmdz.push('date >> dt.txt');
-    //cmdz.push('npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version');
-    //cmdz.push('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token');
+    //cmdz.push('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token');    
+    cmdz.push('npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version');
     cmdz.push('git config user.name DEVKING ; git config user.email devkingbot@cogsmith.com');
     cmdz.push('git push --delete origin ' + VREL);
     cmdz.push('gh release delete ' + VREL + ' --yes');
