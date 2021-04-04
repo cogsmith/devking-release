@@ -126,6 +126,7 @@ App.Init = async function () {
     try { console.log(execa.commandSync('git log HEAD..' + VLAST + ' --oneline').stdout) } catch (ex) { }
     try { console.log(execa.commandSync('git log ' + VLAST + '..HEAD --oneline').stdout) } catch (ex) { }
 
+    try { console.log(execa.commandSync('git log --oneline').stdout) } catch (ex) { }
 
     LOG.DEBUG('App.InitDone');
     await App.Main();
