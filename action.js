@@ -4,6 +4,13 @@ const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[0];
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
+let VNOW = false;
+let VTAG = false;
+let VNEXT = false;
+let VLAST = false;
+let VDATE = new Date().toISOString().substr(0, 10);
+let VDIFF = 0;
+
 //
 
 const fs = require('fs');
@@ -13,10 +20,11 @@ const pino = require('pino');
 const execa = require('execa');
 const chalk = require('chalk');
 const semver = require('semver');
-
 const { Octokit } = require("@octokit/rest");
-const octokit = new Octokit({ auth: GITHUB_TOKEN });
 
+//
+
+const octokit = new Octokit({ auth: GITHUB_TOKEN });
 
 //
 
@@ -84,22 +92,13 @@ App.SetInfo('Node.Args', process.argv.join(' '));
 App.SetInfo('Node', require('os').hostname().toUpperCase() + ' : ' + process.pid + '/' + process.ppid + ' : ' + process.cwd() + ' : ' + process.version + ' : ' + require('os').version() + ' : ' + process.title);
 App.SetInfo('App', App.Meta.Full);
 
-
 //
-
-let VNOW = false;
-let VTAG = false;
-let VNEXT = false;
-let VLAST = false;
-let VDATE = new Date().toISOString().substr(0, 10);
-let VDIFF = 0;
 
 App.Init = async function () {
     LOG.TRACE({ App: App });
     LOG.INFO(App.Meta.Full);
     LOG.DEBUG('Node.Info: ' + chalk.white(App.Info('Node')));
     LOG.DEBUG('Node.Args: ' + chalk.white(App.Info('Node.Args')));
-
     LOG.DEBUG('App.Init');
 
     // Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { LOG.TRACE(x + ': ' + process.env[x]); } });
@@ -112,28 +111,16 @@ App.Init = async function () {
     VNEXT = semver.inc(VTAG, 'patch') + '-dev';
     VLAST = repoinfo.versiontaglast;
 
-    repoinfo.versiontaglast = VTAG; fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(repoinfo));
+    repoinfo.versiontaglast = VTAG; 
+    fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(repoinfo));
+
+    try { VDIFF = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout - 1; } catch (ex) { }
 
     LOG.INFO('Version.LAST: ' + VLAST);
     LOG.INFO('Version.NOW:  ' + VNOW);
     LOG.INFO('Version.TAG:  ' + VTAG);
     LOG.INFO('Version.NEXT: ' + VNEXT);
-
-    try { VDIFF = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout - 1; } catch (ex) { }
-    LOG.INFO('Version.DIFFS: ' + VDIFF);
-
-    // let exec_gitlog = execa.commandSync('git log HEAD..' + "'" + VLAST + "'" + ' --oneline'); console.log(exec_gitlog.stdout);
-
-    /*
-    try { console.log(1); console.log(execa.commandSync('git log HEAD..' + "'" + VLAST + "'" + ' --oneline').stdout) } catch (ex) { }
-    try { console.log(2); console.log(execa.commandSync('git log ' + "'" + VLAST + "'" + '..HEAD --oneline').stdout) } catch (ex) { }
-
-    try { console.log(3); console.log(execa.commandSync('git log HEAD..' + VLAST + ' --oneline').stdout) } catch (ex) { }
-    try { console.log(4); console.log(execa.commandSync('git log ' + VLAST + '..HEAD --oneline').stdout) } catch (ex) { }
-
-    try { console.log(0); console.log(execa.commandSync('git log --oneline').stdout) } catch (ex) { }
-    try { console.log(9); console.log(execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout) } catch (ex) { }
-    */
+    LOG.INFO('Version.DIFF: ' + VDIFF);
 
     LOG.DEBUG('App.InitDone');
     await App.Main();
@@ -148,7 +135,6 @@ App.Main = async function () {
 //
 
 App.GetProject = async function (repo) {
-    //LOG.INFO('App.GetProject: ' + JSON.stringify(repo));
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo); //console.log(pz);
     p = pz.data.find(z => z.number === 1);
@@ -164,21 +150,15 @@ App.GetColumns = async function (p) {
         colz[x.id] = x;
         colz[x.name] = x;
     });
-    //console.log({ COLZ: colz });
     return colz;
 }
 
 App.GetCard = async function (inum) {
-    //LOG.INFO('App.GetCard: ' + inum);
     let issue_ = await octokit.rest.issues.get({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
-    let issue = issue_.data;
-    //console.log(issue);
+    let issue = issue_.data; //console.log(issue);
 
-    //let labels = await octokit.rest.issues.listLabelsOnIssue({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum });
-    //console.log(labels.data);
-
-    // let card = { Number: 0, Note: null, Issue: 'INFO' };
-
+    //let labels = await octokit.rest.issues.listLabelsOnIssue({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum }); //console.log(labels.data);
+    
     let labels = []; if (issue.labels) { issue.labels.forEach(z => { labels.push(z.name) }); }
     let card = { Number: inum, Note: issue.title, State: issue.state.toUpperCase(), Labels: labels };
     labels.forEach(z => {
@@ -197,12 +177,12 @@ App.GetCard = async function (inum) {
 
 App.GetCards = async function (col) {
     LOG.DEBUG('App.GetCards: ' + col.id + ' = ' + col.name);
+
     let cardlist = [];
     let gitcards = await octokit.rest.projects.listCards({ column_id: col.id }); // console.log(gitcards);
 
     for (let i = 0; i < gitcards.data.length; i++) {
-        let gitcard = gitcards.data[i]; let x = gitcard;
-
+        let x = gitcards.data[i]; 
         let card = { Number: 0, Note: x.note, Issue: 'INFO' };
         if (x.content_url) {
             let inum = parseInt(x.content_url.split('/').pop());
@@ -221,7 +201,7 @@ App.FX = async function () {
     let colz = await App.GetColumns(p);
     let cardlist = await App.GetCards(colz['DONE']);
 
-    LOG.TRACE('App.Cards', cardlist);
+    //LOG.TRACE('App.Cards', cardlist);
 
     let msgz = {};
     let items = [];
