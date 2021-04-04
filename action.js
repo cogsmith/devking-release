@@ -310,21 +310,31 @@ App.CMD = async function () {
     App.RunCMDS(cmdz);
 
     cmdz = [];
+    cmdz.push('date >> dt.txt');
+    cmdz.push('git config user.name DEVKING ; git config user.email devkingbot@cogsmith.com');
     App.RunCMDS(cmdz);
 
     cmdz = [];
-    cmdz.push('date >> dt.txt');
-    //cmdz.push('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token');    
-    cmdz.push('npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version');
-    cmdz.push('git config user.name DEVKING ; git config user.email devkingbot@cogsmith.com');
-    cmdz.push('git push --delete origin ' + VREL);
-    cmdz.push('gh release delete ' + VREL + ' --yes');
-    cmdz.push('gh release create ' + VREL + ' --target main -F /tmp/changenow.md');
-    cmdz.push('git add .');
-    cmdz.push("git commit -m 'DT'");
+    cmdz.push("git commit --allow-empty -m '" + VNOW + "'");
     cmdz.push('git push');
     App.RunCMDS(cmdz);
 
+    cmdz = [];
+    cmdz.push('npm version ' + VREL + ' --no-git-tag-version ; npm version patch --no-git-tag-version');
+    cmdz.push('git add .');
+    cmdz.push("git commit -m '" + VREL + "'");
+    cmdz.push('git push');
+    cmdz.push('git push --delete origin ' + VREL);
+    cmdz.push('gh release delete ' + VREL + ' --yes');
+    cmdz.push('gh release create ' + VREL + ' --target main -F /tmp/changenow.md');
+    App.RunCMDS(cmdz);
+
+    cmdz = [];
+    cmdz.push('npm version ' + VNXT + ' --no-git-tag-version ; npm version patch --no-git-tag-version');
+    cmdz.push('git add .');
+    cmdz.push("git commit -m '" + VREL + "'");
+    cmdz.push('git push');
+    App.RunCMDS(cmdz);
 }
 
 //
