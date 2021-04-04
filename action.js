@@ -119,6 +119,9 @@ App.Init = async function () {
     LOG.INFO('Version.TAG:  ' + VTAG);
     LOG.INFO('Version.NEXT: ' + VNEXT);
 
+    try { VDIFF = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout - 1; } catch (ex) { }
+    LOG.INFO('Version.DIFFS: ' + VDIFF);
+
     // let exec_gitlog = execa.commandSync('git log HEAD..' + "'" + VLAST + "'" + ' --oneline'); console.log(exec_gitlog.stdout);
 
     /*
@@ -131,10 +134,6 @@ App.Init = async function () {
     try { console.log(0); console.log(execa.commandSync('git log --oneline').stdout) } catch (ex) { }
     try { console.log(9); console.log(execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout) } catch (ex) { }
     */
-
-    try { VDIFF = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout - 1; } catch (ex) { }
-
-    LOG.INFO('VDIFF: ' + VDIFF);
 
     LOG.DEBUG('App.InitDone');
     await App.Main();
@@ -295,7 +294,7 @@ App.GetLogMD = function (itemdb) {
     txt.push('<code>'); txt.push(null);
     txt.push('# [' + VTAG + ' @ ' + VDATE + '](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VTAG + ')');
     txt.push('## DIFF');
-    txt.push('- [CHANGES SINCE ' + VLAST + '](https://github.com/cogsmith/test-actions/compare/' + VLAST + '...' + VTAG + ')');
+    txt.push('- [' + VDIFF + ' COMMITS SINCE ' + VLAST + '](https://github.com/cogsmith/test-actions/compare/' + VLAST + '...' + VTAG + ')');
     let keyi = 0; Object.keys(itemdb).forEach(k => {
         if (keyi++ > -1) { txt.push(null); txt.push('---'); txt.push(null); }
         txt.push('## ' + k); // txt.push(null);
