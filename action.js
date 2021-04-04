@@ -315,14 +315,14 @@ App.CMD = async function () {
     App.RunCMDS(cmdz);
 
     cmdz = [];
-    cmdz.push("git commit --allow-empty -m '" + VNOW + "'");
+    cmdz.push("git commit --allow-empty -m 'NOW " + VNOW + "'");
     cmdz.push('git push');
     App.RunCMDS(cmdz);
 
     cmdz = [];
     cmdz.push('npm version ' + VREL + ' --no-git-tag-version');
     cmdz.push('git add .');
-    cmdz.push("git commit -m '" + VREL + "'");
+    cmdz.push("git commit -m 'TAG " + VREL + "'");
     cmdz.push('git push');
     cmdz.push('git push --delete origin ' + VREL);
     cmdz.push('gh release delete ' + VREL + ' --yes');
@@ -332,7 +332,7 @@ App.CMD = async function () {
     cmdz = [];
     cmdz.push('npm version ' + VNXT + ' --no-git-tag-version');
     cmdz.push('git add .');
-    cmdz.push("git commit -m '" + VNXT + "'");
+    cmdz.push("git commit -m 'NXT " + VNXT + "'");
     cmdz.push('git push');
     App.RunCMDS(cmdz);
 }
