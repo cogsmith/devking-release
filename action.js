@@ -93,7 +93,7 @@ App.Init = async function () {
     LOG.DEBUG('Node.Info: ' + chalk.white(App.Info('Node')));
     LOG.DEBUG('Node.Args: ' + chalk.white(App.Info('Node.Args')));
 
-    LOG.INFO('App.Init');
+    LOG.DEBUG('App.Init');
 
     Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { LOG.TRACE(x + ': ' + process.env[x]); } });
 
@@ -158,7 +158,7 @@ App.GetCard = async function (inum) {
 }
 
 App.GetCards = async function (col) {
-    LOG.INFO('App.GetCards: ' + col.id + ' = ' + col.name);
+    LOG.DEBUG('App.GetCards: ' + col.id + ' = ' + col.name);
     let cardlist = [];
     let gitcards = await octokit.rest.projects.listCards({ column_id: col.id }); // console.log(gitcards);
 
@@ -298,7 +298,7 @@ App.CMD = async function () {
         let run = false;
         try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { }
         if (!run) { continue; }
-        LOG.INFO('App.CMD: ' + cmd);// + "\n" + run.stdout);
+        LOG.DEBUG('App.CMD: ' + cmd);// + "\n" + run.stdout);
         //LOG.INFO('App.CMD: ' + cmd + "\n" + run.stdout);
     }
 }
