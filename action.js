@@ -109,9 +109,9 @@ App.Init = async function () {
     VNOW = repoinfo.version;
     VTAG = semver.inc(VNOW, 'patch');
     VNEXT = semver.inc(VTAG, 'patch') + '-dev';
-    VLAST = repoinfo.versionlast;
+    VLAST = repoinfo.versiontaglast;
 
-    repoinfo.versionlast = VNOW; fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(repoinfo));
+    repoinfo.versiontaglast = VTAG; fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(repoinfo));
 
     LOG.INFO('Version.LAST: ' + VLAST);
     LOG.INFO('Version.NOW:  ' + VNOW);
