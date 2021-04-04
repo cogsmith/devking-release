@@ -92,6 +92,7 @@ let VTAG = false;
 let VNEXT = false;
 let VLAST = false;
 let VDATE = new Date().toISOString().substr(0, 10);
+let VDIFF = 0;
 
 App.Init = async function () {
     LOG.TRACE({ App: App });
@@ -120,6 +121,7 @@ App.Init = async function () {
 
     // let exec_gitlog = execa.commandSync('git log HEAD..' + "'" + VLAST + "'" + ' --oneline'); console.log(exec_gitlog.stdout);
 
+    /*
     try { console.log(1); console.log(execa.commandSync('git log HEAD..' + "'" + VLAST + "'" + ' --oneline').stdout) } catch (ex) { }
     try { console.log(2); console.log(execa.commandSync('git log ' + "'" + VLAST + "'" + '..HEAD --oneline').stdout) } catch (ex) { }
 
@@ -128,6 +130,11 @@ App.Init = async function () {
 
     try { console.log(0); console.log(execa.commandSync('git log --oneline').stdout) } catch (ex) { }
     try { console.log(9); console.log(execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout) } catch (ex) { }
+    */
+
+    try { VDIFF = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout - 1; } catch (ex) { }
+
+    LOG.INFO('VDIFF: ' + VDIFF);
 
     LOG.DEBUG('App.InitDone');
     await App.Main();
