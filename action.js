@@ -105,9 +105,13 @@ App.Init = async function () {
 
     let repoinfofile = process.cwd() + '/package.json';
     let repoinfo = require(repoinfofile);
+
     VNOW = repoinfo.version;
     VTAG = semver.inc(VNOW, 'patch');
     VNEXT = semver.inc(VTAG, 'patch') + '-dev';
+    VLAST = repoinfo.versionlast;
+
+    repoinfo.versionlast = VNOW; fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(repoinfo));
 
     LOG.INFO('Version.LAST: ' + VLAST);
     LOG.INFO('Version.NOW:  ' + VNOW);
@@ -322,6 +326,7 @@ App.CMD = async function () {
     App.RunCMDS(cmdz);
 
     cmdz = [];
+
     cmdz.push('npm version ' + VTAG + ' --no-git-tag-version');
     cmdz.push('echo > /tmp/newline ; cat /tmp/changenow.md /tmp/newline CHANGELOG.md >> /tmp/changelog.md ; mv /tmp/changelog.md CHANGELOG.md');
     cmdz.push('git add .');
