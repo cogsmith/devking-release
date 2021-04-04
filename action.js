@@ -282,11 +282,11 @@ App.GetLogMD = function (itemdb) {
 App.CMD = async function () {
     let cmdz = [];
 
-    cmdz.push('echo ; echo ___CMD___ ; echo');
     cmdz.push('date >> dt.txt');
     cmdz.push('npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version');
     cmdz.push('git config user.name DEVKING ; git config user.email devkingbot@cogsmith.com');
     // cmdz.push('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token');
+    cmdz.push('git push --delete origin 9.9.9');
     cmdz.push('gh release delete 9.9.9 --yes');
     cmdz.push('gh release create 9.9.9 --target main -F /tmp/changenow.md');
     cmdz.push('git add .');
