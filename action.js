@@ -320,6 +320,7 @@ App.CMD = async function () {
 
     cmdz = [];
     cmdz.push('npm version ' + VREL + ' --no-git-tag-version');
+    cmdz.push('cat /tmp/changenow.md CHANGELOG.md > CHANGELOG.md');
     cmdz.push('git add .');
     cmdz.push("git commit -m 'TAG " + VREL + "'");
     cmdz.push('git push');
