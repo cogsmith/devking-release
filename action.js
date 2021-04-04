@@ -87,6 +87,10 @@ App.SetInfo('App', App.Meta.Full);
 
 //
 
+let VNOW = false;
+let VREL = false;
+let VNXT = false;
+
 App.Init = async function () {
     LOG.TRACE({ App: App });
     LOG.INFO(App.Meta.Full);
@@ -95,7 +99,17 @@ App.Init = async function () {
 
     LOG.DEBUG('App.Init');
 
-    Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { LOG.TRACE(x + ': ' + process.env[x]); } });
+    // Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { LOG.TRACE(x + ': ' + process.env[x]); } });
+
+    let repoinfofile = process.cwd() + '/package.json';
+    let repoinfo = require(repoinfofile);
+    VNOW = repoinfo.version;
+    VREL = semver.inc(VNOW, 'patch');
+    VNXT = semver.inc(VREL, 'patch') + '-dev';
+
+    LOG.INFO('Version.NOW: ' + VNOW);
+    LOG.INFO('Version.REL: ' + VREL);
+    LOG.INFO('Version.NXT: ' + VNXT);
 
     LOG.DEBUG('App.InitDone');
     await App.Main();
@@ -254,7 +268,7 @@ App.GetLogTXT = function (itemdb) {
 App.GetLogMD = function (itemdb) {
     let txt = [];
     txt.push('<code>'); txt.push(null);
-    txt.push('# [0.0.0 @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + '0.0.0' + ')');
+    txt.push('# [' + VREL + ' @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VREL + ')');
     Object.keys(itemdb).forEach(k => {
         txt.push(null); txt.push('---'); txt.push(null);
         txt.push('## ' + k); // txt.push(null);
@@ -283,12 +297,12 @@ App.CMD = async function () {
     let cmdz = [];
 
     cmdz.push('date >> dt.txt');
-    cmdz.push('npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version');
+    //cmdz.push('npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version');
+    //cmdz.push('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token');
     cmdz.push('git config user.name DEVKING ; git config user.email devkingbot@cogsmith.com');
-    // cmdz.push('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token');
-    cmdz.push('git push --delete origin 9.9.9');
-    cmdz.push('gh release delete 9.9.9 --yes');
-    cmdz.push('gh release create 9.9.9 --target main -F /tmp/changenow.md');
+    cmdz.push('git push --delete origin ' + VREL);
+    cmdz.push('gh release delete ' + VREL + ' --yes');
+    cmdz.push('gh release create ' + VREL + ' --target main -F /tmp/changenow.md');
     cmdz.push('git add .');
     cmdz.push("git commit -m 'DT'");
     cmdz.push('git push');
@@ -299,7 +313,6 @@ App.CMD = async function () {
         try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { }
         if (!run) { continue; }
         LOG.DEBUG('App.CMD: ' + cmd);// + "\n" + run.stdout);
-        //LOG.INFO('App.CMD: ' + cmd + "\n" + run.stdout);
     }
 }
 
