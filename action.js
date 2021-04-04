@@ -267,10 +267,10 @@ App.GetLogTXT = function (itemdb) {
 
 App.GetLogMD = function (itemdb) {
     let txt = [];
-    txt.push('<code>');
-    txt.push(null);
-    //txt.push('# [' + VREL + ' @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VREL + ')');
+    txt.push('<code>'); txt.push(null);
+    txt.push('# [' + VREL + ' @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VREL + ')');
     Object.keys(itemdb).forEach(k => {
+        txt.push(null); txt.push('---'); txt.push(null);
         txt.push('## ' + k); // txt.push(null);
         itemdb[k].forEach(z => {
             let line = '- ';
@@ -285,7 +285,6 @@ App.GetLogMD = function (itemdb) {
             }
             txt.push(line);
         });
-        txt.push(null); txt.push('---'); txt.push(null);
     });
     txt.push(null);
     txt.push('</code>');
@@ -327,7 +326,8 @@ App.CMD = async function () {
     cmdz.push('git push');
     cmdz.push('git push --delete origin ' + VREL);
     cmdz.push('gh release delete ' + VREL + ' --yes');
-    cmdz.push('gh release create ' + VREL + ' --target main -F /tmp/changenow.md');
+    cmdz.push("grep -v '# [' /tmp/changenow.md > /tmp/changenow-notitle.md");
+    cmdz.push('gh release create ' + VREL + ' --target main -F /tmp/changenow-notitle.md');
     App.RunCMDS(cmdz);
 
     cmdz = [];
