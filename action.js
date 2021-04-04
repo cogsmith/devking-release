@@ -120,13 +120,13 @@ App.Init = async function () {
 
     // let exec_gitlog = execa.commandSync('git log HEAD..' + "'" + VLAST + "'" + ' --oneline'); console.log(exec_gitlog.stdout);
 
-    try { console.log(execa.commandSync('git log HEAD..' + "'" + VLAST + "'" + ' --oneline').stdout) } catch (ex) { }
-    try { console.log(execa.commandSync('git log ' + "'" + VLAST + "'" + '..HEAD --oneline').stdout) } catch (ex) { }
+    try { console.log(1); console.log(execa.commandSync('git log HEAD..' + "'" + VLAST + "'" + ' --oneline').stdout) } catch (ex) { }
+    try { console.log(2); console.log(execa.commandSync('git log ' + "'" + VLAST + "'" + '..HEAD --oneline').stdout) } catch (ex) { }
 
-    try { console.log(execa.commandSync('git log HEAD..' + VLAST + ' --oneline').stdout) } catch (ex) { }
-    try { console.log(execa.commandSync('git log ' + VLAST + '..HEAD --oneline').stdout) } catch (ex) { }
+    try { console.log(3); console.log(execa.commandSync('git log HEAD..' + VLAST + ' --oneline').stdout) } catch (ex) { }
+    try { console.log(4); console.log(execa.commandSync('git log ' + VLAST + '..HEAD --oneline').stdout) } catch (ex) { }
 
-    try { console.log(execa.commandSync('git log --oneline').stdout) } catch (ex) { }
+    try { console.log(0); console.log(execa.commandSync('git log --oneline').stdout) } catch (ex) { }
 
     LOG.DEBUG('App.InitDone');
     await App.Main();
