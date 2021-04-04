@@ -1,6 +1,6 @@
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
-const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[1];
 const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[0];
+const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[1];
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
@@ -20,56 +20,12 @@ const pino = require('pino');
 const execa = require('execa');
 const chalk = require('chalk');
 const semver = require('semver');
+
 const { Octokit } = require("@octokit/rest");
 
 //
 
 const octokit = new Octokit({ auth: GITHUB_TOKEN });
-
-//
-
-/*
-
-console.log(semver.inc('0.0.0-dev', 'patch'));
-
-// process.exit();
-
-console.log(chalk.red('___REDALERT___'));
-console.log('ACTION');
-console.log('0.1.1');
-console.log();
-
-Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { console.log(x + ' = ' + process.env[x]); } });
-console.log();
-
-const AppPackageFile = process.cwd() + '/package.json';
-const AppPackage = require(AppPackageFile);
-
-console.log(AppPackage);
-
-if (!AppPackage.version) { AppPackage.version = '0.0.0'; }
-
-let vz = [AppPackage.version.split('-')[1]].concat(AppPackage.version.split('-')[0].split('.'));
-
-let bumplevel = 'PATCH';
-
-if (bumplevel == 'PATCH') { vz[3]++; }
-
-AppPackage.version = vz.slice(1).join('.');
-
-//if (vz[0]) { AppPackage.version += '-' + vz[0]; };
-
-console.log(AppPackage);
-console.log();
-
-fs.writeFileSync(AppPackageFile, JSON.stringify(AppPackage));
-
-// Compare: https://docs.github.com/en/rest/reference/repos/#list-organization-repositories
-octokit.rest.repos.listForOrg({ org: "octokit", type: "public", }).then(({ data }) => {
-    //console.log(data);
-});
-
-*/
 
 //
 
@@ -111,7 +67,7 @@ App.Init = async function () {
     VNEXT = semver.inc(VTAG, 'patch') + '-dev';
     VLAST = repoinfo.versiontaglast;
 
-    repoinfo.versiontaglast = VTAG; 
+    repoinfo.versiontaglast = VTAG;
     fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(repoinfo));
 
     try { VDIFF = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout - 1; } catch (ex) { }
@@ -158,7 +114,7 @@ App.GetCard = async function (inum) {
     let issue = issue_.data; //console.log(issue);
 
     //let labels = await octokit.rest.issues.listLabelsOnIssue({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum }); //console.log(labels.data);
-    
+
     let labels = []; if (issue.labels) { issue.labels.forEach(z => { labels.push(z.name) }); }
     let card = { Number: inum, Note: issue.title, State: issue.state.toUpperCase(), Labels: labels };
     labels.forEach(z => {
@@ -182,7 +138,7 @@ App.GetCards = async function (col) {
     let gitcards = await octokit.rest.projects.listCards({ column_id: col.id }); // console.log(gitcards);
 
     for (let i = 0; i < gitcards.data.length; i++) {
-        let x = gitcards.data[i]; 
+        let x = gitcards.data[i];
         let card = { Number: 0, Note: x.note, Issue: 'INFO' };
         if (x.content_url) {
             let inum = parseInt(x.content_url.split('/').pop());
@@ -198,8 +154,14 @@ App.GetCards = async function (col) {
 
 App.FX = async function () {
     let p = await App.GetProject(REPO);
+    if (!p) { LOG.ERROR('App.GetProject: FAILED'); return; }
+
     let colz = await App.GetColumns(p);
+    if (!colz) { LOG.ERROR('App.GetColumns: FAILED'); return; }
+    if (!colz['DONE']) { LOG.ERROR('App.GetColumns: MISSING DONE COLUMN'); return; }
+
     let cardlist = await App.GetCards(colz['DONE']);
+    if (!cardlist) { LOG.ERROR('App.GetCards: FAILED'); return; }
 
     //LOG.TRACE('App.Cards', cardlist);
 
@@ -232,22 +194,6 @@ App.FX = async function () {
     fs.writeFileSync('/tmp/changenow.md', App.GetLogMD(itemdb));
 
     LOG.INFO('App.GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
-
-    //console.log("\n\n");
-    //console.log(itemdb);
-
-    //console.log("\n\n");
-    //console.log(items);
-
-    //console.log("\n\n");
-    //console.log(App.GetLogTXT(itemdb));
-
-    //console.log("\n\n");
-    //console.log(App.GetLogMD(itemdb));
-
-    //console.log("\n\n");
-    //console.log(msgz);
-
 }
 
 //
@@ -305,7 +251,8 @@ App.RunCMDS = function (cmds) {
         let run = false;
         try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { LOG.ERROR(ex); }
         if (!run) { continue; }
-        LOG.DEBUG('App.CMD: ' + cmd);// + "\n" + run.stdout);
+        LOG.TRACE('App.CMD: ' + cmd + "\n" + run.stdout);
+        LOG.DEBUG('App.CMD: ' + cmd);
     }
 }
 
@@ -316,9 +263,6 @@ App.CMD = async function () {
     //cmdz.push('date >> DT.TXT');
     //App.RunCMDS(cmdz);
 
-    cmdz = [];
-    App.RunCMDS(cmdz);
-    
     cmdz = [];
     cmdz.push('git config user.name DEVKING ; git config user.email devkingbot@cogsmith.com');
     App.RunCMDS(cmdz);
