@@ -111,14 +111,14 @@ App.Init = async function () {
     VNEXT = semver.inc(VTAG, 'patch') + '-dev';
     VLAST = repoinfo.versiontaglast;
 
-    repoinfo.versiontaglast = VTAG; fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(repoinfo));    
+    repoinfo.versiontaglast = VTAG; fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(repoinfo));
 
     LOG.INFO('Version.LAST: ' + VLAST);
     LOG.INFO('Version.NOW:  ' + VNOW);
     LOG.INFO('Version.TAG:  ' + VTAG);
     LOG.INFO('Version.NEXT: ' + VNEXT);
 
-    let exec_gitlog = execa.commandSync('git log '+VLAST+'..'+'main');
+    let exec_gitlog = execa.commandSync('git log HEAD..' + VLAST);
     console.log(exec_gitlog.stdout);
 
     LOG.DEBUG('App.InitDone');
