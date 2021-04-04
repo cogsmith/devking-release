@@ -95,14 +95,14 @@ App.Init = async function () {
 
     LOG.INFO('App.Init');
 
-    Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { LOG.DEBUG(x + ': ' + process.env[x]); } });
+    Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { LOG.TRACE(x + ': ' + process.env[x]); } });
 
-    LOG.INFO('App.InitDone');
+    LOG.DEBUG('App.InitDone');
     await App.Main();
 }
 
 App.Main = async function () {
-    LOG.INFO('App.Main');
+    LOG.DEBUG('App.Main');
     await App.FX();
     setTimeout(App.CMD, 9);
 }
@@ -114,12 +114,12 @@ App.GetProject = async function (repo) {
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo); //console.log(pz);
     p = pz.data.find(z => z.number === 1);
-    LOG.INFO('App.GetProject: ' + JSON.stringify(repo), { ID: p.id });
+    LOG.DEBUG('App.GetProject: ' + JSON.stringify(repo), { ID: p.id });
     return p;
 }
 
 App.GetColumns = async function (p) {
-    LOG.INFO('App.GetColumns: ' + p.id); //console.log(p);
+    LOG.DEBUG('App.GetColumns: ' + p.id); //console.log(p);
     let colz = {};
     let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); //console.log(cz);
     cz.data.forEach(x => {
@@ -153,7 +153,7 @@ App.GetCard = async function (inum) {
     if (!card.Issue) { card.Issue = 'ISSUE'; }
     if (!card.Topic) { card.Topic = null; }
 
-    LOG.INFO('App.GetCard: ' + inum, card);
+    LOG.DEBUG('App.GetCard: ' + inum, card);
     return card;
 }
 
@@ -213,7 +213,7 @@ App.FX = async function () {
 
     fs.writeFileSync('/tmp/changenow.md', App.GetLogMD(itemdb));
 
-    LOG.DEBUG('App.GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
+    LOG.INFO('App.GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
 
     //console.log("\n\n");
     //console.log(itemdb);
@@ -284,9 +284,8 @@ App.CMD = async function () {
 
     cmdz.push('echo ; echo ___CMD___ ; echo');
     cmdz.push('date >> dt.txt');
-    cmdz.push(' npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version');
-    cmdz.push('git config user.name DEVKING');
-    cmdz.push('git config user.email devkingbot@cogsmith.com');
+    cmdz.push('npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version');
+    cmdz.push('git config user.name DEVKING ; git config user.email devkingbot@cogsmith.com');
     // cmdz.push('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token');
     cmdz.push('gh release delete 9.9.9 --yes');
     cmdz.push('gh release create 9.9.9 --target main -F /tmp/changenow.md');
