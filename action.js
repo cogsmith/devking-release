@@ -107,11 +107,12 @@ App.Init = async function () {
     let repoinfo = require(repoinfofile);
     VNOW = repoinfo.version;
     VTAG = semver.inc(VNOW, 'patch');
-    VNXT = semver.inc(VTAG, 'patch') + '-dev';
+    VNEXT = semver.inc(VTAG, 'patch') + '-dev';
 
-    LOG.INFO('Version.NOW: ' + VNOW);
-    LOG.INFO('Version.REL: ' + VTAG);
-    LOG.INFO('Version.NXT: ' + VNXT);
+    LOG.INFO('Version.LAST: ' + VLAST);
+    LOG.INFO('Version.NOW:  ' + VNOW);
+    LOG.INFO('Version.TAG:  ' + VTAG);
+    LOG.INFO('Version.NEXT: ' + VNEXT);
 
     LOG.DEBUG('App.InitDone');
     await App.Main();
