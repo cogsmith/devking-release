@@ -158,7 +158,7 @@ App.FX = async function () {
 
     let colz = await App.GetColumns(p);
     if (!colz) { LOG.ERROR('App.GetColumns: FAILED'); return; }
-    if (!colz['DONE']) { LOG.ERROR('App.GetColumns: MISSING DONE COLUMN'); return; }
+    if (!colz['DONE']) { LOG.WARN('App.GetColumns: MISSING_COLUMN = DONE'); return; }
 
     let cardlist = await App.GetCards(colz['DONE']);
     if (!cardlist) { LOG.ERROR('App.GetCards: FAILED'); return; }
