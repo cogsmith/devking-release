@@ -315,7 +315,7 @@ App.CMD = async function () {
     App.RunCMDS(cmdz);
 
     cmdz = [];
-    cmdz.push("git commit --allow-empty -m 'NOW " + VNOW + "'");
+    cmdz.push("git commit --allow-empty -m 'END " + VNOW + "'");
     cmdz.push('git push');
     App.RunCMDS(cmdz);
 
@@ -332,7 +332,7 @@ App.CMD = async function () {
     cmdz = [];
     cmdz.push('npm version ' + VNXT + ' --no-git-tag-version');
     cmdz.push('git add .');
-    cmdz.push("git commit -m 'NXT " + VNXT + "'");
+    cmdz.push("git commit -m 'NOW " + VNXT + "'");
     cmdz.push('git push');
     App.RunCMDS(cmdz);
 }
