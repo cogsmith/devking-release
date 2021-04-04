@@ -331,11 +331,12 @@ App.RunCMDS = function (cmds) {
 
 App.CMD = async function () {
     let cmdz = false;
-    cmdz = [];
+
+    //cmdz = [];
+    //cmdz.push('date >> DT.TXT');
     //App.RunCMDS(cmdz);
 
     cmdz = [];
-    //cmdz.push('date >> dt.txt');
     App.RunCMDS(cmdz);
 
     cmdz = [];
@@ -345,7 +346,6 @@ App.CMD = async function () {
     App.RunCMDS(cmdz);
 
     cmdz = [];
-
     cmdz.push('npm version ' + VTAG + ' --no-git-tag-version');
     cmdz.push('echo > /tmp/newline ; cat /tmp/changenow.md /tmp/newline CHANGELOG.md >> /tmp/changelog.md ; mv /tmp/changelog.md CHANGELOG.md');
     cmdz.push('git add .');
@@ -353,7 +353,6 @@ App.CMD = async function () {
     cmdz.push('git push');
     //cmdz.push('git push --delete origin ' + VTAG);
     //cmdz.push('gh release delete ' + VTAG + ' --yes');
-    cmdz.push("echo NOTITLE > /tmp/changenow-notitle.md");
     cmdz.push("grep -v '# \\[' /tmp/changenow.md > /tmp/changenow-notitle.md");
     cmdz.push('gh release create ' + VTAG + ' --target main -F /tmp/changenow-notitle.md');
     App.RunCMDS(cmdz);
