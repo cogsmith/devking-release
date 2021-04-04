@@ -276,6 +276,7 @@ App.GetLogMD = function (itemdb) {
     let txt = [];
     txt.push('<code>'); txt.push(null);
     txt.push('# [' + VTAG + ' @ ' + VDATE + '](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VTAG + ')');
+    txt.push('## [DIFF SINCE ' + VLAST + '](https://github.com/cogsmith/test-actions/compare/' + VLAST + '...' + VTAG + ')');
     let keyi = 0; Object.keys(itemdb).forEach(k => {
         if (keyi++ > 0) { txt.push(null); txt.push('---'); txt.push(null); }
         txt.push('## ' + k); // txt.push(null);
