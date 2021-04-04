@@ -204,7 +204,7 @@ App.GetLogTXT = function (itemdb) {
     Object.keys(itemdb).forEach(k => {
         txt.push('## ' + k); // txt.push(null);
         itemdb[k].forEach(z => {
-            let line = '';
+            let line = '- ';
             if (z.Topic) { line += z.Topic + ': '; }
             if (z.Number != 0) { line += '#' + z.Number + ': '; }
             line += z.Note;
