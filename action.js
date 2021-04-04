@@ -88,8 +88,10 @@ App.SetInfo('App', App.Meta.Full);
 //
 
 let VNOW = false;
-let VREL = false;
-let VNXT = false;
+let VTAG = false;
+let VNEXT = false;
+let VLAST = false;
+let VDATE = new Date().toISOString().substr(0, 10);
 
 App.Init = async function () {
     LOG.TRACE({ App: App });
@@ -104,11 +106,11 @@ App.Init = async function () {
     let repoinfofile = process.cwd() + '/package.json';
     let repoinfo = require(repoinfofile);
     VNOW = repoinfo.version;
-    VREL = semver.inc(VNOW, 'patch');
-    VNXT = semver.inc(VREL, 'patch') + '-dev';
+    VTAG = semver.inc(VNOW, 'patch');
+    VNXT = semver.inc(VTAG, 'patch') + '-dev';
 
     LOG.INFO('Version.NOW: ' + VNOW);
-    LOG.INFO('Version.REL: ' + VREL);
+    LOG.INFO('Version.REL: ' + VTAG);
     LOG.INFO('Version.NXT: ' + VNXT);
 
     LOG.DEBUG('App.InitDone');
@@ -250,7 +252,7 @@ App.FX = async function () {
 
 App.GetLogTXT = function (itemdb) {
     let txt = [];
-    txt.push('# 0.0.0 @ 2099-12-31'); txt.push(null);
+    txt.push('# ' + VTAG + ' @ ' + VDATE); txt.push(null);
     Object.keys(itemdb).forEach(k => {
         txt.push('## ' + k); // txt.push(null);
         itemdb[k].forEach(z => {
@@ -268,7 +270,7 @@ App.GetLogTXT = function (itemdb) {
 App.GetLogMD = function (itemdb) {
     let txt = [];
     txt.push('<code>'); txt.push(null);
-    txt.push('# [' + VREL + ' @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VREL + ')');
+    txt.push('# [' + VTAG + ' @ ' + VDATE + '](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VTAG + ')');
     let keyi = 0; Object.keys(itemdb).forEach(k => {
         if (keyi++ > 0) { txt.push(null); txt.push('---'); txt.push(null); }
         txt.push('## ' + k); // txt.push(null);
@@ -319,16 +321,16 @@ App.CMD = async function () {
     App.RunCMDS(cmdz);
 
     cmdz = [];
-    cmdz.push('npm version ' + VREL + ' --no-git-tag-version');
+    cmdz.push('npm version ' + VTAG + ' --no-git-tag-version');
     cmdz.push('echo > /tmp/newline ; cat /tmp/changenow.md /tmp/newline CHANGELOG.md >> /tmp/changelog.md ; mv /tmp/changelog.md CHANGELOG.md');
     cmdz.push('git add .');
-    cmdz.push("git commit -m 'TAG " + VREL + "'");
+    cmdz.push("git commit -m 'TAG " + VTAG + "'");
     cmdz.push('git push');
-    //cmdz.push('git push --delete origin ' + VREL);
-    //cmdz.push('gh release delete ' + VREL + ' --yes');
+    //cmdz.push('git push --delete origin ' + VTAG);
+    //cmdz.push('gh release delete ' + VTAG + ' --yes');
     cmdz.push("echo NOTITLE > /tmp/changenow-notitle.md");
     cmdz.push("grep -v '# \\[' /tmp/changenow.md > /tmp/changenow-notitle.md");
-    cmdz.push('gh release create ' + VREL + ' --target main -F /tmp/changenow-notitle.md');
+    cmdz.push('gh release create ' + VTAG + ' --target main -F /tmp/changenow-notitle.md');
     App.RunCMDS(cmdz);
 
     cmdz = [];
