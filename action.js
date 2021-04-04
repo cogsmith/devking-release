@@ -248,10 +248,10 @@ App.GetLogMD = function (itemdb) {
 App.RunCMDS = function (cmds) {
     for (let i = 0; i < cmds.length; i++) {
         let cmd = cmds[i];
+        LOG.DEBUG('App.CMD: ' + cmd);
         let run = false;
         try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { LOG.ERROR(ex); }
         if (!run) { continue; }
-        //LOG.DEBUG('App.CMD: ' + cmd);
         if (run.stdout.trim().length > 0) { LOG.DEBUG('App.CMD: ' + cmd + "\n" + chalk.gray(run.stdout)); }
     }
 }
