@@ -279,7 +279,7 @@ App.GetLogMD = function (itemdb) {
     txt.push('## DIFF');
     txt.push('- [CHANGES SINCE ' + VLAST + '](https://github.com/cogsmith/test-actions/compare/' + VLAST + '...' + VTAG + ')');
     let keyi = 0; Object.keys(itemdb).forEach(k => {
-        if (keyi++ > 0) { txt.push(null); txt.push('---'); txt.push(null); }
+        if (keyi++ > -1) { txt.push(null); txt.push('---'); txt.push(null); }
         txt.push('## ' + k); // txt.push(null);
         itemdb[k].forEach(z => {
             let line = '- ';
