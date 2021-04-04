@@ -269,8 +269,8 @@ App.GetLogMD = function (itemdb) {
     let txt = [];
     txt.push('<code>'); txt.push(null);
     txt.push('# [' + VREL + ' @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VREL + ')');
-    Object.keys(itemdb).forEach(k => {
-        txt.push(null); txt.push('---'); txt.push(null);
+    let keyi = 0; Object.keys(itemdb).forEach(k => {
+        if (keyi++ > 0) { txt.push(null); txt.push('---'); txt.push(null); }
         txt.push('## ' + k); // txt.push(null);
         itemdb[k].forEach(z => {
             let line = '- ';
