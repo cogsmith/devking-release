@@ -127,6 +127,7 @@ App.Init = async function () {
     try { console.log(4); console.log(execa.commandSync('git log ' + VLAST + '..HEAD --oneline').stdout) } catch (ex) { }
 
     try { console.log(0); console.log(execa.commandSync('git log --oneline').stdout) } catch (ex) { }
+    try { console.log(9); console.log(execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout) } catch (ex) { }
 
     LOG.DEBUG('App.InitDone');
     await App.Main();
