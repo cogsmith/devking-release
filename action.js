@@ -293,9 +293,26 @@ App.GetLogMD = function (itemdb) {
 
 //
 
-App.CMD = async function () {
-    let cmdz = [];
+App.RunCMDS = function (cmds) {
+    for (let i = 0; i < cmdz.length; i++) {
+        let cmd = cmdz[i];
+        let run = false;
+        try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { }
+        if (!run) { continue; }
+        LOG.DEBUG('App.CMD: ' + cmd);// + "\n" + run.stdout);
+    }    
+}
 
+App.CMD = async function () {
+    let cmdz = false;
+    
+    cmdz = [];
+    App.RunCMDS(cmdz);
+
+    cmdz = [];
+    App.RunCMDS(cmdz);
+
+    cmdz = [];
     cmdz.push('date >> dt.txt');
     //cmdz.push('npm version patch --no-git-tag-version ; npm version patch --no-git-tag-version');
     //cmdz.push('echo ' + GITHUB_TOKEN + ' | gh auth login --with-token');
@@ -306,14 +323,8 @@ App.CMD = async function () {
     cmdz.push('git add .');
     cmdz.push("git commit -m 'DT'");
     cmdz.push('git push');
+    App.RunCMDS(cmdz);
 
-    for (let i = 0; i < cmdz.length; i++) {
-        let cmd = cmdz[i];
-        let run = false;
-        try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { }
-        if (!run) { continue; }
-        LOG.DEBUG('App.CMD: ' + cmd);// + "\n" + run.stdout);
-    }
 }
 
 //
