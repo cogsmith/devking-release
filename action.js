@@ -310,11 +310,11 @@ App.CMD = async function () {
     App.RunCMDS(cmdz);
 
     cmdz = [];
-    cmdz.push('date >> dt.txt');
-    cmdz.push('git config user.name DEVKING ; git config user.email devkingbot@cogsmith.com');
+    //cmdz.push('date >> dt.txt');
     App.RunCMDS(cmdz);
-
+    
     cmdz = [];
+    cm.dz.push('git config user.name DEVKING ; git config user.email devkingbot@cogsmith.com');
     cmdz.push("git commit --allow-empty -m 'END " + VNOW + "'");
     cmdz.push('git push');
     App.RunCMDS(cmdz);
