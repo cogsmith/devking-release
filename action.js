@@ -267,7 +267,7 @@ App.GetLogTXT = function (itemdb) {
 
 App.GetLogMD = function (itemdb) {
     let txt = [];
-    txt.push('<code>'); txt.push(null);
+    txt.push('<code>'); //txt.push(null);
     txt.push('# [' + VREL + ' @ 2099-12-31](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VREL + ')');
     Object.keys(itemdb).forEach(k => {
         txt.push(null); txt.push('---'); txt.push(null);
@@ -286,7 +286,7 @@ App.GetLogMD = function (itemdb) {
             txt.push(line);
         });
     });
-    txt.push(null);
+    //txt.push(null);
     txt.push('</code>');
     return txt.join("\n").trim();
 }
