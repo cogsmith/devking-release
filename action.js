@@ -23,6 +23,8 @@ const execa = require('execa');
 const chalk = require('chalk');
 const semver = require('semver');
 
+const core = require('@actions/core');
+const github = require('@actions/github');
 const { Octokit } = require("@octokit/rest");
 
 //
