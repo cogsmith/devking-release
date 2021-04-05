@@ -66,10 +66,9 @@ App.Init = async function () {
     let repoinfofile = process.cwd() + '/package.json';
     let repoinfo = require(repoinfofile);
 
-
     //let nextv = core.getInput('NEXTVERSION').toLowerCase() || 'patch';
     let nextv = process.env.NEXTVERSION || 'patch'; nextv = nextv.toLowerCase();
-    LOG.WARN('NEXTV: ' + nextv);
+    LOG.INFO('NEXTVERSION: ' + nextv);
 
     if (nextv == 'patch' || nextv == 'minor' || nextv == 'major') {
         VNOW = repoinfo.version;
