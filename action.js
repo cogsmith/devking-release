@@ -63,7 +63,7 @@ App.Init = async function () {
     let repoinfo = require(repoinfofile);
 
     VNOW = repoinfo.version;
-    VTAG = semver.inc(VNOW, 'patch');
+    VTAG = VNOW.includes('-') ? semver.inc(VNOW, 'patch') : VNOW;
     VNEXT = semver.inc(VTAG, 'patch') + '-dev';
     VLAST = repoinfo.versiontaglast;
 
