@@ -66,10 +66,19 @@ App.Init = async function () {
     let repoinfofile = process.cwd() + '/package.json';
     let repoinfo = require(repoinfofile);
 
-    VNOW = repoinfo.version;
-    VTAG = VNOW.includes('-') ? semver.inc(VNOW, 'patch') : VNOW;
-    VNEXT = semver.inc(VTAG, 'patch') + '-dev';
-    VLAST = repoinfo.versiontaglast;
+    let nextv = core.getInput('NEXTVERSION').toLowerCase() || 'patch';
+    if (nextv == 'patch' || nextv == 'minor' || nextv == 'major') {
+        VNOW = repoinfo.version;
+        VTAG = VNOW.includes('-') ? semver.inc(VNOW, nextv) : VNOW;
+        VNEXT = semver.inc(VTAG, nextv) + '-dev';
+        VLAST = repoinfo.versiontaglast;
+    }
+    else {
+        VNOW = repoinfo.version;
+        VTAG = VNOW.includes('-') ? VNOW.split('-')[0] : VNOW;
+        VNEXT = nextv + '-dev';
+        VLAST = repoinfo.versiontaglast;
+    }
 
     repoinfo.versiontaglast = VTAG;
     fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(repoinfo));
