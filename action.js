@@ -306,7 +306,7 @@ App.DeletePastRuns = async function (workflow) {
     let runs = await octokit.rest.actions.listWorkflowRunsForRepo({ owner: REPO.owner, repo: REPO.repo, per_page: 100 });
     for (let i = 0; i < runs.data.workflow_runs.length; i++) {
         let run = runs.data.workflow_runs[i];
-        if (workflow && run.name != workflow && run.id != GITHUB_RUN_ID) { continue; }
+        if ((GITHUB_RUN_ID == run.id) || (workflow && run.name != workflow)) { continue; }
         LOG.INFO('DeleteRun: ' + run.id);
         try { await octokit.rest.actions.deleteWorkflowRun({ owner: REPO.owner, repo: REPO.repo, run_id: run.id }); } catch (ex) { LOG.ERROR(ex); }
     }
