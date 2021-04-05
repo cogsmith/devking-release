@@ -293,10 +293,12 @@ App.CMD = async function () {
     cmdz.push('git config user.name DEVKING ; git config user.email devkingbot@cogsmith.com');
     App.RunCMDS(cmdz);
 
-    //cmdz = [];
-    //cmdz.push("git commit --allow-empty -m 'END " + VNOW + "'");
-    //cmdz.push('git push');
-    //App.RunCMDS(cmdz);
+    /*
+    cmdz = [];
+    cmdz.push("git commit --allow-empty -m 'END " + VNOW + "'");
+    cmdz.push('git push');
+    App.RunCMDS(cmdz);
+    */
 
     cmdz = [];
     cmdz.push('npm version ' + VTAG + ' --no-git-tag-version --allow-same-version');
@@ -306,10 +308,12 @@ App.CMD = async function () {
     cmdz.push('git push');
     App.RunCMDS(cmdz);
 
+    /*
     cmdz = [];
     cmdz.push('git push --delete origin ' + VTAG + ' ; echo');
     cmdz.push('gh release delete ' + VTAG + ' --yes ; echo');
     App.RunCMDS(cmdz);
+    */
 
     cmdz = [];
     cmdz.push("grep -v '# \\[' /tmp/changenow.md > /tmp/changenow-notitle.md ; echo");
