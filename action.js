@@ -304,8 +304,14 @@ App.CMD = async function () {
     cmdz.push('git add .');
     cmdz.push("git commit -m 'TAG " + VTAG + "'");
     cmdz.push('git push');
-    //cmdz.push('git push --delete origin ' + VTAG);
-    //cmdz.push('gh release delete ' + VTAG + ' --yes');
+    App.RunCMDS(cmdz);
+
+    cmdz = [];
+    cmdz.push('git push --delete origin ' + VTAG);
+    cmdz.push('gh release delete ' + VTAG + ' --yes');
+    App.RunCMDS(cmdz);
+
+    cmdz = [];
     cmdz.push("grep -v '# \\[' /tmp/changenow.md > /tmp/changenow-notitle.md");
     cmdz.push('gh release create ' + VTAG + ' --target main -F /tmp/changenow-notitle.md');
     App.RunCMDS(cmdz);
