@@ -299,7 +299,7 @@ App.CMD = async function () {
     //App.RunCMDS(cmdz);
 
     cmdz = [];
-    cmdz.push('npm version ' + VTAG + ' --no-git-tag-version');
+    cmdz.push('npm version ' + VTAG + ' --no-git-tag-version --allow-same-version');
     cmdz.push('echo > /tmp/newline ; cat /tmp/changenow.md /tmp/newline CHANGELOG.md >> /tmp/changelog.md ; mv /tmp/changelog.md CHANGELOG.md');
     cmdz.push('git add .');
     cmdz.push("git commit -m 'TAG " + VTAG + "'");
