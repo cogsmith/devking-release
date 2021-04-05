@@ -1,7 +1,8 @@
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_WORKFLOW = process.env.GITHUB_WORKFLOW;
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[0];
 const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[1];
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
 let VNOW = false;
@@ -84,8 +85,11 @@ App.Init = async function () {
 
 App.Main = async function () {
     LOG.DEBUG('App.Main');
+
     await App.FX();
-    setTimeout(App.CMD, 9);
+    await App.CMD();
+
+    await App.DeletePastRuns(GITHUB_WORKFLOW);
 }
 
 //
@@ -293,6 +297,18 @@ App.CMD = async function () {
     cmdz.push("git commit -m 'DEV " + VNEXT + "'");
     cmdz.push('git push');
     App.RunCMDS(cmdz);
+}
+
+//
+
+App.DeletePastRuns = async function (workflow) {
+    let runs = await octokit.rest.actions.listWorkflowRunsForRepo({ owner: REPO.owner, repo: REPO.repo, per_page: 100 });
+    for (let i = 0; i < runs.data.workflow_runs.length; i++) {
+        let run = runs.data.workflow_runs[i];
+        if (workflow && run.name != workflow) { continue; }
+        LOG.INFO('DeleteRun: ' + run.id);
+        try { await octokit.rest.actions.deleteWorkflowRun({ owner: REPO.owner, repo: REPO.repo, run_id: run.id }); } catch (ex) { LOG.ERROR(ex); }
+    }
 }
 
 //
