@@ -1,9 +1,9 @@
 name: "DEVKING_RELEASE"
 inputs:
-  version:
+  NEXTVERSION:
     required: true
     default: 'PATCH'
-    description: 'VERSION'
+    description: 'NEXTVERSION'
 runs:
   using: "composite"
   steps:
