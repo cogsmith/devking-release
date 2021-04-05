@@ -23,8 +23,8 @@ const execa = require('execa');
 const chalk = require('chalk');
 const semver = require('semver');
 
-const core = require('@actions/core');
-const github = require('@actions/github');
+//const core = require('@actions/core');
+//const github = require('@actions/github');
 const { Octokit } = require("@octokit/rest");
 
 //
@@ -68,7 +68,9 @@ App.Init = async function () {
 
     LOG.WARN(core.getInput('NEXTVERSION'));
 
-    let nextv = core.getInput('NEXTVERSION').toLowerCase() || 'patch';
+    //let nextv = core.getInput('NEXTVERSION').toLowerCase() || 'patch';
+    let nextv = process.env.NEXTVERSION || 'patch'; nextv = nextv.toLowerCase();
+
     if (nextv == 'patch' || nextv == 'minor' || nextv == 'major') {
         VNOW = repoinfo.version;
         VTAG = VNOW.includes('-') ? semver.inc(VNOW, nextv) : VNOW;
