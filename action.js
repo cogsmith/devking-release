@@ -64,7 +64,10 @@ App.Init = async function () {
     // Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { LOG.TRACE(x + ': ' + process.env[x]); } });
 
     let repoinfofile = process.cwd() + '/package.json';
+    if (!fs.existsSync(repoinfofile)) { LOG.WARN('MISSING PACKAGE.JSON'); fs.writeFileSync(repoinfofile, '{"version":"0.0.0"}' + "\n"); }
+
     let repoinfo = require(repoinfofile);
+    if (!repoinfo.version) { LOG.WARN('MISSING REPOINFO.VERSION'); repoinfo.version = '0.0.0'; }
 
     //let nextv = core.getInput('NEXTVERSION').toLowerCase() || 'patch';
     let nextv = process.env.NEXTVERSION || 'patch'; nextv = nextv.toLowerCase();
