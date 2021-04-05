@@ -182,7 +182,7 @@ App.FX = async function () {
         items.push(x);
     });
 
-    let x = 'ISSUE'; let xlist = _.orderBy(cardlist, ['Topic', 'Number']).filter(z => !z.Issue);
+    let x = 'ISSUE'; let xlist = _.orderBy(cardlist, ['Topic', 'Number']).filter(z => z.Issue === x);
     if (xlist) { xlist.forEach(zz => { items.push(zz); }); }
 
     let itemdb = {};
