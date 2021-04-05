@@ -315,9 +315,15 @@ App.CMD = async function () {
     App.RunCMDS(cmdz);
     */
 
+    /*
     cmdz = [];
     cmdz.push("grep -v '# \\[' /tmp/changenow.md > /tmp/changenow-notitle.md ; echo");
     cmdz.push('gh release create ' + VTAG + ' --target main -F /tmp/changenow-notitle.md');
+    App.RunCMDS(cmdz);
+    */
+
+    cmdz = [];
+    cmdz.push('gh release create ' + VTAG + ' --target main -F /tmp/changenow.md');
     App.RunCMDS(cmdz);
 
     cmdz = [];
