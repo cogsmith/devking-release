@@ -3,4 +3,4 @@ runs:
   using: "composite"
   steps:
     - shell: bash      
-      run: export FORCE_COLOR=1 ;  export GITHUB_TOKEN=${{ GITHUB.TOKEN }} ; export NEXTVERSION=${{ GITHUB.EVENT.INPUTS.NEXTVERSION }} ; cd ${{ GITHUB.ACTION_PATH }} ; echo "OS = `uname -a`" ; echo "NPM = `npm ci`" ; cd ${{ GITHUB.WORKSPACE }} ; node ${{ GITHUB.ACTION_PATH }}/action.js --loglevel trace
+      run: export NEXTVERSION=${{ GITHUB.EVENT.INPUTS.NEXTVERSION }} ; export FORCE_COLOR=1 ;  export GITHUB_TOKEN=${{ GITHUB.TOKEN }} ; cd ${{ GITHUB.ACTION_PATH }} ; echo "OS = `uname -a`" ; echo "NPM = `npm ci`" ; cd ${{ GITHUB.WORKSPACE }} ; node ${{ GITHUB.ACTION_PATH }}/action.js --loglevel trace
