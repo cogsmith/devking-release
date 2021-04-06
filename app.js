@@ -150,7 +150,7 @@ App.GetIssueCard = async function (inum) {
     //let labels = await octokit.rest.issues.listLabelsOnIssue({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum }); //console.log(labels.data);
 
     let labels = []; if (issue.labels) { issue.labels.forEach(z => { labels.push(z.name) }); }
-    let card = { ID: issue.id, Number: inum, Note: issue.title, State: issue.state.toUpperCase(), Labels: labels };
+    let card = { IssueID: issue.id, Number: inum, Note: issue.title, State: issue.state.toUpperCase(), Labels: labels };
     labels.forEach(z => {
         if (z.startsWith('ISSUE_')) { card.Issue = z.split('_')[1]; }
         if (z.startsWith('TOPIC_')) { card.Topic = z.split('_')[1]; }
@@ -161,7 +161,7 @@ App.GetIssueCard = async function (inum) {
     if (!card.Issue) { card.Issue = 'ISSUE'; }
     if (!card.Topic) { card.Topic = null; }
 
-    LOG.DEBUG('GetCard: ' + inum, card);
+    LOG.DEBUG('GetIssueCard: ' + inum, card);
     return card;
 }
 
@@ -203,8 +203,8 @@ App.GetCardList = async function () {
     for (let i = 0; i < cardlist.length; i++) {
         let x = cardlist[i];
 
-        LOG.DEBUG('MoveCard: ', { card_id: x.ID, position: 0, column_id: colz['CLOSED'].id });
-        await octokit.rest.projects.moveCard({ card_id: x.ID, position: 0, column_id: colz['CLOSED'].id });
+        LOG.DEBUG('MoveCard: ', { card_id: x.CardID, position: 0, column_id: colz['CLOSED'].id });
+        await octokit.rest.projects.moveCard({ card_id: x.CardID, position: 0, column_id: colz['CLOSED'].id });
 
         LOG.DEBUG('CloseIssue: ', { owner: REPO.owner, repo: REPO.repo, issue_number: x.Number, state: 'closed' });
         await octokit.rest.issues.update({ owner: REPO.owner, repo: REPO.repo, issue_number: x.Number, state: 'closed' });
