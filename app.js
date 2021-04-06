@@ -92,7 +92,7 @@ App.Init = async function () {
         let diffcmd = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count');
         LOG.TRACE('DiffCount: ' + diffcmd.stdout);
         VDIFF = diffcmd.stdout - 1;
-    }
+    } catch (ex) { LOG.ERROR(ex); }
 
     LOG.INFO('Version.LAST: ' + VLAST);
     LOG.INFO('Version.NOW:  ' + VNOW);
