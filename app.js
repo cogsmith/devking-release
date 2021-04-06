@@ -11,7 +11,7 @@ let VTAG = false;
 let VNEXT = false;
 let VLAST = false;
 let VDATE = new Date().toISOString().substr(0, 10);
-let VDIFF = 0;
+let VDIFF = -1;
 
 //
 
@@ -223,6 +223,10 @@ App.FX = async function () {
 App.GetLogTXT = function (itemdb) {
     let txt = [];
     txt.push('# ' + VTAG + ' @ ' + VDATE); txt.push(null);
+    if (VDIFF >= 0) {
+        txt.push('## DIFF');
+        txt.push('- ' + VDIFF + ' COMMITS SINCE LAST TAG' + (VLAST ? ' = ' + VLAST : '');
+    }
     Object.keys(itemdb).forEach(k => {
         txt.push('## ' + k); // txt.push(null);
         itemdb[k].forEach(z => {
@@ -241,8 +245,10 @@ App.GetLogMD = function (itemdb) {
     let txt = [];
     txt.push('<code>'); txt.push(null);
     txt.push('# [' + VTAG + ' @ ' + VDATE + '](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VTAG + ')');
-    txt.push('## DIFF');
-    txt.push('- [' + VDIFF + ' COMMITS SINCE LAST TAG' + (VLAST ? ' = ' + VLAST : '') + '](https://github.com/cogsmith/test-actions/compare/' + (VLAST ? VLAST : '0.0.0') + '...' + VTAG + ')');
+    if (VDIFF >= 0) {
+        txt.push('## DIFF');
+        txt.push('- [' + VDIFF + ' COMMITS SINCE LAST TAG' + (VLAST ? ' = ' + VLAST : '') + '](https://github.com/cogsmith/test-actions/compare/' + (VLAST ? VLAST : '0.0.0') + '...' + VTAG + ')');
+    }
     let keyi = 0; Object.keys(itemdb).forEach(k => {
         if (keyi++ > -1) { txt.push(null); txt.push('---'); txt.push(null); }
         txt.push('## ' + k); // txt.push(null);
