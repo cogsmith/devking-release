@@ -68,6 +68,8 @@ App.Init = async function () {
     LOG.DEBUG('Node.Args: ' + chalk.white(App.Info('Node.Args')));
     LOG.DEBUG('App.Init');
 
+    LOG.INFO('Release: ' + JSON.stringify(repo));
+
     // Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { LOG.TRACE(x + ': ' + process.env[x]); } });
 
     let repoinfofile = process.cwd() + '/package.json';
@@ -131,7 +133,7 @@ App.GetProject = async function (repo) {
     p = pz.data.find(z => z.name === 'TRACKER');
     if (!p) { p = pz.data.find(z => z.name.endsWith('-TRACKER')); }
     if (!p) { p = pz.data.find(z => z.number === 1); }
-    LOG.DEBUG('App.GetProject: ' + JSON.stringify(repo), { ID: p.id });
+    LOG.DEBUG('App.GetProject:', { ID: p.id, Number: p.number, Name: p.name });
     return p;
 }
 
