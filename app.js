@@ -128,12 +128,12 @@ App.GetProject = async function (repo) {
     p = pz.data.find(z => z.name === 'TRACKER');
     if (!p) { p = pz.data.find(z => z.name.endsWith('-TRACKER')); }
     if (!p) { p = pz.data.find(z => z.number === 1); }
-    LOG.DEBUG('App.GetProject:', { ID: p.id, Number: p.number, Name: p.name });
+    LOG.DEBUG('GetProject:', { ID: p.id, Number: p.number, Name: p.name });
     return p;
 }
 
 App.GetColumns = async function (p) {
-    LOG.DEBUG('App.GetColumns: ' + p.id); //console.log(p);
+    LOG.DEBUG('GetColumns: ' + p.id); //console.log(p);
     let colz = {};
     let cz = await octokit.rest.projects.listColumns({ project_id: p.id }); //console.log(cz);
     cz.data.forEach(x => {
@@ -161,12 +161,12 @@ App.GetCard = async function (inum) {
     if (!card.Issue) { card.Issue = 'ISSUE'; }
     if (!card.Topic) { card.Topic = null; }
 
-    LOG.DEBUG('App.GetCard: ' + inum, card);
+    LOG.DEBUG('GetCard: ' + inum, card);
     return card;
 }
 
 App.GetCards = async function (col) {
-    LOG.DEBUG('App.GetCards: ' + col.id + ' = ' + col.name);
+    LOG.DEBUG('GetCards: ' + col.id + ' = ' + col.name);
 
     let cardlist = [];
     let gitcards = await octokit.rest.projects.listCards({ column_id: col.id }); // console.log(gitcards);
@@ -188,16 +188,16 @@ App.GetCardList = async function () {
     let cardlist = false;
 
     let p = await App.GetProject(REPO);
-    if (!p) { LOG.WARN('App.GetProject: FAILED'); return false; }
+    if (!p) { LOG.WARN('GetProject: FAILED'); return false; }
 
     let colz = await App.GetColumns(p);
-    if (!colz) { LOG.WARN('App.GetColumns: FAILED'); }
-    if (!colz['DONE']) { LOG.WARN('App.GetColumns: MISSING_COLUMN = DONE'); return false; }
+    if (!colz) { LOG.WARN('GetColumns: FAILED'); }
+    if (!colz['DONE']) { LOG.WARN('GetColumns: MISSING_COLUMN = DONE'); return false; }
 
     cardlist = await App.GetCards(colz['DONE']);
-    if (!cardlist) { LOG.WARN('App.GetCards: FAILED'); return false; }
+    if (!cardlist) { LOG.WARN('GetCards: FAILED'); return false; }
 
-    //LOG.TRACE('App.Cards', cardlist);
+    //LOG.TRACE('Cards', cardlist);
     return cardlist;
 }
 
@@ -234,7 +234,7 @@ App.FX = async function () {
         });
     }
 
-    LOG.INFO('App.GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
+    LOG.INFO('GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
 
     fs.writeFileSync('/tmp/changenow.md', App.GetLogMD(itemdb));
 }
