@@ -262,6 +262,7 @@ App.GetLogTXT = function (itemdb) {
         });
         txt.push(null);
     });
+    txt.push('---');
     return txt.join("\n").trim();
 }
 
@@ -293,6 +294,9 @@ App.GetLogMD = function (itemdb) {
     });
     txt.push(null);
     txt.push('</code>');
+    txt.push(null);
+    txt.push('---');
+    txt.push(null);
     return txt.join("\n").trim();
 }
 
