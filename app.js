@@ -126,8 +126,9 @@ App.Main = async function () {
 
 App.GetProject = async function (repo) {
     let p = false;
-    let pz = await octokit.rest.projects.listForRepo(repo); //console.log(pz);    
+    let pz = await octokit.rest.projects.listForRepo(repo); console.log(pz);
     if (pz.data.length == 0) { return false; }
+    //P = pz.data.find(z => z.number === 1);
     p = pz.data.find(z => z.number === 1);
     LOG.DEBUG('App.GetProject: ' + JSON.stringify(repo), { ID: p.id });
     return p;
@@ -238,7 +239,6 @@ App.FX = async function () {
     LOG.INFO('App.GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
 
     fs.writeFileSync('/tmp/changenow.md', App.GetLogMD(itemdb));
-
 }
 
 //
