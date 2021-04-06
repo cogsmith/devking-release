@@ -173,7 +173,6 @@ App.GetCards = async function (col) {
 
     for (let i = 0; i < gitcards.data.length; i++) {
         let x = gitcards.data[i];
-        console.log(x);
         let card = { CardID: x.id, Number: 0, Note: x.note, Issue: 'INFO' };
         if (x.content_url) {
             let inum = parseInt(x.content_url.split('/').pop());
@@ -199,7 +198,6 @@ App.GetCardList = async function () {
     cardlist = await App.GetCards(colz['DONE']);
     if (!cardlist) { LOG.WARN('GetCards: FAILED'); return false; }
 
-    //console.log(cardlist);
     for (let i = 0; i < cardlist.length; i++) {
         let x = cardlist.slice().reverse()[i];
 
