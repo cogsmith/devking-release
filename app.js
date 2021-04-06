@@ -11,7 +11,7 @@ let VTAG = false;
 let VNEXT = false;
 let VLAST = false;
 let VDATE = new Date().toISOString().substr(0, 10);
-let VDIFF = -1;
+let VDIFF = -9;
 
 //
 
@@ -88,7 +88,12 @@ App.Init = async function () {
     repoinfo.versiontaglast = VTAG;
     fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(repoinfo));
 
-    try { VDIFF = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout - 1; } catch (ex) { }
+    //try { VDIFF = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count').stdout - 1; } catch (ex) { }
+    try {
+        let diffcmd = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count');
+        LOG.TRACE('DiffCount: ' + diffcmd.stdout);
+        VDIFF = diffcmd.stdout - 1;
+    }
 
     LOG.INFO('Version.LAST: ' + VLAST);
     LOG.INFO('Version.NOW:  ' + VNOW);
