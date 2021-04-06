@@ -1,3 +1,11 @@
+const NOP = function () { };
+process.setMaxListeners(999); require('events').EventEmitter.prototype._maxListeners = 999;
+process.on('uncaughtException', function (err) { console.log("\n"); console.log(err); console.log("\n"); process.exit(1); }); // throw(Error('ERROR'));
+process.onSIGTERM = function () { console.log('SIGTERM'); process.exit(); }; process.on('SIGTERM', function () { process.onSIGTERM(); });
+
+
+//
+
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_RUN_ID = process.env.GITHUB_RUN_ID;
 const GITHUB_WORKFLOW = process.env.GITHUB_WORKFLOW;
