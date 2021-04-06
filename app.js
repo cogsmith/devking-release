@@ -304,7 +304,7 @@ App.GetLogMD = function (itemdb) {
 App.RunCMDS = function (cmds) {
     for (let i = 0; i < cmds.length; i++) {
         let cmd = cmds[i];
-        let msg = 'App.CMD: ' + cmd;
+        let msg = 'RunCMD: ' + cmd;
         let run = false; try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { LOG.ERROR(ex); }
         if (!run) { continue; }
         if (run.stdout.trim().length > 0) {
