@@ -1,4 +1,4 @@
-const NOP = function () { };
+{const NOP = function () { };
 process.setMaxListeners(999); require('events').EventEmitter.prototype._maxListeners = 999;
 process.on('uncaughtException', function (err) { console.log("\n"); console.log(err); console.log("\n"); process.exit(1); }); // throw(Error('ERROR'));
 process.on('unhandledRejection', function (err) { console.log("\n"); console.log(err); console.log("\n"); process.exit(1); }); // throw(Error('ERROR'));
