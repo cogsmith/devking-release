@@ -225,7 +225,7 @@ App.GetLogTXT = function (itemdb) {
     txt.push('# ' + VTAG + ' @ ' + VDATE); txt.push(null);
     if (VDIFF >= 0) {
         txt.push('## DIFF');
-        txt.push('- ' + VDIFF + ' COMMITS SINCE LAST TAG' + (VLAST ? ' = ' + VLAST : '');
+        txt.push('- ' + VDIFF + ' COMMITS SINCE LAST TAG' + (VLAST ? ' = ' + VLAST : ''));
     }
     Object.keys(itemdb).forEach(k => {
         txt.push('## ' + k); // txt.push(null);
