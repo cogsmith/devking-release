@@ -275,7 +275,7 @@ App.GetLogMD = function (itemdb) {
         txt.push('- [' + (VDIFF >= 0 ? VDIFF + ' COMMITS SINCE' : '') + ' LAST TAG' + (VLAST ? ' = ' + VLAST : '') + '](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/compare/' + (VLAST ? VLAST : '0.0.0') + '...' + VTAG + ')');
     } else { txt.push('## FIRST RELEASE'); }
     let keyi = 0; Object.keys(itemdb).forEach(k => {
-        if (keyi++ > -1) { txt.push(null); txt.push('---'); txt.push(null); }
+        if (keyi++ > -1) { txt.push(null); } // txt.push('---'); txt.push(null); }
         txt.push('## ' + k); // txt.push(null);
         itemdb[k].forEach(z => {
             let line = '- ';
