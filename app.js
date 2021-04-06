@@ -128,8 +128,9 @@ App.GetProject = async function (repo) {
     let p = false;
     let pz = await octokit.rest.projects.listForRepo(repo); console.log(pz);
     if (pz.data.length == 0) { return false; }
-    //P = pz.data.find(z => z.number === 1);
-    p = pz.data.find(z => z.number === 1);
+    p = pz.data.find(z => z.name === 'TRACKER');
+    if (!p) { p = pz.data.find(z => z.endsWith('-TRACKER')); }
+    if (!p) { p = pz.data.find(z => z.number === 1); }
     LOG.DEBUG('App.GetProject: ' + JSON.stringify(repo), { ID: p.id });
     return p;
 }
