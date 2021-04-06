@@ -150,7 +150,7 @@ App.GetCard = async function (inum) {
     //let labels = await octokit.rest.issues.listLabelsOnIssue({ owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME, issue_number: inum }); //console.log(labels.data);
 
     let labels = []; if (issue.labels) { issue.labels.forEach(z => { labels.push(z.name) }); }
-    let card = { ID: z.id, Number: inum, Note: issue.title, State: issue.state.toUpperCase(), Labels: labels };
+    let card = { ID: issue.id, Number: inum, Note: issue.title, State: issue.state.toUpperCase(), Labels: labels };
     labels.forEach(z => {
         if (z.startsWith('ISSUE_')) { card.Issue = z.split('_')[1]; }
         if (z.startsWith('TOPIC_')) { card.Topic = z.split('_')[1]; }
