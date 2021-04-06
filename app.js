@@ -201,10 +201,10 @@ App.GetCardList = async function () {
 
     //console.log(cardlist);
     for (let i = 0; i < cardlist.length; i++) {
-        let x = cardlist[i];
+        let x = cardlist.slice().reverse()[i];
 
-        LOG.DEBUG('MoveCard: ', { card_id: x.CardID, position: '0', column_id: colz['CLOSED'].id });
-        await octokit.rest.projects.moveCard({ card_id: x.CardID, position: '0', column_id: colz['CLOSED'].id });
+        LOG.DEBUG('MoveCard: ', { card_id: x.CardID, position: 'top', column_id: colz['CLOSED'].id });
+        await octokit.rest.projects.moveCard({ card_id: x.CardID, position: 'top', column_id: colz['CLOSED'].id });
 
         if (x.Number != 0) {
             LOG.DEBUG('CloseIssue: ', { owner: REPO.owner, repo: REPO.repo, issue_number: x.Number, state: 'closed' });
