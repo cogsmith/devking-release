@@ -34,7 +34,6 @@ const octokit = new Octokit({ auth: GITHUB_TOKEN });
 //
 
 const App = {};
-
 App.Args = { loglevel: 'trace', logfancy: true };
 
 App.LogFancy = false; if (App.Args.logfancy) { App.LogFancy = { colorize: true, singleLine: true, translateTime: 'SYS:yyyy-mm-dd|HH:MM:ss', ignore: 'hostname,pid', messageFormat: function (log, key, label) { let msg = log.msg ? log.msg : ''; let logout = chalk.gray(App.Meta.NameTag); if (msg != '') { logout += ' ' + msg }; return logout; } }; }
