@@ -197,6 +197,8 @@ App.GetCardList = async function () {
     cardlist = await App.GetCards(colz['DONE']);
     if (!cardlist) { LOG.WARN('GetCards: FAILED'); return false; }
 
+    console.log(cardlist);
+
     //LOG.TRACE('Cards', cardlist);
     return cardlist;
 }
