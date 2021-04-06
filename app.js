@@ -68,7 +68,7 @@ App.Init = async function () {
     LOG.DEBUG('Node.Args: ' + chalk.white(App.Info('Node.Args')));
     LOG.DEBUG('App.Init');
 
-    LOG.INFO('Release: ' + JSON.stringify(repo));
+    LOG.INFO('Release.REPO: ' + JSON.stringify(REPO));
 
     // Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { LOG.TRACE(x + ': ' + process.env[x]); } });
 
