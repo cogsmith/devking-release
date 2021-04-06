@@ -73,7 +73,7 @@ App.Init = async function () {
 
     if (nextv == 'patch' || nextv == 'minor' || nextv == 'major') {
         VNOW = repoinfo.version;
-        VTAG = VNOW.includes('-') ? semver.inc(VNOW, nextv) : VNOW;
+        VTAG = VNOW.includes('-') ? semver.inc(VNOW, 'patch') : VNOW;
         VNEXT = semver.inc(VTAG, nextv) + '-dev';
         VLAST = repoinfo.versiontaglast;
     }
