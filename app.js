@@ -249,7 +249,7 @@ App.GetLogTXT = function (itemdb) {
     if (VDIFF >= 0 || VLAST) {
         txt.push('## DIFF');
         txt.push('- ' + (VDIFF >= 0 ? VDIFF + ' COMMITS SINCE' : '') + ' LAST TAG' + (VLAST ? ' = ' + VLAST : ''));
-    }
+    } else { txt.push('## FIRST RELEASE'); }
     Object.keys(itemdb).forEach(k => {
         txt.push('## ' + k); // txt.push(null);
         itemdb[k].forEach(z => {
