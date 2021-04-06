@@ -193,14 +193,14 @@ App.GetCardList = async function () {
     let cardlist = false;
 
     let p = await App.GetProject(REPO);
-    if (!p) { LOG.ERROR('App.GetProject: FAILED'); return false; }
+    if (!p) { LOG.WARN('App.GetProject: FAILED'); return false; }
 
     let colz = await App.GetColumns(p);
-    if (!colz) { LOG.ERROR('App.GetColumns: FAILED'); }
+    if (!colz) { LOG.WARN('App.GetColumns: FAILED'); }
     if (!colz['DONE']) { LOG.WARN('App.GetColumns: MISSING_COLUMN = DONE'); return false; }
 
     cardlist = await App.GetCards(colz['DONE']);
-    if (!cardlist) { LOG.ERROR('App.GetCards: FAILED'); return false; }
+    if (!cardlist) { LOG.WARN('App.GetCards: FAILED'); return false; }
 
     //LOG.TRACE('App.Cards', cardlist);
     return cardlist;
