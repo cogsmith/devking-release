@@ -176,8 +176,6 @@ App.GetCards = async function (col) {
     return cardlist;
 }
 
-//
-
 App.GetCardList = async function () {
     let cardlist = false;
 
@@ -194,6 +192,8 @@ App.GetCardList = async function () {
     //LOG.TRACE('App.Cards', cardlist);
     return cardlist;
 }
+
+//
 
 App.FX = async function () {
     let msgz = {};
