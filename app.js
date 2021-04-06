@@ -188,7 +188,7 @@ App.GetCardList = async function () {
     if (!colz) { LOG.ERROR('App.GetColumns: FAILED'); }
     if (!colz['DONE']) { LOG.WARN('App.GetColumns: MISSING_COLUMN = DONE'); return false; }
 
-    let cardlist = await App.GetCards(colz['DONE']);
+    cardlist = await App.GetCards(colz['DONE']);
     if (!cardlist) { LOG.ERROR('App.GetCards: FAILED'); return false; }
 
     //LOG.TRACE('App.Cards', cardlist);
