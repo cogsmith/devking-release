@@ -61,6 +61,15 @@ App.SetInfo('App', App.Meta.Full);
 
 //
 
+App.Main = async function () {
+    LOG.DEBUG('App.Main');
+
+    await App.FX();
+    await App.CMD();
+
+    // await App.DeletePastRuns(GITHUB_WORKFLOW);
+}
+
 App.Init = async function () {
     LOG.TRACE({ App: App });
     LOG.INFO(App.Meta.Full);
@@ -113,15 +122,6 @@ App.Init = async function () {
 
     LOG.DEBUG('App.InitDone');
     await App.Main();
-}
-
-App.Main = async function () {
-    LOG.DEBUG('App.Main');
-
-    await App.FX();
-    await App.CMD();
-
-    // await App.DeletePastRuns(GITHUB_WORKFLOW);
 }
 
 //
