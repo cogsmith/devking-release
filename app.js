@@ -348,7 +348,7 @@ App.CMD = async function () {
     cmdz = [];
     cmdz.push('npm version ' + VNEXT + ' --no-git-tag-version');
     cmdz.push('git add .');
-    cmdz.push("git commit -m 'DEV " + VNEXT + "'");
+    cmdz.push("git commit -m 'DEV " + VNEXT.replace('-dev', '') + "'");
     cmdz.push('git push');
     App.RunCMDS(cmdz);
 }
