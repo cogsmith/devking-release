@@ -213,9 +213,10 @@ App.FX = async function () {
         itemdb[x.Issue].push(x);
     });
 
+    LOG.INFO('App.GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
+
     fs.writeFileSync('/tmp/changenow.md', App.GetLogMD(itemdb));
 
-    LOG.INFO('App.GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
 }
 
 //
