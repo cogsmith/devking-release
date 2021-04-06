@@ -245,7 +245,8 @@ App.FX = async function () {
 
 App.GetLogTXT = function (itemdb) {
     let txt = [];
-    txt.push('# ' + VTAG + ' @ ' + VDATE); txt.push(null);
+    txt.push('# ' + VTAG + ' @ ' + VDATE);
+    txt.push(null);
     if (VDIFF >= 0 || VLAST) {
         txt.push('## DIFF');
         txt.push('- ' + (VDIFF >= 0 ? VDIFF + ' COMMITS SINCE' : '') + ' LAST TAG' + (VLAST ? ' = ' + VLAST : ''));
