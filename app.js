@@ -119,7 +119,7 @@ App.Main = async function () {
     await App.FX();
     await App.CMD();
 
-    await App.DeletePastRuns(GITHUB_WORKFLOW);
+    // await App.DeletePastRuns(GITHUB_WORKFLOW);
 }
 
 //
