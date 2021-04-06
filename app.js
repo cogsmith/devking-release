@@ -204,7 +204,7 @@ App.FX = async function () {
     if (cardlist) {
         cardlist.forEach(x => { if (x.Number == 0) { items.push(x); } });
 
-        let issueorder = 'SECURITY BREAKING CHANGE BUG FEATURE DEV TASK HOWTO NOTES'.split(' ');
+        let issueorder = 'SECURITY BUG FEATURE DEV DOCS TASK'.split(' ');
         issueorder.forEach(x => {
             let xlist = _.orderBy(cardlist, ['Topic', 'Number']).filter(z => z.Issue === x);
             if (xlist) { xlist.forEach(zz => { items.push(zz); }); }
@@ -212,6 +212,7 @@ App.FX = async function () {
 
         _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
             if (x.Number == 0) { return; }
+            if (x.Issue == 'SUPPORT') { return; }
             if (issueorder.concat('ISSUE').includes(x.Issue)) { return; }
             items.push(x);
         });
