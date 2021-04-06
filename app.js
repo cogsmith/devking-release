@@ -178,44 +178,52 @@ App.GetCards = async function (col) {
 
 //
 
-App.FX = async function () {
+App.GetCardList = async function () {
+    let cardlist = false;
+
     let p = await App.GetProject(REPO);
-    if (!p) { LOG.ERROR('App.GetProject: FAILED'); return; }
+    if (!p) { LOG.ERROR('App.GetProject: FAILED'); return false; }
 
     let colz = await App.GetColumns(p);
-    if (!colz) { LOG.ERROR('App.GetColumns: FAILED'); return; }
-    if (!colz['DONE']) { LOG.WARN('App.GetColumns: MISSING_COLUMN = DONE'); return; }
+    if (!colz) { LOG.ERROR('App.GetColumns: FAILED'); }
+    if (!colz['DONE']) { LOG.WARN('App.GetColumns: MISSING_COLUMN = DONE'); return false; }
 
     let cardlist = await App.GetCards(colz['DONE']);
-    if (!cardlist) { LOG.ERROR('App.GetCards: FAILED'); return; }
+    if (!cardlist) { LOG.ERROR('App.GetCards: FAILED'); return false; }
 
     //LOG.TRACE('App.Cards', cardlist);
+    return cardlist;
+}
 
+App.FX = async function () {
     let msgz = {};
     let items = [];
-
-    cardlist.forEach(x => { if (x.Number == 0) { items.push(x); } });
-
-    let issueorder = 'SECURITY BREAKING CHANGE BUG FEATURE DEV TASK HOWTO NOTES'.split(' ');
-    issueorder.forEach(x => {
-        let xlist = _.orderBy(cardlist, ['Topic', 'Number']).filter(z => z.Issue === x);
-        if (xlist) { xlist.forEach(zz => { items.push(zz); }); }
-    });
-
-    _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
-        if (x.Number == 0) { return; }
-        if (issueorder.concat('ISSUE').includes(x.Issue)) { return; }
-        items.push(x);
-    });
-
-    let x = 'ISSUE'; let xlist = _.orderBy(cardlist, ['Topic', 'Number']).filter(z => z.Issue === x);
-    if (xlist) { xlist.forEach(zz => { items.push(zz); }); }
-
     let itemdb = {};
-    items.forEach(x => {
-        if (!itemdb[x.Issue]) { itemdb[x.Issue] = []; }
-        itemdb[x.Issue].push(x);
-    });
+
+    let cardlist = await App.GetCardList();
+    if (cardlist) {
+        cardlist.forEach(x => { if (x.Number == 0) { items.push(x); } });
+
+        let issueorder = 'SECURITY BREAKING CHANGE BUG FEATURE DEV TASK HOWTO NOTES'.split(' ');
+        issueorder.forEach(x => {
+            let xlist = _.orderBy(cardlist, ['Topic', 'Number']).filter(z => z.Issue === x);
+            if (xlist) { xlist.forEach(zz => { items.push(zz); }); }
+        });
+
+        _.orderBy(cardlist, ['Topic', 'Number']).forEach(x => {
+            if (x.Number == 0) { return; }
+            if (issueorder.concat('ISSUE').includes(x.Issue)) { return; }
+            items.push(x);
+        });
+
+        let x = 'ISSUE'; let xlist = _.orderBy(cardlist, ['Topic', 'Number']).filter(z => z.Issue === x);
+        if (xlist) { xlist.forEach(zz => { items.push(zz); }); }
+
+        items.forEach(x => {
+            if (!itemdb[x.Issue]) { itemdb[x.Issue] = []; }
+            itemdb[x.Issue].push(x);
+        });
+    }
 
     LOG.INFO('App.GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
 
