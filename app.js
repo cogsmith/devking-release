@@ -272,7 +272,7 @@ App.GetLogMD = function (itemdb) {
     txt.push(null);
     if (VDIFF >= 0 || VLAST) {
         txt.push('## DIFF');
-        txt.push('- [' + (VDIFF >= 0 ? VDIFF + ' COMMITS SINCE' : '') + ' LAST TAG' + (VLAST ? ' = ' + VLAST : '') + '](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/compare/' + (VLAST ? VLAST : '0.0.0') + '...' + VTAG + ')');
+        txt.push('- [' + (VDIFF >= 0 ? VDIFF + ' COMMITS SINCE' : '') + ' LAST TAG' + (VLAST ? ' = ' + VLAST : '') + '](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/compare/' + (VLAST ? VLAST : '0.0.1') + '...' + VTAG + ')');
     } else { txt.push('## FIRST RELEASE'); }
     let keyi = 0; Object.keys(itemdb).forEach(k => {
         if (keyi++ > -1) { txt.push(null); } // txt.push('---'); txt.push(null); }
