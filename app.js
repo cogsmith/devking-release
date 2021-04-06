@@ -205,7 +205,7 @@ App.GetCardList = async function () {
         await octokit.rest.projects.moveCard({ card_id: x.ID, position: 0, column_id: colz['CLOSED'].id });
 
         LOG.DEBUG('CloseIssue: ', { owner: REPO.owner, repo: REPO.repo, issue_number: x.Number, state: 'closed' });
-        await octokit.rest.projects.moveCard({ owner: REPO.owner, repo: REPO.repo, issue_number: x.Number, state: 'closed' });
+        await octokit.rest.issues.update({ owner: REPO.owner, repo: REPO.repo, issue_number: x.Number, state: 'closed' });
     }
 
     //LOG.TRACE('Cards', cardlist);
