@@ -249,8 +249,8 @@ App.FX = async function () {
 
     let gitlogdb = {};
     let gitlog = execa.commandSync("git log " + VLAST + "..HEAD --oneline");
-    console.log(gitlog.stdout);
     gitlog.stdout.split("\n").forEach(x => {
+        LOG.DEBUG('GitLog: ' + x);
         let xz = x.split(' ');
         let logid = xz[0];
         let fullmsg = xz.slice(1).join(' ');
@@ -270,13 +270,13 @@ App.FX = async function () {
         }
         if (itype == 'NOW' || itype == 'TAG') { return; }
         if (!itemdb[itype]) { itemdb[itype] = []; }
-        //if (itemdb[itype].find(x => x.Topic == topic && x.Note == msg)) { return; }
+        //if (itemdb[itype].find(x => x.Topic == topic && x.Note == msg)) { return; } // TODO: Not Working?
         let z = { Issue: itype, Note: msg, Number: 0 };
         if (topic) { z.Topic = topic; }
         itemdb[itype].push(z);
     });
 
-    console.log(itemdb);
+    LOG.DEBUG('ItemDB', itemdb);
 
     LOG.INFO('GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
 
