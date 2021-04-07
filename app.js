@@ -255,6 +255,7 @@ App.FX = async function () {
         let itype = 'COMMIT';
         let topic = false;
         let msg = xz.slice(1).join(' ');
+        if (msg.length <= 1) { return; }
         if (xz[1].includes(':')) {
             itype = xz[1];
             msg = xz.slice(2).join(' ');
