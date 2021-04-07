@@ -23,7 +23,7 @@ const pino = require('pino');
 const execa = require('execa');
 const chalk = require('chalk');
 const semver = require('semver');
-var { DateTime } = require('luxon');
+const { DateTime } = require('luxon');
 
 //const core = require('@actions/core');
 //const github = require('@actions/github');
