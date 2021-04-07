@@ -1,4 +1,5 @@
 const NOP = function () { };
+const JSONFANCY = function (x) { return util.inspect(x, { colors: true, depth: null, breakLength: 1 }); };
 process.setMaxListeners(999); require('events').EventEmitter.prototype._maxListeners = 999;
 process.on('uncaughtException', function (err) { console.log("\n"); console.log(err); console.log("\n"); process.exit(1); }); // throw(Error('ERROR'));
 process.on('unhandledRejection', function (err) { console.log("\n"); console.log(err); console.log("\n"); process.exit(1); }); // throw(Error('ERROR'));
@@ -276,6 +277,7 @@ App.FX = async function () {
         itemdb[itype].push(z);
     });
 
+    LOG.TRACE('ItemDB' + "\n" + JSONFANCY(itemdb));
     LOG.DEBUG('ItemDB', { ItemDB: itemdb });
 
     LOG.INFO('GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
