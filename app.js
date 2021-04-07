@@ -252,7 +252,7 @@ App.FX = async function () {
 
     let gitlogdb = {};
     let gitlog = false;
-    try { execa.commandSync("git log " + VLAST + "..HEAD --oneline"); } catch (ex) { LOG.TRACE(ex); }
+    try { gitlog = execa.commandSync("git log " + VLAST + "..HEAD --oneline"); } catch (ex) { LOG.TRACE(ex); }
     if (gitlog) {
         gitlog.stdout.split("\n").forEach(x => {
             LOG.DEBUG('GitLog: ' + x);
