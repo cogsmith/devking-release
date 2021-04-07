@@ -257,11 +257,11 @@ App.FX = async function () {
         let msg = xz.slice(1).join(' ');
         if (msg.length <= 1) { return; }
         if (xz[1].includes(':')) {
-            itype = xz[1].toUpperCase();
+            itype = xz[1].split(':')[0].toUpperCase();
             msg = xz.slice(2).join(' ');
         }
         if (xz[2].includes(':')) {
-            topic = xz[2].toUpperCase();
+            topic = xz[2].split(':')[0].toUpperCase();
             msg = xz.slice(3).join(' ');
         }
         if (topic == 'NOW' || topic == 'TAG') { return; }
