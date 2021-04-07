@@ -16,11 +16,12 @@ const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[0];
 const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[1];
 const REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
+let DATENOW = new Date();
+let VDATE = DATENOW.getFullYear() + '-' + DATENOW.getMonth().toString().padStart(2, '0') + '-' + DATENOW.getDate().toString().padStart(2, '0');
 let VNOW = false;
 let VTAG = false;
 let VNEXT = false;
 let VLAST = false;
-let VDATE = new Date().toISOString().substr(0, 10);
 let VDIFF = -9;
 
 //
