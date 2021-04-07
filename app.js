@@ -257,15 +257,16 @@ App.FX = async function () {
         let msg = xz.slice(1).join(' ');
         if (msg.length <= 1) { return; }
         if (xz[1].includes(':')) {
-            itype = xz[1];
+            itype = xz[1].toUpperCase();
             msg = xz.slice(2).join(' ');
         }
         if (xz[2].includes(':')) {
-            topic = xz[2];
+            topic = xz[2].toUpperCase();
             msg = xz.slice(3).join(' ');
         }
+        if (topic == 'NOW' || topic == 'TAG') { return; }
         if (!itemdb[itype]) { itemdb[itype] = []; }
-        let z = { Issue: itype, Note: msg };
+        let z = { Issue: itype, Note: msg, Number: 0 };
         if (topic) { z.Topic = topic; }
         itemdb[itype].push(z);
     });
