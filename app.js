@@ -249,6 +249,25 @@ App.FX = async function () {
 
     let gitlog = execa.commandSync("git log " + VLAST + "..HEAD --oneline");
     console.log(gitlog.stdout);
+    gitlog.stdout.split("\n").forEach(x => {
+        let xz = x.split(' ');
+        let logid = xz[0];
+        let itype = 'COMMIT';
+        let topic = false;
+        let msg = xz.slice(1).join(' ');
+        if (xz[1].includes(':')) {
+            itype = xz[1];
+            msg = xz.slice(2).join(' ');
+        }
+        if (xz[2].includes(':')) {
+            topic = xz[2];
+            msg = xz.slice(3).join(' ');
+        }
+        if (!itemdb[itype]) { itemdb[itype] = []; }
+        let z = { Issue: itype, Note: msg };
+        if (topic) { z.Topic = topic; }
+        itemdb[itype].push(z);
+    });
 
     console.log(itemdb);
 
@@ -355,7 +374,7 @@ App.CMD = async function () {
     cmdz.push('npm version ' + VTAG + ' --no-git-tag-version --allow-same-version');
     cmdz.push('echo > /tmp/newline ; cat /tmp/changenow.md /tmp/newline CHANGELOG.md >> /tmp/changelog.md ; mv /tmp/changelog.md CHANGELOG.md');
     cmdz.push('git add .');
-    cmdz.push("git commit -m 'TAG " + VTAG + "'");
+    cmdz.push("git commit -m 'TAG: " + VTAG + "'");
     cmdz.push('git push');
     App.RunCMDS(cmdz);
 
@@ -380,7 +399,7 @@ App.CMD = async function () {
     cmdz = [];
     cmdz.push('npm version ' + VNEXT + ' --no-git-tag-version');
     cmdz.push('git add .');
-    cmdz.push("git commit -m 'DEV " + VNEXT.replace('-dev', '') + "'");
+    cmdz.push("git commit -m 'NOW: " + VNEXT.replace('-dev', '') + "'");
     cmdz.push('git push');
     App.RunCMDS(cmdz);
 }
