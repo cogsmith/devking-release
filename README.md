@@ -3,7 +3,7 @@
 
 ---
 
-<h1><code><a href='https://github.com/cogsmith/devking-release/blob/main/app.js'>📄 [VIEW APP SOURCE CODE]</a></code></h1>
+<h1><code><a href='https://github.com/cogsmith/devking-release/blob/main/app.js'>📄 [VIEW ACTION SOURCE CODE]</a></code></h1>
 
 ---
 
