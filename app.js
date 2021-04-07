@@ -247,6 +247,11 @@ App.FX = async function () {
         });
     }
 
+    let gitlog = execa.commandSync("git log " + VLAST + "..HEAD --oneline");
+    console.log(gitlog.stdout);
+
+    console.log(itemdb);
+
     LOG.INFO('GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
 
     fs.writeFileSync('/tmp/changenow.md', App.GetLogMD(itemdb));
