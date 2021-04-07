@@ -12,6 +12,7 @@
 # RELEASE ACTION STEPS
 - ### Load Project Columns 
 - ### Read Issue Labels 
+- ### Get Commit Log
 - ### Generate CHANGELOG.md
 - ### Create Tag & Release
 - ### Bump NPM Version
