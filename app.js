@@ -251,33 +251,36 @@ App.FX = async function () {
     }
 
     let gitlogdb = {};
-    let gitlog = execa.commandSync("git log " + VLAST + "..HEAD --oneline");
-    gitlog.stdout.split("\n").forEach(x => {
-        LOG.DEBUG('GitLog: ' + x);
-        let xz = x.split(' ');
-        let logid = xz[0];
-        let fullmsg = xz.slice(1).join(' ');
-        if (gitlogdb[fullmsg]) { return; }
-        gitlogdb[fullmsg] = logid;
-        let itype = 'COMMIT';
-        let topic = false;
-        let msg = fullmsg;
-        if (msg.length <= 1) { return; }
-        if (xz[1].includes(':')) {
-            itype = xz[1].split(':')[0].toUpperCase();
-            msg = xz.slice(2).join(' ');
-        }
-        if (xz[2].includes(':')) {
-            topic = xz[2].split(':')[0].toUpperCase();
-            msg = xz.slice(3).join(' ');
-        }
-        if (itype == 'NOW' || itype == 'TAG') { return; }
-        if (!itemdb[itype]) { itemdb[itype] = []; }
-        //if (itemdb[itype].find(x => x.Topic == topic && x.Note == msg)) { return; } // TODO: Not Working?
-        let z = { Issue: itype, Note: msg, Number: 0 };
-        if (topic) { z.Topic = topic; }
-        itemdb[itype].push(z);
-    });
+    let gitlog = false;
+    try { execa.commandSync("git log " + VLAST + "..HEAD --oneline"); } catch (ex) { LOG.ERROR(ex); }
+    if (gitlog) {
+        gitlog.stdout.split("\n").forEach(x => {
+            LOG.DEBUG('GitLog: ' + x);
+            let xz = x.split(' ');
+            let logid = xz[0];
+            let fullmsg = xz.slice(1).join(' ');
+            if (gitlogdb[fullmsg]) { return; }
+            gitlogdb[fullmsg] = logid;
+            let itype = 'COMMIT';
+            let topic = false;
+            let msg = fullmsg;
+            if (msg.length <= 1) { return; }
+            if (xz[1].includes(':')) {
+                itype = xz[1].split(':')[0].toUpperCase();
+                msg = xz.slice(2).join(' ');
+            }
+            if (xz[2].includes(':')) {
+                topic = xz[2].split(':')[0].toUpperCase();
+                msg = xz.slice(3).join(' ');
+            }
+            if (itype == 'NOW' || itype == 'TAG') { return; }
+            if (!itemdb[itype]) { itemdb[itype] = []; }
+            //if (itemdb[itype].find(x => x.Topic == topic && x.Note == msg)) { return; } // TODO: Not Working?
+            let z = { Issue: itype, Note: msg, Number: 0 };
+            if (topic) { z.Topic = topic; }
+            itemdb[itype].push(z);
+        });
+    }
 
     LOG.TRACE('ItemDB' + "\n" + JSONFANCY(itemdb));
     LOG.DEBUG('ItemDB', { ItemDB: itemdb });
