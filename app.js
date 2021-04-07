@@ -264,7 +264,7 @@ App.FX = async function () {
             topic = xz[2].split(':')[0].toUpperCase();
             msg = xz.slice(3).join(' ');
         }
-        if (topic == 'NOW' || topic == 'TAG') { return; }
+        if (issue == 'NOW' || issue == 'TAG') { return; }
         if (!itemdb[itype]) { itemdb[itype] = []; }
         let z = { Issue: itype, Note: msg, Number: 0 };
         if (topic) { z.Topic = topic; }
