@@ -276,7 +276,7 @@ App.FX = async function () {
         itemdb[itype].push(z);
     });
 
-    LOG.DEBUG('ItemDB', itemdb);
+    LOG.DEBUG('ItemDB', { ItemDB: itemdb });
 
     LOG.INFO('GetLogTXT' + "\n" + App.GetLogTXT(itemdb));
 
