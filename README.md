@@ -10,8 +10,8 @@
 <code>
 
 # RELEASE ACTION STEPS
-- ### Load project columns 
-- ### Read issue labels 
+- ### Load Project Columns 
+- ### Read Issue Labels 
 - ### Generate CHANGELOG.md
 - ### Create Tag & Release
 - ### Bump NPM Version
