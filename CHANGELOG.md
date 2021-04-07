@@ -1,5 +1,15 @@
 <code>
 
+# [0.0.5 @ 2021-04-07](https://github.com/cogsmith/devking-release/releases/tag/0.0.5)
+
+## DIFF
+- [3 COMMITS SINCE LAST TAG = 0.0.4](https://github.com/cogsmith/devking-release/compare/0.0.4...0.0.5)
+
+</code>
+
+---
+<code>
+
 # [0.0.4 @ 2021-04-07](https://github.com/cogsmith/devking-release/releases/tag/0.0.4)
 
 ## DIFF
