@@ -5,7 +5,6 @@ process.on('uncaughtException', function (err) { console.log("\n"); console.log(
 process.on('unhandledRejection', function (err) { console.log("\n"); console.log(err); console.log("\n"); process.exit(1); }); // throw(Error('ERROR'));
 process.onSIGTERM = function () { console.log('SIGTERM'); process.exit(); }; process.on('SIGTERM', function () { process.onSIGTERM(); });
 
-
 //
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -16,14 +15,6 @@ const GITHUB_REPOTEAM = GITHUB_REPOSITORY.split('/')[0];
 const GITHUB_REPONAME = GITHUB_REPOSITORY.split('/')[1];
 const REPO = { owner: GITHUB_REPOTEAM, repo: GITHUB_REPONAME };
 
-let DATENOW = new Date();
-let VDATE = DATENOW.getFullYear() + '-' + DATENOW.getMonth().toString().padStart(2, '0') + '-' + DATENOW.getDate().toString().padStart(2, '0');
-let VNOW = false;
-let VTAG = false;
-let VNEXT = false;
-let VLAST = false;
-let VDIFF = -9;
-
 //
 
 const fs = require('fs');
@@ -32,10 +23,20 @@ const pino = require('pino');
 const execa = require('execa');
 const chalk = require('chalk');
 const semver = require('semver');
+var { DateTime } = require('luxon');
 
 //const core = require('@actions/core');
 //const github = require('@actions/github');
 const { Octokit } = require("@octokit/rest");
+
+//
+
+let VDATE = DateTime.now().setZone('America/New_York').toISO().substr(0, 10);
+let VNOW = false;
+let VTAG = false;
+let VNEXT = false;
+let VLAST = false;
+let VDIFF = -9;
 
 //
 
