@@ -110,7 +110,7 @@ App.Init = async function () {
     repoinfo.versiontaglast = VTAG;
     fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(repoinfo));
 
-    try { let diffcmd = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count'); VDIFF = diffcmd.stdout - 1; } catch (ex) { LOG.ERROR(ex); }
+    try { let diffcmd = execa.commandSync('git rev-list HEAD ^' + VLAST + ' --count'); VDIFF = diffcmd.stdout - 1; } catch (ex) { LOG.TRACE(ex); }
 
     LOG.INFO('Version.LAST: ' + VLAST);
     LOG.INFO('Version.NOW:  ' + VNOW);
@@ -252,7 +252,7 @@ App.FX = async function () {
 
     let gitlogdb = {};
     let gitlog = false;
-    try { execa.commandSync("git log " + VLAST + "..HEAD --oneline"); } catch (ex) { LOG.ERROR(ex); }
+    try { execa.commandSync("git log " + VLAST + "..HEAD --oneline"); } catch (ex) { LOG.TRACE(ex); }
     if (gitlog) {
         gitlog.stdout.split("\n").forEach(x => {
             LOG.DEBUG('GitLog: ' + x);
