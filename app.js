@@ -266,6 +266,7 @@ App.FX = async function () {
         }
         if (itype == 'NOW' || itype == 'TAG') { return; }
         if (!itemdb[itype]) { itemdb[itype] = []; }
+        if (itemdb[itype].find(x => x.Topic == topic && x.Note == msg)) { return; }
         let z = { Issue: itype, Note: msg, Number: 0 };
         if (topic) { z.Topic = topic; }
         itemdb[itype].push(z);
