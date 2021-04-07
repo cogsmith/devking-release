@@ -247,14 +247,18 @@ App.FX = async function () {
         });
     }
 
+    let gitlogdb = {};
     let gitlog = execa.commandSync("git log " + VLAST + "..HEAD --oneline");
     console.log(gitlog.stdout);
     gitlog.stdout.split("\n").forEach(x => {
         let xz = x.split(' ');
         let logid = xz[0];
+        let fullmsg = xz.slice(1).join(' ');
+        if (gitlogdb[fullmsg]) { return; }
+        gitlogdb[fullmsg] = logid;
         let itype = 'COMMIT';
         let topic = false;
-        let msg = xz.slice(1).join(' ');
+        let msg = fullmsg;
         if (msg.length <= 1) { return; }
         if (xz[1].includes(':')) {
             itype = xz[1].split(':')[0].toUpperCase();
@@ -266,7 +270,7 @@ App.FX = async function () {
         }
         if (itype == 'NOW' || itype == 'TAG') { return; }
         if (!itemdb[itype]) { itemdb[itype] = []; }
-        if (itemdb[itype].find(x => x.Topic == topic && x.Note == msg)) { return; }
+        //if (itemdb[itype].find(x => x.Topic == topic && x.Note == msg)) { return; }
         let z = { Issue: itype, Note: msg, Number: 0 };
         if (topic) { z.Topic = topic; }
         itemdb[itype].push(z);
