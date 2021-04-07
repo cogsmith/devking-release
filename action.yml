@@ -1,15 +1,19 @@
-name: "DEVKING_RELEASE"
-description: "GitHub Release Automation"
+name: 'DEVKING_RELEASE'
+description: 'GitHub Release Automation'
+author: 'David Adam Coffey <dac@cogsmith.com>'
+branding:
+  icon: 'box'  
+  color: 'blue'
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - shell: bash
       run: |
-        echo "::group::CHECK"
+        echo '::group::CHECK'
         node --check ${{ GITHUB.ACTION_PATH }}/app.js
-        echo "::endgroup::"
+        echo '::endgroup::'
     - shell: bash
       run: |
-        echo ":group::RELEASE"
-        export NEXTVERSION=${{ GITHUB.EVENT.INPUTS.NEXTVERSION }} ; export FORCE_COLOR=1 ;  export GITHUB_TOKEN=${{ GITHUB.TOKEN }} ; cd ${{ GITHUB.ACTION_PATH }} ; echo "OS = `uname -a`" ; echo "NPM = `npm ci`" ; cd ${{ GITHUB.WORKSPACE }} ; node ${{ GITHUB.ACTION_PATH }}/app.js --loglevel trace
-        echo ":endgroup::"
+        echo ':group::RELEASE'
+        export NEXTVERSION=${{ GITHUB.EVENT.INPUTS.NEXTVERSION }} ; export FORCE_COLOR=1 ;  export GITHUB_TOKEN=${{ GITHUB.TOKEN }} ; cd ${{ GITHUB.ACTION_PATH }} ; echo 'OS = `uname -a`' ; echo 'NPM = `npm ci`' ; cd ${{ GITHUB.WORKSPACE }} ; node ${{ GITHUB.ACTION_PATH }}/app.js --loglevel trace
+        echo ':endgroup::'
