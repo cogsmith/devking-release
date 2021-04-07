@@ -1,4 +1,5 @@
 name: "DEVKING_RELEASE"
+description: "GitHub Release Automation"
 runs:
   using: "composite"
   steps:
