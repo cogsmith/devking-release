@@ -13,7 +13,8 @@
 - ### Read Issue Labels 
 - ### Get Commit Log
 - ### Generate CHANGELOG.md
-- ### Create Tag & Release
+- ### Create Tag
+- ### Push Release
 - ### Bump NPM Version
 
 </code>
