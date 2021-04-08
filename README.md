@@ -1,4 +1,5 @@
-# :octocat: DEVKING-RELEASE: GitHub Release Automation :octocat:
+# DEVKING-RELEASE
+# :octocat: GitHub Release Automation :octocat:
 
 ---
 
