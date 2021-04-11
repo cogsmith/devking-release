@@ -1,4 +1,4 @@
-# 👑 DEVKING-RELEASE: GitHub Release Automation 👑
+# 👑 GitHub Release Automation 👑
 ### Scripted release steps
 
 ---
