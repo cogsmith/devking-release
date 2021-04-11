@@ -319,7 +319,7 @@ App.GetLogTXT = function (itemdb) {
 App.GetLogMD = function (itemdb) {
     let txt = [];
     txt.push('<code>'); txt.push(null);
-    txt.push('# [' + VTAG + ' @ ' + VDATE + '](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VTAG + ')');
+    txt.push('# [' + VTAG + '](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/compare/' + VTAG + '...main) @ ' + '[' + VDATE + '](https://github.com/' + GITHUB_REPOTEAM + '/' + GITHUB_REPONAME + '/releases/tag/' + VTAG + ') ');
     txt.push(null);
     if (VDIFF >= 0 || VLAST) {
         txt.push('## DIFF');
