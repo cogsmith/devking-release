@@ -9,7 +9,7 @@
 
 #### <code><a href='https://github.com/cogsmith/devking-release/blob/main/app.js'>🧾 [VIEW APP SOURCE CODE]</a></code>
 
-#### <code><a href='https://github.com/cogsmith/devking-release/projects/2'>📅 [PROJECT TRACKER BOARD]</a></code>
+#### <code><a href='https://github.com/cogsmith/devking-release/projects/1'>📅 [PROJECT TRACKER BOARD]</a></code>
 
 ---
 
