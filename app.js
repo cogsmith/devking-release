@@ -269,7 +269,7 @@ App.FX = async function () {
                 itype = xz[1].split(':')[0].toUpperCase();
                 msg = xz.slice(2).join(' ');
             }
-            if (xz[2].includes(':')) {
+            if (xz[2] && xz[2].includes(':')) {
                 topic = xz[2].split(':')[0].toUpperCase();
                 msg = xz.slice(3).join(' ');
             }
