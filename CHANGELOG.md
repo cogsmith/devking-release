@@ -1,5 +1,18 @@
 <code>
 
+# [0.0.11](https://github.com/cogsmith/devking-release/compare/0.0.11...main) @ [2021-04-26](https://github.com/cogsmith/devking-release/releases/tag/0.0.11) 
+
+## DIFF
+- [3 COMMITS SINCE LAST TAG = 0.0.10](https://github.com/cogsmith/devking-release/compare/0.0.10...0.0.11)
+
+## COMMIT
+- FIX gitlog null check
+
+</code>
+
+---
+<code>
+
 # [0.0.10](https://github.com/cogsmith/devking-release/compare/0.0.10...main) @ [2021-04-10](https://github.com/cogsmith/devking-release/releases/tag/0.0.10) 
 
 ## DIFF
