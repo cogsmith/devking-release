@@ -410,6 +410,12 @@ App.CMD = async function () {
     cmdz.push('gh release create ' + VTAG + ' --target main -F /tmp/changenow.md');
     App.RunCMDS(cmdz);
 
+    if (App.Meta.npmpublish) {
+        cmdz = [];
+        cmdz.push('npm publish');
+        App.RunCMDS(cmdz);
+    }
+
     cmdz = [];
     cmdz.push('npm version ' + VNEXT + ' --no-git-tag-version');
     cmdz.push('git add .');
