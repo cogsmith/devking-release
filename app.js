@@ -410,7 +410,11 @@ App.CMD = async function () {
     cmdz.push('gh release create ' + VTAG + ' --target main -F /tmp/changenow.md');
     App.RunCMDS(cmdz);
 
-    if (App.Meta.npmpublish) {
+    let packageinfo = require(process.cwd() + ' / ' + 'package.json');
+    console.log(process.cwd());
+    console.log(packageinfo);
+
+    if (packageinfo.npmpublish) {
         cmdz = [];
         cmdz.push('npm publish');
         App.RunCMDS(cmdz);
