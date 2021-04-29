@@ -364,6 +364,7 @@ App.RunCMDS = function (cmds) {
         }
         LOG.DEBUG(msg);
     }
+    console.log();
 }
 
 App.CMD = async function () {
