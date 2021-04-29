@@ -16,5 +16,4 @@ runs:
       run: |
         echo ':group::RELEASE'        
         export NEXTVERSION=${{ GITHUB.EVENT.INPUTS.NEXTVERSION }} ; export FORCE_COLOR=1 ; export GITHUB_TOKEN=${{ GITHUB.TOKEN }} ; cd ${{ GITHUB.ACTION_PATH }} ; echo "OS = `uname -a`" ; echo "NPM = `npm ci`" ; cd ${{ GITHUB.WORKSPACE }} ; node ${{ GITHUB.ACTION_PATH }}/app.js --loglevel trace
-        echo $XTXT
         echo ':endgroup::'
