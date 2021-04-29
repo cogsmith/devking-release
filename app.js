@@ -410,6 +410,9 @@ App.CMD = async function () {
     cmdz.push('gh release create ' + VTAG + ' --target main -F /tmp/changenow.md');
     App.RunCMDS(cmdz);
 
+    // TODO: NPM_PUBLISH
+
+    /*
     Object.keys(process.env).sort().forEach(x => { console.log(x); });
     console.log(process.cwd());
     let packagejson = fs.readFileSync(process.cwd() + '/' + 'package.json');
@@ -425,6 +428,7 @@ App.CMD = async function () {
         cmdz.push('npm publish --access public');
         App.RunCMDS(cmdz);
     }
+    */
 
     cmdz = [];
     cmdz.push('npm version ' + VNEXT + ' --no-git-tag-version');
