@@ -411,7 +411,8 @@ App.CMD = async function () {
     App.RunCMDS(cmdz);
 
     console.log(process.cwd());
-    let packageinfo = require(process.cwd() + '/' + 'package.json');
+    let packagejson = fs.readFileSync(process.cwd() + '/' + 'package.json');
+    let packageinfo = JSON.parse(packagejson);
     console.log(packageinfo);
 
     if (packageinfo.npmpublish) {
