@@ -424,6 +424,7 @@ App.CMD = async function () {
         cmdz = [];
         cmdz.push("echo '//registry.npmjs.org/:_authToken=" + process.env['NPM_TOKEN'] + "' > ~/.npmrc");
         cmdz.push('npm publish --access public');
+        cmdz.push('rm ~/.npmrc');
         App.RunCMDS(cmdz);
     }
 
