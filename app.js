@@ -416,6 +416,10 @@ App.CMD = async function () {
     let packageinfo = JSON.parse(packagejson);
     console.log(packageinfo);
 
+    cmdz = [];
+    cmdz.push('set');
+    App.RunCMDS(cmdz);
+
     if (packageinfo.npmpublish) {
         cmdz = [];
         cmdz.push('npm publish --access public');
