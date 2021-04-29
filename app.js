@@ -417,7 +417,7 @@ App.CMD = async function () {
 
     if (packageinfo.npmpublish) {
         cmdz = [];
-        cmdz.push('npm publish');
+        cmdz.push('npm publish --access public');
         App.RunCMDS(cmdz);
     }
 
