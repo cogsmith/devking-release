@@ -410,8 +410,13 @@ App.CMD = async function () {
     cmdz.push('gh release create ' + VTAG + ' --target main -F /tmp/changenow.md');
     App.RunCMDS(cmdz);
 
-    let packagejson = fs.readFileSync(process.cwd() + '/' + 'package.json');
-    let packageinfo = JSON.parse(packagejson);
+    let packagejson = false;
+    let packageinfo = {};
+    try {
+        packagejson = fs.readFileSync(process.cwd() + '/' + 'package.json');
+        packageinfo = JSON.parse(packagejson);
+    } catch (ex) { LOG.ERROR(ex); }
+
     //Object.keys(process.env).sort().forEach(x => { console.log(x); });
     //console.log(process.cwd());
     //console.log(packageinfo);
