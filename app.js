@@ -385,6 +385,14 @@ App.CMD = async function () {
     App.RunCMDS(cmdz);
     */
 
+    if (fs.existsSync('Dockerfile')) {
+        let dfile = fs.readFileSync('Dockerfile');
+        fs.writeFileSync('/tmp/dfile', dfile);
+        let dt = new Date().toISOString().substr(0, 19).replace('T', '_').replace(/-/g, '').replace(/:/g, '');
+        dfile = dfile.replace('[=DT=]', dt);
+        fs.writeFileSync('Dockerfile', dfile);
+    }
+
     cmdz = [];
     cmdz.push('npm version ' + VTAG + ' --no-git-tag-version --allow-same-version');
     cmdz.push('echo > /tmp/newline ; cat /tmp/changenow.md /tmp/newline CHANGELOG.md >> /tmp/changelog.md ; mv /tmp/changelog.md CHANGELOG.md');
@@ -410,6 +418,11 @@ App.CMD = async function () {
     cmdz = [];
     cmdz.push('gh release create ' + VTAG + ' --target main -F /tmp/changenow.md');
     App.RunCMDS(cmdz);
+
+    if (fs.existsSync('Dockerfile')) {
+        let dfile = fs.readFileSync('/tmp/dfile');
+        fs.writeFileSync('Dockerfile', dfile);
+    }
 
     let packagejson = false;
     let packageinfo = {};
