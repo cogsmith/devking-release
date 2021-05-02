@@ -387,10 +387,9 @@ App.CMD = async function () {
 
     if (fs.existsSync('Dockerfile')) {
         let dfile = fs.readFileSync('Dockerfile');
-        console.log("=" + dfile + "=");
         fs.writeFileSync('/tmp/dfile', dfile);
         let dt = new Date().toISOString().substr(0, 19).replace('T', '_').replace(/-/g, '').replace(/:/g, '');
-        dfile = (dfile + '').replace('[=DT=]', dt);
+        dfile = dfile.toString().replace('[=DT=]', dt);
         fs.writeFileSync('Dockerfile', dfile);
     }
 
