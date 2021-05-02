@@ -1,5 +1,18 @@
 <code>
 
+# [0.0.12](https://github.com/cogsmith/devking-release/compare/0.0.12...main) @ [2021-05-02](https://github.com/cogsmith/devking-release/releases/tag/0.0.12) 
+
+## DIFF
+- [21 COMMITS SINCE LAST TAG = 0.0.11](https://github.com/cogsmith/devking-release/compare/0.0.11...0.0.12)
+
+## INFO
+- Add Dockerfile Replacement: [=DT=]
+
+</code>
+
+---
+<code>
+
 # [0.0.11](https://github.com/cogsmith/devking-release/compare/0.0.11...main) @ [2021-04-26](https://github.com/cogsmith/devking-release/releases/tag/0.0.11) 
 
 ## DIFF
