@@ -261,7 +261,7 @@ App.FX = async function () {
             let fullmsg = xz.slice(1).join(' ');
             if (gitlogdb[fullmsg]) { return; }
             gitlogdb[fullmsg] = logid;
-            let itype = 'COMMIT';
+            let itype = 'COMMITS';
             let topic = false;
             let msg = fullmsg;
             if (msg.length <= 1) { return; }
