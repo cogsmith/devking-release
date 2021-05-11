@@ -1,5 +1,21 @@
 <code>
 
+# [0.0.13](https://github.com/cogsmith/devking-release/compare/0.0.13...main) @ [2021-05-11](https://github.com/cogsmith/devking-release/releases/tag/0.0.13) 
+
+## DIFF
+- [4 COMMITS SINCE LAST TAG = 0.0.12](https://github.com/cogsmith/devking-release/compare/0.0.12...0.0.13)
+
+## BUG
+- [#5: Remove TAG From Commits In CHANGELOG](https://github.com/cogsmith/devking-release/issues/5)
+
+## COMMITS
+- DEVKING_RELEASE_ONTAG
+
+</code>
+
+---
+<code>
+
 # [0.0.12](https://github.com/cogsmith/devking-release/compare/0.0.12...main) @ [2021-05-02](https://github.com/cogsmith/devking-release/releases/tag/0.0.12) 
 
 ## DIFF
