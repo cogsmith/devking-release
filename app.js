@@ -273,7 +273,7 @@ App.FX = async function () {
                 topic = xz[2].split(':')[0].toUpperCase();
                 msg = xz.slice(3).join(' ');
             }
-            if (itype == 'NOW' || itype == 'TAG') { return; }
+            if (fullmsg == 'DEV' || fullmsg == 'TAG' || itype == 'NOW' || itype == 'TAG') { return; }
             if (!itemdb[itype]) { itemdb[itype] = []; }
             //if (itemdb[itype].find(x => x.Topic == topic && x.Note == msg)) { return; } // TODO: Not Working?
             let z = { Issue: itype, Note: msg, Number: 0 };
