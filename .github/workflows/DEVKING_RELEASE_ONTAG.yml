@@ -1,0 +1,16 @@
+#
+name: DEVKING_RELEASE_ONTAG
+on:
+  workflow_dispatch:  
+  push:
+    branches: [ main ]
+jobs:
+  job:
+    if: ${{ github.event.head_commit.message == 'TAG' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: cogsmith/devking-release@main
+#
