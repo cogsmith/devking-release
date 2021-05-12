@@ -11,7 +11,8 @@
     "luxon": "^1.26.0",
     "pino": "^6.11.2",
     "pino-pretty": "^4.7.1",
-    "semver": "^7.3.5"
+    "semver": "^7.3.5",
+    "vsce": "^1.88.0"
   },
   "versiontaglast": "0.0.14"
 }
