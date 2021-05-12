@@ -445,7 +445,7 @@ App.CMD = async function () {
 
     if (fs.existsSync('.vscodeignore')) {
         cmdz = [];
-        cmdz.push('node .\node_modules\vsce\out\vsce publish -p ' + process.env['NPM_TOKEN']);
+        cmdz.push('node /home/runner/work/_actions/cogsmith/devking-release/main/node_modules/vsce/out/vsce publish -p ' + process.env['NPM_TOKEN']);
         App.RunCMDS(cmdz);
     }
 
