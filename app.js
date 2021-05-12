@@ -447,7 +447,7 @@ App.CMD = async function () {
 
     if (fs.existsSync('.vscodeignore')) {
         LOG.INFO('VSCE PUBLISH @ ' + process.env['GITHUB_WORKSPACE']);
-        await vsce.publish({ cwd: process.env['GITHUB_WORKSPACE'], pat: process.env['VSCE_TOKEN'], useYarn: false, });
+        try { await vsce.publish({ cwd: process.env['GITHUB_WORKSPACE'], pat: process.env['VSCE_TOKEN'], useYarn: false, }); } catch (ex) { LOG.ERROR(ex); }
 
         /*
         cmdz = [];
