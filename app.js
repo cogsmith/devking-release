@@ -446,9 +446,9 @@ App.CMD = async function () {
     }
 
     if (fs.existsSync('.vscodeignore')) {
-        cmdz = [];
-        cmdz.push('cd ' + process.env['GITHUB_WORKSPACE'] + ' ; cd .. ; cp -a /home/runner/work/_actions/cogsmith/devking-release/main/node_modules ./');
-        App.RunCMDS(cmdz);
+        //cmdz = [];
+        //cmdz.push('cd ' + process.env['GITHUB_WORKSPACE'] + ' ; cd .. ; cp -a /home/runner/work/_actions/cogsmith/devking-release/main/node_modules ./');
+        //App.RunCMDS(cmdz);
 
         LOG.INFO('VSCE PUBLISH @ ' + process.env['GITHUB_WORKSPACE']);
 
@@ -460,9 +460,16 @@ App.CMD = async function () {
         App.RunCMDS(cmdz);
         */
 
+        /*
         cmdz = [];
         cmdz.push('sudo npm install --global vsce');
         cmdz.push('vsce publish -p ' + process.env['VSCE_TOKEN']);
+        App.RunCMDS(cmdz);
+        */
+
+        cmdz = [];
+        cmdz.push('sudo npm install --global vsce');
+        cmdz.push('sudo cp -a ./ /tmp/vsce ; cd /tmp/vsce ; npm ci ; vsce publish -p ' + process.env['VSCE_TOKEN'] + ' ; cd ' + process.env['GITHUB_WORKSPACE']);
         App.RunCMDS(cmdz);
     }
 
