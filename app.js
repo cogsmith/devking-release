@@ -29,6 +29,8 @@ const { DateTime } = require('luxon');
 //const github = require('@actions/github');
 const { Octokit } = require("@octokit/rest");
 
+const vsce = require('vsce');
+
 //
 
 let VDATE = DateTime.now().setZone('America/New_York').toISO().substr(0, 10);
@@ -443,10 +445,15 @@ App.CMD = async function () {
         App.RunCMDS(cmdz);
     }
 
+
     if (fs.existsSync('.vscodeignore')) {
+        await vsce.publish({ cwd: process.env['GITHUB_WORKSPACE'], pat: process.env['VSCE_TOKEN'], useYarn: false, });
+
+        /*
         cmdz = [];
         cmdz.push('node /home/runner/work/_actions/cogsmith/devking-release/main/node_modules/vsce/out/vsce publish -p ' + process.env['NPM_TOKEN']);
         App.RunCMDS(cmdz);
+        */
     }
 
     cmdz = [];
