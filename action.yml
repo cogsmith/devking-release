@@ -15,5 +15,5 @@ runs:
     - shell: bash
       run: |
         echo ':group::RELEASE'        
-        export NEXTVERSION=${{ GITHUB.EVENT.INPUTS.NEXTVERSION }} ; export FORCE_COLOR=1 ; export GITHUB_TOKEN=${{ GITHUB.TOKEN }} ; cd ${{ GITHUB.ACTION_PATH }} ; echo "OS = `uname -a`" ; echo "NPM = `npm ci`" ; cat /home/runner/.npm/_logs/* ; cd ${{ GITHUB.WORKSPACE }} ; node ${{ GITHUB.ACTION_PATH }}/app.js --loglevel trace
+        export NEXTVERSION=${{ GITHUB.EVENT.INPUTS.NEXTVERSION }} ; export FORCE_COLOR=1 ; export GITHUB_TOKEN=${{ GITHUB.TOKEN }} ; cd ${{ GITHUB.ACTION_PATH }} ; echo "OS = `uname -a`" ; echo "NPM = `npm ci`" ; cat package.json ; cat package-lock.json ; cat /home/runner/.npm/_logs/* ; cd ${{ GITHUB.WORKSPACE }} ; node ${{ GITHUB.ACTION_PATH }}/app.js --loglevel trace
         echo ':endgroup::'
