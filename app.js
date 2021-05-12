@@ -451,13 +451,18 @@ App.CMD = async function () {
         App.RunCMDS(cmdz);
 
         LOG.INFO('VSCE PUBLISH @ ' + process.env['GITHUB_WORKSPACE']);
-        try { await vsce.publish({ cwd: process.env['GITHUB_WORKSPACE'], pat: process.env['VSCE_TOKEN'], useYarn: false, }); } catch (ex) { LOG.ERROR(ex); }
+
+        //try { await vsce.publish({ cwd: process.env['GITHUB_WORKSPACE'], pat: process.env['VSCE_TOKEN'], useYarn: false, }); } catch (ex) { LOG.ERROR(ex); }
 
         /*
         cmdz = [];
-        cmdz.push('node /home/runner/work/_actions/cogsmith/devking-release/main/node_modules/vsce/out/vsce publish -p ' + process.env['NPM_TOKEN']);
+        cmdz.push('node /home/runner/work/_actions/cogsmith/devking-release/main/node_modules/vsce/out/vsce publish -p ' + process.env['VSCE_TOKEN']);
         App.RunCMDS(cmdz);
         */
+
+        cmdz = [];
+        cmdz.push('npm install --global vsce ; vsce publish -p ' + process.env['VSCE_TOKEN']);
+        App.RunCMDS(cmdz);
     }
 
     cmdz = [];
