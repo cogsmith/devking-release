@@ -446,6 +446,10 @@ App.CMD = async function () {
     }
 
     if (fs.existsSync('.vscodeignore')) {
+        cmdz = [];
+        cmdz.push('cd ' + process.env['GITHUB_WORKSPACE'] + ' ; cd .. ; cp -a /home/runner/work/_actions/cogsmith/devking-release/main/node_modules ./');
+        App.RunCMDS(cmdz);
+
         LOG.INFO('VSCE PUBLISH @ ' + process.env['GITHUB_WORKSPACE']);
         try { await vsce.publish({ cwd: process.env['GITHUB_WORKSPACE'], pat: process.env['VSCE_TOKEN'], useYarn: false, }); } catch (ex) { LOG.ERROR(ex); }
 
