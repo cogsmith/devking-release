@@ -2,7 +2,7 @@
   "name": "devking-release",
   "namelong": "DEVKING-RELEASE",
   "description": "GitHub Action",
-  "version": "0.0.15",
+  "version": "0.0.16-dev",
   "dependencies": {
     "@octokit/rest": "^18.5.2",
     "chalk": "^4.1.0",
