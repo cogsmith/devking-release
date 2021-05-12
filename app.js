@@ -358,13 +358,14 @@ App.RunCMDS = function (cmds) {
     for (let i = 0; i < cmds.length; i++) {
         let cmd = cmds[i];
         let msg = 'RunCMD: ' + cmd;
-        let run = false; try { run = execa.commandSync(cmd, { shell: true }); } catch (ex) { LOG.ERROR(ex); }
+        let run = false; try { run = execa.commandSync(cmd, { cwd: process.env['GITHUB_WORKSPACE'], shell: true }); } catch (ex) { LOG.ERROR(ex); }
         if (!run) { continue; }
         if (run.stdout.trim().length > 0) {
             if (run.stdout.includes("\n")) { msg += "\n" + chalk.gray(run.stdout); }
             else { msg += chalk.gray(' => ') + chalk.white(run.stdout); }
         }
         LOG.DEBUG(msg);
+        if (run.stderr) { LOG.ERROR(run.stderr); }
     }
     console.log();
 }
@@ -469,7 +470,7 @@ App.CMD = async function () {
 
         cmdz = [];
         cmdz.push('sudo npm install --global vsce');
-        cmdz.push('sudo cp -a ./ /tmp/vsce ; cd /tmp/vsce ; npm ci ; vsce publish -p ' + process.env['VSCE_TOKEN'] + ' ; cd ' + process.env['GITHUB_WORKSPACE']);
+        cmdz.push('sudo cp -a ./ /tmp/vsce ; cd /tmp/vsce ; npm ci ; vsce publish -p ' + process.env['VSCE_TOKEN']);
         App.RunCMDS(cmdz);
     }
 
