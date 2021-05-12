@@ -84,8 +84,6 @@ App.Init = async function () {
 
     LOG.INFO('Release.REPO: ' + JSON.stringify(REPO));
 
-    console.log(process.env['ACTION_DEVKING_RELEASE_ONTAG']);
-
     // Object.keys(process.env).sort().forEach(x => { if (x.startsWith('GITHUB')) { LOG.TRACE(x + ': ' + process.env[x]); } });
 
     let repoinfofile = process.cwd() + '/package.json';
@@ -448,9 +446,9 @@ App.CMD = async function () {
     }
 
     if (fs.existsSync('.vscodeignore')) {
-        cmdz = [];
-        cmdz.push('cd ' + process.env['GITHUB_WORKSPACE'] + ' ; cd .. ; cp -a /home/runner/work/_actions/cogsmith/devking-release/main/node_modules ./');
-        App.RunCMDS(cmdz);
+        //cmdz = [];
+        //cmdz.push('cd ' + process.env['GITHUB_WORKSPACE'] + ' ; cd .. ; cp -a /home/runner/work/_actions/cogsmith/devking-release/main/node_modules ./');
+        //App.RunCMDS(cmdz);
 
         LOG.INFO('VSCE PUBLISH @ ' + process.env['GITHUB_WORKSPACE']);
 
