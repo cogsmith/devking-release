@@ -443,6 +443,13 @@ App.CMD = async function () {
         App.RunCMDS(cmdz);
     }
 
+    if (fs.existsSync('.vscodeignore')) {
+        cmdz = [];
+        cmdz.push('npm install --global vsce');
+        cmdz.push('vsce publish -p ' + process.env['NPM_TOKEN']);
+        App.RunCMDS(cmdz);
+    }
+
     cmdz = [];
     cmdz.push('npm version ' + VNEXT + ' --no-git-tag-version');
     cmdz.push('git add .');
