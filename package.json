@@ -2,7 +2,7 @@
   "name": "devking-release",
   "namelong": "DEVKING-RELEASE",
   "description": "GitHub Action",
-  "version": "0.0.16-dev",
+  "version": "0.0.16",
   "dependencies": {
     "@cogsmith/xt": "*",
     "@octokit/rest": "^18.5.2",
@@ -15,5 +15,5 @@
     "semver": "^7.3.5",
     "vsce": "^1.88.0"
   },
-  "versiontaglast": "0.0.15"
+  "versiontaglast": "0.0.16"
 }
