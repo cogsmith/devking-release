@@ -461,7 +461,7 @@ App.CMD = async function () {
         */
 
         cmdz = [];
-        cmdz.push('npm install --global vsce ; vsce publish -p ' + process.env['VSCE_TOKEN']);
+        cmdz.push('sudo npm install --global vsce ; vsce publish -p ' + process.env['VSCE_TOKEN']);
         App.RunCMDS(cmdz);
     }
 
