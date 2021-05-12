@@ -365,7 +365,7 @@ App.RunCMDS = function (cmds) {
             else { msg += chalk.gray(' => ') + chalk.white(run.stdout); }
         }
         LOG.DEBUG(msg);
-        if (run.stderr) { LOG.ERROR(run.stderr); }
+        if (run.stderr) { LOG.WARN(run.stderr); }
     }
     console.log();
 }

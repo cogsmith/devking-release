@@ -4,7 +4,7 @@
   "description": "GitHub Action",
   "version": "0.0.16-dev",
   "dependencies": {
-    "@cogsmith/xt": "^1.0.156",
+    "@cogsmith/xt": "*",
     "@octokit/rest": "^18.5.2",
     "chalk": "^4.1.0",
     "execa": "^5.0.0",
