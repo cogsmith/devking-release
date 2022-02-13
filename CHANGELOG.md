@@ -1,5 +1,18 @@
 <code>
 
+# [0.0.17](https://github.com/cogsmith/devking-release/compare/0.0.17...main) @ [2022-02-13](https://github.com/cogsmith/devking-release/releases/tag/0.0.17) 
+
+## DIFF
+- [7 COMMITS SINCE LAST TAG = 0.0.16](https://github.com/cogsmith/devking-release/compare/0.0.16...0.0.17)
+
+## FEATURE
+- [#4: Publish NPM Packages](https://github.com/cogsmith/devking-release/issues/4)
+
+</code>
+
+---
+<code>
+
 # [0.0.16](https://github.com/cogsmith/devking-release/compare/0.0.16...main) @ [2021-05-12](https://github.com/cogsmith/devking-release/releases/tag/0.0.16) 
 
 ## DIFF
